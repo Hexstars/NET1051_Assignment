@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence;
@@ -17,6 +18,13 @@ namespace Shared
             var connectionString = configuration.GetConnectionString("Default") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
+
+            services.AddDefaultIdentity<ApplicationUser>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = false;
+            })
+            .AddRoles<ApplicationRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>();
 
             ////Repository
             //services.AddScoped<ICategoryRepository, CategoryRepository>();
