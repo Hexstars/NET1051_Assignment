@@ -1,22 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities
 {
     public class Cart : BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
-
-        public bool IsActive { get; set; }
-
-        public int User_Id { get; set; }
+        [ForeignKey("ApplicationUser")]
+        public Guid? UserId { get; set; }
         public ApplicationUser User { get; set; }
-        
-
+        public ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
     }
 }

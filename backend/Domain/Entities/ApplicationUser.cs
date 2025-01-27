@@ -1,14 +1,16 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
+﻿using Domain.Abstraction;
+using Microsoft.AspNetCore.Identity;
 
 namespace Domain.Entities
 {
-    public class ApplicationUser : IdentityUser<string>
+    public class ApplicationUser : IdentityUser<Guid>, IEntity
     {
-        [Required]
-        public string LastName { get; set; } = default!;
-        [Required]
-        public string FirstName { get; set; } = default!;
-        public string Fullname => LastName + " " + FirstName;
+        public string FullName { get; set; }
+        public string Email { get; set; }
+        public string Gender { get; set; }
+        public string Address { get; set; }
+        public string? Image { get; set; }
+        public Cart? Cart { get; set; }
+        public ICollection<Order> Orders { get; set; } = new List<Order>();
     }
 }
