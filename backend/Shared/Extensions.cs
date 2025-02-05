@@ -1,8 +1,10 @@
 ﻿using Domain.Entities;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence;
+using Persistence.Data.Seed;
 
 namespace Shared
 {
@@ -31,6 +33,15 @@ namespace Shared
             //services.AddScoped<IUploadHelper, UploadHelper>();
 
             return services;
+        }
+        public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
+        {
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                SeedData.Initialize(services);
+            }
+            return app;
         }
     }
 }
