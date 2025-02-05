@@ -15,7 +15,7 @@ namespace API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromForm] LoginModel request)
+        public async Task<IActionResult> Login([FromBody] LoginModel request)
         {
             if (ModelState.IsValid)
             {
@@ -44,7 +44,7 @@ namespace API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromForm] RegisterModel request)
+        public async Task<IActionResult> Register([FromBody] RegisterModel request)
         {
             if (!ModelState.IsValid)
             {
