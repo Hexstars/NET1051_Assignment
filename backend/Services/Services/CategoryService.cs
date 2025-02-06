@@ -1,73 +1,65 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using Persistence;
+using Services.Contracts.Repositories;
 using Services.Contracts.Services;
 
 namespace Services.Services
 {
     public class CategoryService : ICategoryService
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ICategoryRepository _categoryRepository;
 
-        public CategoryService(ApplicationDbContext context)
+        public CategoryService(ICategoryRepository categoryRepository)
         {
-            _context = context;
+            _categoryRepository = categoryRepository;
         }
 
         // Lấy tất cả các danh mục
-        public async Task<List<Category>> GetCategories()
+        public async Task<IEnumerable<Category>> GetAllCategoriesAsync()
         {
-            return await _context.Categories.ToListAsync();
+            return await _categoryRepository.GetCategories();
         }
 
         // Lấy danh mục theo ID
-        public async Task<Category> GetCategory(Guid id)
+        public async Task<Category> GetCategoryByIdAsync(Guid id)
         {
-            return await _context.Categories.FindAsync(id);
+            return await _categoryRepository.GetById(id);
         }
 
         // Thêm danh mục mới
-        public async Task AddCategory(Category category)
+        public async Task AddCategoryAsync(Category category)
         {
-            category.CreatedDate = DateTime.UtcNow; // Gán ngày tạo
-            category.CreatedBy = "System"; // Có thể thay thế bằng tên người tạo từ token nếu cần
-            category.IsActive = true; // Mặc định set là active khi mới tạo
-
-            _context.Categories.Add(category);
-            await _context.SaveChangesAsync();
+            // Có thể thêm logic trước khi gọi repository
+            await _categoryRepository.AddCategory(category);
         }
 
         // Cập nhật danh mục
-        public async Task UpdateCategory(Category category)
+        public async Task UpdateCategoryAsync(Category category)
         {
-            var existingCategory = await _context.Categories.FindAsync(category.Id);
+            var existingCategory = await _categoryRepository.GetById(category.Id);
 
             if (existingCategory != null)
             {
                 existingCategory.Name = category.Name;
-                existingCategory.UpdatedDate = DateTime.UtcNow; // Cập nhật ngày thay đổi
-                existingCategory.UpdatedBy = "System"; // Cập nhật người thay đổi, có thể lấy từ người dùng thực tế
-
-                _context.Categories.Update(existingCategory);
-                await _context.SaveChangesAsync();
+                // Cập nhật các trường khác, nếu cần
+                await _categoryRepository.UpdateCategory(existingCategory);
             }
         }
 
         // Xóa danh mục
-        public async Task DeleteCategory(Guid id)
+        public async Task DeleteCategoryAsync(Guid id)
         {
-            var category = await _context.Categories.FindAsync(id);
+            var category = await _categoryRepository.GetById(id);
             if (category != null)
             {
-                _context.Categories.Remove(category);
-                await _context.SaveChangesAsync();
+                await _categoryRepository.DeleteCategory(id);
             }
         }
 
-        // Kiểm tra xem danh mục có tồn tại không
-        public bool CategoryExists(Guid id)
+        // Kiểm tra danh mục có tồn tại không
+        public async Task<bool> CategoryExistsAsync(Guid id)
         {
-            return _context.Categories.Any(e => e.Id == id);
+            return _categoryRepository.CategoryExists(id);
         }
     }
 }

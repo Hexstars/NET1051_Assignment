@@ -2,7 +2,7 @@
 
 namespace Domain.Entities
 {
-    public class Variation : BaseEntity
+    public class Variation : BaseEntity<Guid>
     {
         public string Name { get; set; }
         [ForeignKey("Category")]

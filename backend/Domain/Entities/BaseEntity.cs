@@ -2,7 +2,7 @@
 
 namespace Domain.Entities
 {
-    public class BaseEntity
+    public abstract class BaseEntity<Tkey>
     {
         [Key]
         public Guid Id { get; set; } = Guid.NewGuid();
@@ -11,5 +11,9 @@ namespace Domain.Entities
         public DateTime UpdatedDate { get; set; } = DateTime.Now;
         public string? UpdatedBy { get; set; }
         public bool IsActive { get; set; } = true;
+    }
+
+    public abstract class BaseEntity : BaseEntity<Guid>
+    {
     }
 }

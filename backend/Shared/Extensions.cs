@@ -5,6 +5,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence;
 using Persistence.Data.Seed;
+using Repository.Repositories;
+using Repository.Repositories.Base;
+using Services.Contracts.Repositories;
+using Services.Contracts.Repositories.Base;
 using Services.Contracts.Services;
 using Services.Services;
 
@@ -31,10 +35,10 @@ namespace Shared
 
             services.AddScoped<IAccountService, AccountService>();
             ////Repository
-            //services.AddScoped<ICategoryRepository, CategoryRepository>();
-            //services.AddScoped<IUnitOfWork, UnitOfWork>();
-            ////Service
-            //services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            //Service
+            services.AddScoped<ICategoryService, CategoryService>();
             //services.AddScoped<IUploadHelper, UploadHelper>();
 
             return services;

@@ -2,7 +2,7 @@
 
 namespace Domain.Entities
 {
-    public class Category : BaseEntity
+    public class Category : BaseEntity<Guid>
     {
         [Required]
         public string Name { get; set; }

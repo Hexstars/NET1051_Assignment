@@ -2,7 +2,7 @@
 
 namespace Domain.Entities
 {
-    public class CartItem : BaseEntity
+    public class CartItem : BaseEntity<Guid>
     {
         public decimal UnitPrice { get; set; }
         public int Quantity { get; set; }

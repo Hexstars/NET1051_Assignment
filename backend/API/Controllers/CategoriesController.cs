@@ -26,77 +26,77 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
-            var categories = await _categoryService.GetCategories();
+            var categories = await _categoryService.GetAllCategoriesAsync();
             return Ok(categories);
         }
 
-        // GET: api/category/5
+        // GET: api/categories/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Category>> GetCategory(Guid id)
         {
-            var category = await _categoryService.GetCategory(id);
+            var category = await _categoryService.GetCategoryByIdAsync(id);
             if (category == null)
             {
-                return NotFound();
+                return NotFound(new { message = "Category not found." });
             }
 
             return Ok(category);
         }
 
-        // POST: api/category
+        // POST: api/categories
         [HttpPost]
         public async Task<ActionResult<Category>> AddCategory([FromBody] Category category)
         {
             if (category == null)
             {
-                return BadRequest("Category data is required.");
+                return BadRequest(new { message = "Category data is required." });
             }
 
-            await _categoryService.AddCategory(category);
+            await _categoryService.AddCategoryAsync(category);
 
             // Trả về ID của danh mục vừa tạo
             return CreatedAtAction(nameof(GetCategory), new { id = category.Id }, category);
         }
 
-        // PUT: api/category/5
+        // PUT: api/categories/5
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCategory(Guid id, [FromBody] Category category)
         {
             if (category == null || category.Id != id)
             {
-                return BadRequest("Category ID mismatch.");
+                return BadRequest(new { message = "Category ID mismatch." });
             }
 
-            var existingCategory = await _categoryService.GetCategory(id);
+            var existingCategory = await _categoryService.GetCategoryByIdAsync(id);
             if (existingCategory == null)
             {
-                return NotFound();
+                return NotFound(new { message = "Category not found." });
             }
 
-            await _categoryService.UpdateCategory(category);
+            await _categoryService.UpdateCategoryAsync(category);
 
             return NoContent(); // Success, no content to return
         }
 
-        // DELETE: api/category/5
+        // DELETE: api/categories/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(Guid id)
         {
-            var category = await _categoryService.GetCategory(id);
+            var category = await _categoryService.GetCategoryByIdAsync(id);
             if (category == null)
             {
-                return NotFound();
+                return NotFound(new { message = "Category not found." });
             }
 
-            await _categoryService.DeleteCategory(id);
+            await _categoryService.DeleteCategoryAsync(id);
             return NoContent(); // Success, no content to return
         }
 
         // Kiểm tra danh mục có tồn tại
         [HttpGet("exists/{id}")]
-        public IActionResult CategoryExists(Guid id)
+        public async Task<IActionResult> CategoryExists(Guid id)
         {
-            var exists = _categoryService.CategoryExists(id);
+            var exists = await _categoryService.CategoryExistsAsync(id);
             if (exists)
             {
                 return Ok(new { message = "Category exists." });

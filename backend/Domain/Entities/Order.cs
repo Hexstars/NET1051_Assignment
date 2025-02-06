@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities
 {
-    public class Order : BaseEntity
+    public class Order : BaseEntity<Guid>
     {
         public decimal Total { get; set; }
         [ForeignKey("ApplicationUser")]

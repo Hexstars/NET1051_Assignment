@@ -2,7 +2,7 @@
 
 namespace Domain.Entities
 {
-    public class Cart : BaseEntity
+    public class Cart : BaseEntity<Guid>
     {
         [ForeignKey("ApplicationUser")]
         public Guid? UserId { get; set; }

@@ -2,7 +2,7 @@
 
 namespace Domain.Entities
 {
-    public class ProductItem: BaseEntity
+    public class ProductItem: BaseEntity<Guid>
     {
         public string SKU { get; set; }
         public string? Image { get; set; }

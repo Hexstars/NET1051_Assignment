@@ -2,7 +2,7 @@
 
 namespace Domain.Entities
 {
-    public class VariationOption : BaseEntity
+    public class VariationOption : BaseEntity<Guid>
     {
         public string Value { get; set; }
 
