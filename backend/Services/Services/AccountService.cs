@@ -18,9 +18,14 @@ namespace Services.Services
 
         public async Task<bool> Login(LoginModel request)
         {
+            var user = await _userManager.FindByEmailAsync(request.Email);
+            if (user == null) 
+            {
+                return false;
+            }
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-            var result = await _signInManager.PasswordSignInAsync(request.Username, request.Password, request.RememberMe, lockoutOnFailure: false);
+            var result = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, request.RememberMe, lockoutOnFailure: false);
             if (result.Succeeded)
             {
                 return true;
@@ -64,7 +69,7 @@ namespace Services.Services
 
                 //}
 
-                await _signInManager.SignInAsync(user, isPersistent: false);
+                //await _signInManager.SignInAsync(user, isPersistent: false);
                 return (true, new List<string>());
             }
 

@@ -9,19 +9,8 @@ namespace Services.Models.Account
 {
     public class LoginModel
     {
-        [Required]
-        public string? Username { get; set; }
-
-        [EmailAddress]
-        public string? Email { get; set; }
-
-
-        [Required]
-        [DataType(DataType.Password)]
+        public string Email { get; set; }
         public string Password { get; set; }
-
-
-        [Display(Name = "Remember me")]
         public bool RememberMe { get; set; }
     }
 }
