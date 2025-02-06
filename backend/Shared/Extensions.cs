@@ -23,6 +23,7 @@ namespace Shared
             services.AddDefaultIdentity<ApplicationUser>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = false;
+                options.User.RequireUniqueEmail = true;
             })
             .AddRoles<ApplicationRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
