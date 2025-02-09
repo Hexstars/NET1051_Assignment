@@ -16,21 +16,21 @@ namespace Services.Services
             _userManager = userManager;
         }
 
-        public async Task<bool> Login(LoginModel request)
+        public async Task<ApplicationUser> Login(LoginModel request)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
             if (user == null) 
             {
-                return false;
+                return null;
             }
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, set lockoutOnFailure: true
             var result = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, request.RememberMe, lockoutOnFailure: false);
             if (result.Succeeded)
             {
-                return true;
+                return user;
             }
-            return false;
+            return null;
         }
 
         public async Task<(bool Success, List<string> Errors)> Register(RegisterModel request)

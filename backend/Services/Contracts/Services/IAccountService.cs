@@ -1,4 +1,5 @@
-﻿using Services.Models.Account;
+﻿using Domain.Entities;
+using Services.Models.Account;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Services.Contracts.Services
 {
     public interface IAccountService
     {
-        Task<bool> Login(LoginModel request);
+        Task<ApplicationUser> Login(LoginModel request);
         Task<(bool Success, List<string> Errors)> Register(RegisterModel request);
         Task Logout();
     }

@@ -1,5 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Domain.Entities;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Services.Models.Account;
+using Services.Models.Account.Responses;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace API.Controllers
 {
@@ -8,10 +14,12 @@ namespace API.Controllers
     public class AccountController : ControllerBase
     {
         private readonly Services.Contracts.Services.IAccountService _accountService;
+        private readonly IConfiguration _configuration;
 
-        public AccountController(Services.Contracts.Services.IAccountService accountService)
+        public AccountController(Services.Contracts.Services.IAccountService accountService, IConfiguration configuration)
         {
             _accountService = accountService;
+            _configuration = configuration;
         }
 
         [HttpPost("login")]
@@ -22,27 +30,43 @@ namespace API.Controllers
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _accountService.Login(request);
-                if (result)
+                if (result != null)
                 {
-                    return Ok(new { message = "Login successful" });
+                    var authClaims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Sid, result.Id.ToString()),
+                        new Claim(ClaimTypes.Name, result.UserName!),
+                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                    };
+
+                    var token = GenerateJwtToken(authClaims);
+                    var loginInfo = new LoginResponseModel
+                    {
+                        Id = result.Id.ToString(),
+                        UserName = result.UserName!,
+                        Token = token,
+                    };
+                    return Ok(loginInfo);
                 }
-                //if (result.RequiresTwoFactor)
-                //{
-                //    return RedirectToPage("./LoginWith2fa", new {RememberMe = Remember });
-                //}
-                //if (result.IsLockedOut)
-                //{
-                //    _logger.LogWarning("User account locked out.");
-                //    return RedirectToPage("./Lockout");
-                //}
                 else
                 {
                     return BadRequest(new { message = "Login failed" });
                 }
             }
-            return BadRequest();
+            return BadRequest(new { message = "Login failed" });
         }
+        private string GenerateJwtToken(List<Claim> claims)
+        {
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Secret"] ?? ""));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var token = new JwtSecurityToken(
+                claims: claims,
+                expires: DateTime.UtcNow.AddHours(3),
+                signingCredentials: creds
+            );
 
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel request)
         {
