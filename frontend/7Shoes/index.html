@@ -2,12 +2,113 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <title>7Shoes</title>
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
+    <link rel="icon" href="src/Admin/assets/img/kaiadmin/favicon.ico" type="image/x-icon"/>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Fonts and icons -->
+    <script src="src/Admin/assets/js/plugin/webfont/webfont.min.js"></script>
+    <script>
+      WebFont.load({
+        google: { families: ["Public Sans:300,400,500,600,700"] },
+        custom: {
+          families: [
+            "Font Awesome 5 Solid",
+            "Font Awesome 5 Regular",
+            "Font Awesome 5 Brands",
+            "simple-line-icons",
+          ],
+          urls: ["src/Admin/assets/css/fonts.min.css"],
+        },
+        active: function () {
+          sessionStorage.fonts = true;
+        },
+      });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="src/Admin/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="src/Admin/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="src/Admin/assets/css/plugins.min.css" />
+    <link rel="stylesheet" href="src/Admin/assets/css/kaiadmin.min.css" />
+
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link rel="stylesheet" href="src/Admin/assets/css/demo.css" />
+
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <div class="main-panel navbar-nav ms-auto">
+      <div id="root"></div>
+    </div>
+    <script type="module" src="./src/main.tsx"></script>
+
+     <!--   Core JS Files   -->
+     <script src="src/Admin/assets/js/core/jquery-3.7.1.min.js"></script>
+     <script src="src/Admin/assets/js/core/popper.min.js"></script>
+     <script src="src/Admin/assets/js/core/bootstrap.min.js"></script>
+ 
+     <!-- jQuery Scrollbar -->
+     <script src="src/Admin/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+ 
+     <!-- Chart JS -->
+     <script src="src/Admin/assets/js/plugin/chart.js/chart.min.js"></script>
+ 
+     <!-- jQuery Sparkline -->
+     <script src="src/Admin/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+ 
+     <!-- Chart Circle -->
+     <script src="src/Admin/assets/js/plugin/chart-circle/circles.min.js"></script>
+ 
+     <!-- Datatables -->
+     <script src="src/Admin/assets/js/plugin/datatables/datatables.min.js"></script>
+ 
+     <!-- Bootstrap Notify -->
+     <script src="src/Admin/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+ 
+     <!-- jQuery Vector Maps -->
+     <script src="src/Admin/assets/js/plugin/jsvectormap/jsvectormap.min.js"></script>
+     <script src="src/Admin/assets/js/plugin/jsvectormap/world.js"></script>
+ 
+     <!-- Sweet Alert -->
+     <script src="src/Admin/assets/js/plugin/sweetalert/sweetalert.min.js"></script>
+ 
+     <!-- Kaiadmin JS -->
+     <script src="src/Admin/assets/js/kaiadmin.min.js"></script>
+ 
+     <!-- Kaiadmin DEMO methods, don't include it in your project! -->
+     <!-- <script src="src/Admin/assets/js/setting-demo.js"></script>
+     <script src="src/Admin/assets/js/demo.js"></script> -->
+
+     <script>
+       $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
+         type: "line",
+         height: "70",
+         width: "100%",
+         lineWidth: "2",
+         lineColor: "#177dff",
+         fillColor: "rgba(23, 125, 255, 0.14)",
+       });
+ 
+       $("#lineChart2").sparkline([99, 125, 122, 105, 110, 124, 115], {
+         type: "line",
+         height: "70",
+         width: "100%",
+         lineWidth: "2",
+         lineColor: "#f3545d",
+         fillColor: "rgba(243, 84, 93, .14)",
+       });
+ 
+       $("#lineChart3").sparkline([105, 103, 123, 100, 95, 105, 115], {
+         type: "line",
+         height: "70",
+         width: "100%",
+         lineWidth: "2",
+         lineColor: "#ffa534",
+         fillColor: "rgba(255, 165, 52, .14)",
+       });
+     </script>
   </body>
 </html>
