@@ -7,11 +7,10 @@ namespace Persistence.Data.Seed
         public static void Initialize(IServiceProvider serviceProvider)
         {
             SeedCategory.Seed(serviceProvider);
-            SeedVariation.Seed(serviceProvider);
-            SeedVariationOption.Seed(serviceProvider);
-            SeedProduct.Seed(serviceProvider);
-            SeedProductItem.Seed(serviceProvider);
-            SeedProductConfiguration.Seed(serviceProvider);
+            SeedBrand.Seed(serviceProvider);
+            SeedColor.Seed(serviceProvider);
+            SeedMaterial.Seed(serviceProvider);
+            SeedSize.Seed(serviceProvider);
         }
     }      
 }
