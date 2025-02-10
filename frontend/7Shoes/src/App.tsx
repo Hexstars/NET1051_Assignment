@@ -7,12 +7,14 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           {/*Các route con nằm trong Index*/}
-          <Route path="/" element={<Home />}>
+          <Route path="/" element={<LogIn />}>
           
           </Route>
-
-          {/*Các route không nằm trong Index*/}
+          
           <Route path="/log-in" element={<LogIn />}/>
+          
+          {/*Các route không nằm trong Index*/}
+          <Route path="/home" element={<Home />}/>
         </Routes>
       </BrowserRouter>
   )

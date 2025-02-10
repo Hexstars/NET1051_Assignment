@@ -50,7 +50,7 @@ export default function SideBar(){
 
               <Product/>
 
-              <Order/>
+              {/* <Order/>
 
               <Customer/>
 
@@ -58,7 +58,7 @@ export default function SideBar(){
 
               <Brand/>
 
-              <Size/>
+              <Size/> */}
 
               <li className="nav-section">
                 <span className="sidebar-mini-icon">
