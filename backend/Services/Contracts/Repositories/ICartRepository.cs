@@ -11,11 +11,7 @@ namespace Services.Contracts.Repositories
     public interface ICartRepository : IGeneralRepository<Cart, Guid>
     {
         Task CreateCart(ApplicationUser user);
-        Task<List<Cart>> GetCarts();
-        Task<Cart> GetCart(Guid id);
-        Task AddCart(Cart category);
-        Task UpdateCart(Cart category);
-        Task DeleteCart(Guid id);
-        bool CartExists(Guid id);
+        Task AddToCart(string userId, Guid productId, int quantity);
+        Task<Cart> GetCartByUserID(string id);
     }
 }

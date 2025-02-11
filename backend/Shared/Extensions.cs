@@ -73,6 +73,7 @@ namespace Shared
             services.AddScoped<IMaterialService, MaterialService>();
             services.AddScoped<IMaterialRepository, MaterialRepository>();
 
+            services.AddHttpContextAccessor();
 
             return services;
         }

@@ -3,11 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Persistence;
 using Repository.Repositories.Base;
 using Services.Contracts.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Repository.Repositories
 {
@@ -23,64 +18,47 @@ namespace Repository.Repositories
             {
                 UserId = user.Id
             };
-            
+
 
             _context.Carts.Add(cart);
             await _context.SaveChangesAsync();
         }
-        // Lấy tất cả
-        public async Task<List<Cart>> GetCarts()
+
+        public async Task AddToCart(string userId, Guid productId, int quantity)
         {
-            return await _context.Carts.ToListAsync();
+            var cart = await GetCartByUserID(userId);
+
+            // Kiểm tra nếu giỏ hàng đã có sản phẩm này chưa
+            var existingCartDetail = _context.CartItems
+                .FirstOrDefault(cd => cd.CartId == cart.Id && cd.ProductItemId == productId);
+
+            if (existingCartDetail != null)
+            {
+                // Nếu có rồi, tăng số lượng của sản phẩm trong giỏ hàng
+                existingCartDetail.Quantity += 1;
+                _context.CartItems.Update(existingCartDetail);
+            }
+            else
+            {
+                // Nếu chưa có, thêm sản phẩm mới vào giỏ hàng
+                var cartItem = new CartItem
+                {
+                    CartId = cart.Id,
+                    ProductItemId = productId,
+                    Quantity = quantity,
+                };
+                _context.CartItems.Add(cartItem);
+            }
+            // Lưu thay đổi vào cơ sở dữ liệu
+            _context.SaveChanges();
         }
+
 
         // Lấy  theo ID
-        public async Task<Cart> GetCart(Guid id)
+        public async Task<Cart> GetCartByUserID(string id)
         {
-            return await _context.Carts.FindAsync(id);
-        }
-
-        // Thêm mới
-        public async Task AddCart(Cart Cart)
-        {
-            Cart.CreatedDate = DateTime.UtcNow; // Gán ngày tạo
-            Cart.CreatedBy = "System"; // Có thể thay thế bằng tên người tạo từ token nếu cần
-            Cart.IsActive = true; // Mặc định set là active khi mới tạo
-
-            _context.Carts.Add(Cart);
-            await _context.SaveChangesAsync();
-        }
-
-        // Cập nhật
-        public async Task UpdateCart(Cart Cart)
-        {
-            var existingCart = await _context.Carts.FindAsync(Cart.Id);
-
-            if (existingCart != null)
-            {
-                existingCart.UpdatedDate = DateTime.UtcNow; // Cập nhật ngày thay đổi
-                existingCart.UpdatedBy = "System"; // Cập nhật người thay đổi, có thể lấy từ người dùng thực tế
-
-                _context.Carts.Update(existingCart);
-                await _context.SaveChangesAsync();
-            }
-        }
-
-        // Xóa
-        public async Task DeleteCart(Guid id)
-        {
-            var Cart = await _context.Carts.FindAsync(id);
-            if (Cart != null)
-            {
-                _context.Carts.Remove(Cart);
-                await _context.SaveChangesAsync();
-            }
-        }
-
-        // Kiểm tra có tồn tại không
-        public bool CartExists(Guid id)
-        {
-            return _context.Carts.Any(e => e.Id == id);
+            var cart = await _context.Carts.FirstOrDefaultAsync(c => c.UserId.ToString() == id);
+            return cart;
         }
     }
 }

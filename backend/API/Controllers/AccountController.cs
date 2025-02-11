@@ -1,6 +1,6 @@
-﻿using Domain.Entities;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Services.Contracts.Services;
 using Services.Models.Account;
 using Services.Models.Account.Responses;
 using System.IdentityModel.Tokens.Jwt;
@@ -13,10 +13,10 @@ namespace API.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly Services.Contracts.Services.IAccountService _accountService;
+        private readonly IAccountService _accountService;
         private readonly IConfiguration _configuration;
-
-        public AccountController(Services.Contracts.Services.IAccountService accountService, IConfiguration configuration)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public AccountController(IAccountService accountService, IConfiguration configuration)
         {
             _accountService = accountService;
             _configuration = configuration;
@@ -34,6 +34,7 @@ namespace API.Controllers
                 {
                     var authClaims = new List<Claim>
                     {
+                        new Claim(ClaimTypes.NameIdentifier, result.Id.ToString()),
                         new Claim(ClaimTypes.Sid, result.Id.ToString()),
                         new Claim(ClaimTypes.Name, result.UserName!),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
