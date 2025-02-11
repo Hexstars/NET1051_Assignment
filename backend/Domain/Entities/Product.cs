@@ -11,6 +11,10 @@ namespace Domain.Entities
         public string? Description { get; set; }
         public string? Image { get; set; }
 
+        [ForeignKey("Brand")]
+        public Guid BrandId { get; set; }
+        public Brand Brand { get; set; }
+
         [ForeignKey("Category")]
         public Guid CategoryId { get; set; }
         public Category Category { get; set; }
