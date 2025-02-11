@@ -64,7 +64,15 @@ namespace Shared
             //Service
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ICartService, CartService>();
+
+            services.AddScoped<ISizeService, SizeService>();
+            services.AddScoped<ISizeRepository, SizeRepository>();
             //services.AddScoped<IUploadHelper, UploadHelper>();
+
+
+            services.AddScoped<IMaterialService, MaterialService>();
+            services.AddScoped<IMaterialRepository, MaterialRepository>();
+
 
             return services;
         }
