@@ -2,45 +2,27 @@ import logo from "/src/Admin/assets/img/kaiadmin/logo_light.svg";
 
 export default function NavBar(){
     return(
-        <div className="main-header">
-        <div className="main-header-logo">
-          <div className="logo-header" data-background-color="dark">
-            <a href="index.html" className="logo">
+      <><div className="main-header-logo">
+        <div className="logo-header" data-background-color="dark">
+          <a href="index.html" className="logo">
             <img src={logo} alt="logo" />
-            </a>
-            <div className="nav-toggle">
-              <button className="btn btn-toggle toggle-sidebar">
-                <i className="gg-menu-right"></i>
-              </button>
-              <button className="btn btn-toggle sidenav-toggler">
-                <i className="gg-menu-left"></i>
-              </button>
-            </div>
-            <button className="topbar-toggler more">
-              <i className="gg-more-vertical-alt"></i>
+          </a>
+          <div className="nav-toggle">
+            <button className="btn btn-toggle toggle-sidebar">
+              <i className="gg-menu-right"></i>
+            </button>
+            <button className="btn btn-toggle sidenav-toggler">
+              <i className="gg-menu-left"></i>
             </button>
           </div>
+          <button className="topbar-toggler more">
+            <i className="gg-more-vertical-alt"></i>
+          </button>
         </div>
-        <nav
-          className="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom"
-        >
+      </div><nav
+        className="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom"
+      >
           <div className="container-fluid">
-            <nav
-              className="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex"
-            >
-              <div className="input-group">
-                <div className="input-group-prepend">
-                  <button type="submit" className="btn btn-search pe-1">
-                    <i className="fa fa-search search-icon"></i>
-                  </button>
-                </div>
-                <input
-                  type="text"
-                  placeholder="Search ..."
-                  className="form-control"
-                />
-              </div>
-            </nav>
 
             <ul className="navbar-nav topbar-nav ms-md-auto align-items-center">
               <li
@@ -62,8 +44,7 @@ export default function NavBar(){
                       <input
                         type="text"
                         placeholder="Search ..."
-                        className="form-control"
-                      />
+                        className="form-control" />
                     </div>
                   </form>
                 </ul>
@@ -99,8 +80,7 @@ export default function NavBar(){
                           <div className="notif-img">
                             <img
                               src="src/Admin/assets/img/jm_denis.jpg"
-                              alt="Img Profile"
-                            />
+                              alt="Img Profile" />
                           </div>
                           <div className="notif-content">
                             <span className="subject">Jimmy Denis</span>
@@ -112,8 +92,7 @@ export default function NavBar(){
                           <div className="notif-img">
                             <img
                               src="src/Admin/assets/img/chadengle.jpg"
-                              alt="Img Profile"
-                            />
+                              alt="Img Profile" />
                           </div>
                           <div className="notif-content">
                             <span className="subject">Chad</span>
@@ -125,8 +104,7 @@ export default function NavBar(){
                           <div className="notif-img">
                             <img
                               src="assets/img/mlane.jpg"
-                              alt="Img Profile"
-                            />
+                              alt="Img Profile" />
                           </div>
                           <div className="notif-content">
                             <span className="subject">Jhon Doe</span>
@@ -140,8 +118,7 @@ export default function NavBar(){
                           <div className="notif-img">
                             <img
                               src="src/Admin/assets/img/talha.jpg"
-                              alt="Img Profile"
-                            />
+                              alt="Img Profile" />
                           </div>
                           <div className="notif-content">
                             <span className="subject">Talha</span>
@@ -154,7 +131,7 @@ export default function NavBar(){
                   </li>
                   <li>
                     <a className="see-all" href="javascript:void(0);"
-                      >See all messages<i className="fa fa-angle-right"></i>
+                    >See all messages<i className="fa fa-angle-right"></i>
                     </a>
                   </li>
                 </ul>
@@ -208,8 +185,7 @@ export default function NavBar(){
                           <div className="notif-img">
                             <img
                               src="src/Admin/assets/img/profile2.jpg"
-                              alt="Img Profile"
-                            />
+                              alt="Img Profile" />
                           </div>
                           <div className="notif-content">
                             <span className="block">
@@ -232,7 +208,7 @@ export default function NavBar(){
                   </li>
                   <li>
                     <a className="see-all" href="javascript:void(0);"
-                      >See all notifications<i className="fa fa-angle-right"></i>
+                    >See all notifications<i className="fa fa-angle-right"></i>
                     </a>
                   </li>
                 </ul>
@@ -325,10 +301,9 @@ export default function NavBar(){
                 >
                   <div className="avatar-sm">
                     <img
-                      src="src/Admin/assets/img/Madara uchiha_.jpg"
+                      src="/Madara uchiha_.jpg"
                       alt="..."
-                      className="avatar-img rounded-circle"
-                    />
+                      className="avatar-img rounded-circle" />
                   </div>
                   <span className="profile-username">
                     <span className="op-7">Hi,</span>
@@ -343,8 +318,7 @@ export default function NavBar(){
                           <img
                             src="src/Admin/assets/img/Madara uchiha_.jpg"
                             alt="image profile"
-                            className="avatar-img rounded"
-                          />
+                            className="avatar-img rounded" />
                         </div>
                         <div className="u-text">
                           <h4>Madara Uchiha</h4>
@@ -352,7 +326,7 @@ export default function NavBar(){
                           <a
                             href="profile.html"
                             className="btn btn-xs btn-secondary btn-sm"
-                            >View Profile</a>
+                          >View Profile</a>
                         </div>
                       </div>
                     </li>
@@ -371,8 +345,7 @@ export default function NavBar(){
               </li>
             </ul>
           </div>
-        </nav>
-      </div>
+        </nav></>
     );
 }
 
