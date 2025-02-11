@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Services.Contracts.Services;
 using Services.Models.Account;
 
@@ -9,11 +10,12 @@ namespace Services.Services
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
-
-        public AccountService(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+        private readonly ICartService _cartService;
+        public AccountService(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ICartService cartService)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _cartService = cartService;
         }
 
         public async Task<ApplicationUser> Login(LoginModel request)
@@ -46,7 +48,7 @@ namespace Services.Services
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);
-
+            
             if (result.Succeeded)
             {
 
@@ -70,6 +72,7 @@ namespace Services.Services
                 //}
 
                 //await _signInManager.SignInAsync(user, isPersistent: false);
+                await _cartService.CreateCart(user);
                 return (true, new List<string>());
             }
 

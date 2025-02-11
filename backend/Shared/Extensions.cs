@@ -58,9 +58,12 @@ namespace Shared
             services.AddScoped<IAccountService, AccountService>();
             ////Repository
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ICartRepository, CartRepository>();
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             //Service
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<ICartService, CartService>();
             //services.AddScoped<IUploadHelper, UploadHelper>();
 
             return services;
