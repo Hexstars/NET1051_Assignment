@@ -15,9 +15,9 @@ namespace Services.Services
         }
 
         // Lấy tất cả các danh mục
-        public async Task<IEnumerable<Category>> GetAllCategoriesAsync()
+        public async Task<(List<Category> categories, int TotalCount)> GetCategories(int currentPage, int pageSize)
         {
-            return await _categoryRepository.GetCategories();
+            return await _categoryRepository.GetCategories(currentPage, pageSize);
         }
 
         // Lấy danh mục theo ID

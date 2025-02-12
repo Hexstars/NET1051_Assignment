@@ -24,10 +24,25 @@ namespace API.Controllers
 
         // GET: api/category
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
+        public async Task<ActionResult<IEnumerable<Category>>> GetCategories(int currentPage = 1)
         {
-            var categories = await _categoryService.GetAllCategoriesAsync();
-            return Ok(categories);
+            int pageSize = 1; // categories per page
+
+            var (categories, totalCount) = await _categoryService.GetCategories(currentPage, pageSize);
+
+            int totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+
+            // API response
+            var response = new
+            {
+                CurrentPage = currentPage,
+                PageSize = pageSize,
+                TotalPages = totalPages,
+                TotalCount = totalCount,
+                Categories = categories
+            };
+
+            return Ok(response);
         }
 
         // GET: api/categories/5

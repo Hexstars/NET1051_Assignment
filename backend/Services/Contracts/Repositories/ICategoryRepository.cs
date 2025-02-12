@@ -10,7 +10,7 @@ namespace Services.Contracts.Repositories
 {
     public interface ICategoryRepository : IGeneralRepository<Category, Guid>
     {
-        Task<List<Category>> GetCategories();
+        Task<(List<Category> categories, int TotalCount)> GetCategories(int currentPage, int pageSize);
         Task<Category> GetCategory(Guid id);
         Task AddCategory(Category category);
         Task UpdateCategory(Category category);

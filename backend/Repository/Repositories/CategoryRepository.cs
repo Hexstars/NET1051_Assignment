@@ -16,9 +16,20 @@ namespace Repository.Repositories
         public CategoryRepository(ApplicationDbContext context) : base(context) { }
 
         // Lấy tất cả các danh mục
-        public async Task<List<Category>> GetCategories()
+        public async Task<(List<Category> categories, int TotalCount)> GetCategories(int currentPage, int pageSize)
         {
-            return await _context.Categories.ToListAsync();
+            int pageIndex = currentPage - 1;
+
+            // Đếm tổng số sản phẩm để tính số trang
+            int totalCount = await _context.Categories.CountAsync();
+
+            // Lấy dữ liệu cho trang hiện tại
+            List<Category> list = await _context.Categories
+                                        .Skip(pageIndex * pageSize)
+                                        .Take(pageSize)
+                                        .ToListAsync();
+
+            return (list, totalCount);
         }
 
         // Lấy danh mục theo ID
