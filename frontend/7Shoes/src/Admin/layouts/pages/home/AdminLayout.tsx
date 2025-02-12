@@ -4,7 +4,7 @@ import SideBar from "../../SideBar";
 import NavBar from "../../NavBar";
 import Footer from "../../Footer";
 
-export default function Home() {
+export default function AdminLayout() {
   //hàm kiểm tra assets đã load hay chưa
   const assetsLoaded = loadAdminAssets();
   if (!assetsLoaded) {
