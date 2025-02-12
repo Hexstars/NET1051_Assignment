@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Services.Contracts.Repositories;
 using Services.Contracts.Services;
+using Services.Models.Cart.Request;
 
 namespace Services.Services
 {
@@ -18,9 +19,9 @@ namespace Services.Services
         {
             await _cartRepository.CreateCart(user);
         }
-        public async Task AddToCart(string userId, Guid productId, int quantity)
+        public async Task AddToCart(string userId, AddToCartModel request)
         {
-            await _cartRepository.AddToCart(userId, productId, quantity);
+            await _cartRepository.AddToCart(userId, request);
         }
         // Tạo giỏ hàng sau khi đăng ký
         public async Task<Cart> GetCartByUserId(string id)

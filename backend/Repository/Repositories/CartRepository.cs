@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Persistence;
 using Repository.Repositories.Base;
 using Services.Contracts.Repositories;
+using Services.Models.Cart.Request;
 
 namespace Repository.Repositories
 {
@@ -24,13 +25,13 @@ namespace Repository.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task AddToCart(string userId, Guid productId, int quantity)
+        public async Task AddToCart(string userId, AddToCartModel request)
         {
             var cart = await GetCartByUserID(userId);
 
             // Kiểm tra nếu giỏ hàng đã có sản phẩm này chưa
             var existingCartDetail = _context.CartItems
-                .FirstOrDefault(cd => cd.CartId == cart.Id && cd.ProductItemId == productId);
+                .FirstOrDefault(cd => cd.CartId == cart.Id && cd.ProductItemId == request.ProductId);
 
             if (existingCartDetail != null)
             {
@@ -44,8 +45,9 @@ namespace Repository.Repositories
                 var cartItem = new CartItem
                 {
                     CartId = cart.Id,
-                    ProductItemId = productId,
-                    Quantity = quantity,
+                    ProductItemId = request.ProductId,
+                    Quantity = request.Quantity,
+                    CreatedBy = userId,
                 };
                 _context.CartItems.Add(cartItem);
             }

@@ -24,7 +24,7 @@ namespace API.Controllers
         public async Task AddToCart([FromBody] AddToCartModel request)
         {
             var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier).ToString();
-            await _cartService.AddToCart(userId, request.ProductId, request.Quantity);
+            await _cartService.AddToCart(userId, request);
         }
     }
 }
