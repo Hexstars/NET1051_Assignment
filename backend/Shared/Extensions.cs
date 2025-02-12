@@ -59,19 +59,20 @@ namespace Shared
             ////Repository
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ICartRepository, CartRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<ISizeRepository, SizeRepository>();
+            services.AddScoped<IMaterialRepository, MaterialRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             //Service
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ICartService, CartService>();
-
+            services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<ISizeService, SizeService>();
-            services.AddScoped<ISizeRepository, SizeRepository>();
+            services.AddScoped<IMaterialService, MaterialService>();
             //services.AddScoped<IUploadHelper, UploadHelper>();
 
 
-            services.AddScoped<IMaterialService, MaterialService>();
-            services.AddScoped<IMaterialRepository, MaterialRepository>();
 
             services.AddHttpContextAccessor();
 

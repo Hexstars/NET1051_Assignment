@@ -18,6 +18,11 @@ namespace Services.Services
             _cartService = cartService;
         }
 
+        public async Task<ApplicationUser> GetUserDetails(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            return user;
+        }
         public async Task<ApplicationUser> Login(LoginModel request)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);

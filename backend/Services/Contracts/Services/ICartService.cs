@@ -8,5 +8,6 @@ namespace Services.Contracts.Services
         Task CreateCart(ApplicationUser user);
         Task AddToCart(string userId, AddToCartModel request);
         Task<Cart> GetCartByUserId(string id);
+        Task RemoveAll(string cartId);
     }
 }

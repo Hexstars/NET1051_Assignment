@@ -11,9 +11,6 @@ namespace Domain.Entities
         public Guid UserId { get; set; }
         public ApplicationUser User { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm:ss}")]
-        public DateTime OrderDate = DateTime.Now;
-
         [StringLength(15)]
         public string Phone { get; set; }
 

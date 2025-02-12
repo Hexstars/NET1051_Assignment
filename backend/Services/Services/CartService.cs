@@ -23,11 +23,14 @@ namespace Services.Services
         {
             await _cartRepository.AddToCart(userId, request);
         }
-        // Tạo giỏ hàng sau khi đăng ký
         public async Task<Cart> GetCartByUserId(string id)
         {
             var cart = await _cartRepository.GetCartByUserID(id);
             return cart;
+        }
+        public async Task RemoveAll(string cartId)
+        {
+            await _cartRepository.RemoveAll(cartId);
         }
     }
 }

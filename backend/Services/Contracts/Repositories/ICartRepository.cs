@@ -14,5 +14,6 @@ namespace Services.Contracts.Repositories
         Task CreateCart(ApplicationUser user);
         Task AddToCart(string userId, AddToCartModel request);
         Task<Cart> GetCartByUserID(string id);
+        Task RemoveAll(string cartId);
     }
 }

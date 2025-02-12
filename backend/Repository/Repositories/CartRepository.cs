@@ -47,7 +47,7 @@ namespace Repository.Repositories
                     CartId = cart.Id,
                     ProductItemId = request.ProductId,
                     Quantity = request.Quantity,
-                    CreatedBy = userId,
+                    CreatedBy = userId.ToString(),
                 };
                 _context.CartItems.Add(cartItem);
             }
@@ -55,7 +55,14 @@ namespace Repository.Repositories
             _context.SaveChanges();
         }
 
+        public async Task RemoveAll(string cartId)
+        {
+            var cartDetails = _context.CartItems.Where(cd => cd.Id.ToString() == cartId).ToList();
 
+            _context.CartItems.RemoveRange(cartDetails);
+
+            await _context.SaveChangesAsync();
+        }
         // Lấy  theo ID
         public async Task<Cart> GetCartByUserID(string id)
         {
