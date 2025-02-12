@@ -57,7 +57,7 @@ namespace Repository.Repositories
 
         public async Task RemoveAll(string cartId)
         {
-            var cartDetails = _context.CartItems.Where(cd => cd.Id.ToString() == cartId).ToList();
+            var cartDetails = _context.CartItems.Where(cd => cd.CartId.ToString() == cartId).ToList();
 
             _context.CartItems.RemoveRange(cartDetails);
 
