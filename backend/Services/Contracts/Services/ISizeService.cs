@@ -11,8 +11,8 @@ namespace Services.Contracts.Services
     {
         Task<IEnumerable<Size>> GetAllSizesAsync();
         Task<Size> GetSizeByIdAsync(Guid id);
-        Task AddSizeAsync(Size category);
-        Task UpdateSizeAsync(Size category);
+        Task AddSizeAsync(Size size);
+        Task UpdateSizeAsync(Size size);
         Task DeleteSizeAsync(Guid id);
         Task<bool> SizeExistsAsync(Guid id);
     }

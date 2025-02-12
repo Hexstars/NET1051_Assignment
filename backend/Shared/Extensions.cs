@@ -71,8 +71,10 @@ namespace Shared
             services.AddScoped<ISizeService, SizeService>();
             services.AddScoped<IMaterialService, MaterialService>();
             //services.AddScoped<IUploadHelper, UploadHelper>();
-
-
+            services.AddScoped<IBrandService, BrandService>();
+            services.AddScoped<IBrandRepository, BrandRepository>();
+            services.AddScoped<IColorRepository, ColorRepository>();
+            services.AddScoped<IColorService, ColorService>();
 
             services.AddHttpContextAccessor();
 
