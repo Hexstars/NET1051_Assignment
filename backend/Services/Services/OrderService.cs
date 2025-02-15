@@ -8,10 +8,12 @@ namespace Services.Services
     public class OrderService : IOrderService
     {
         private readonly IOrderRepository _orderRepository;
+        private readonly ICartRepository _cartRepository;
 
-        public OrderService(IOrderRepository orderRepository)
+        public OrderService(IOrderRepository orderRepository, ICartRepository cartRepository)
         {
             _orderRepository = orderRepository;
+            _cartRepository = cartRepository;
         }
 
         public async Task CreateOrder(Order order)
@@ -22,9 +24,9 @@ namespace Services.Services
         {
             await _orderRepository.AddIntoDetail(products, orderId);
         }
-        public async Task<List<CartViewModel>> GetAllProduct(Guid id)
+        public async Task<List<CartViewModel>> GetAllProduct(string id)
         {
-            var products = await _orderRepository.GetAllProduct(id);
+            var products = await _cartRepository.ShowCart(id);
             return products;
         }
     }

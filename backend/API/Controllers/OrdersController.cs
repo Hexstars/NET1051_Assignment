@@ -42,7 +42,7 @@ namespace API.Controllers
 
             Cart cart = await _cartService.GetCartByUserId(userId);
 
-            var products = await _orderService.GetAllProduct(cart.Id);
+            var products = await _orderService.GetAllProduct(cart.Id.ToString());
             if (products.Any())
             {
                 // Add products to the order details

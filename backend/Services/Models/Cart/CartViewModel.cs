@@ -9,7 +9,7 @@ namespace Services.Models.Cart
 {
     public class CartViewModel
     {
-        public Guid ProductId { get; set; }
+        public Guid ProductItemId { get; set; }
 
         public string Image { get; set; }
 

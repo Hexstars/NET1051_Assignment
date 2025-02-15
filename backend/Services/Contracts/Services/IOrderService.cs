@@ -12,6 +12,6 @@ namespace Services.Contracts.Services
     {
         Task CreateOrder(Order order);
         Task AddIntoDetail(List<CartViewModel> products ,Guid orderId);
-        Task<List<CartViewModel>> GetAllProduct(Guid id);
+        Task<List<CartViewModel>> GetAllProduct(string id);
     }
 }

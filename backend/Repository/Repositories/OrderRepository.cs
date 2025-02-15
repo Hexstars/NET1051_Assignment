@@ -22,20 +22,6 @@ namespace Repository.Repositories
             _context.Add(order);
             await _context.SaveChangesAsync();
         }
-        public async Task<List<CartViewModel>> GetAllProduct(Guid id)
-        {
-            // Lấy danh sách ProductId từ CartItems và Products
-            List<CartViewModel> products = await (from cd in _context.CartItems
-                                                  join p in _context.ProductItems on cd.ProductItemId equals p.Id
-                                                  where cd.CartId == id
-                                                  select new CartViewModel
-                                                  {
-                                                      ProductId = p.Id,
-                                                      Quantity = cd.Quantity,
-                                                      UnitPrice = p.Price,
-                                                  }).ToListAsync(); // Chỉ lấy ProductId trực tiếp
-            return products;
-        }
         public async Task AddIntoDetail(List<CartViewModel> products, Guid orderId)
         {
             foreach (var item in products)
@@ -43,7 +29,7 @@ namespace Repository.Repositories
                 OrderItem detail = new OrderItem
                 {
                     OrderId = orderId,
-                    ProductItemId = item.ProductId,
+                    ProductItemId = item.ProductItemId,
                     Quantity = item.Quantity,
                     TotalPrice = item.UnitPrice,
                 };

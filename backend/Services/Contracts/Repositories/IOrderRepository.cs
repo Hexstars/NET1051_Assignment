@@ -7,6 +7,5 @@ namespace Services.Contracts.Repositories
     {
         Task CreateOrder(Order order);
         Task AddIntoDetail(List<CartViewModel> products, Guid orderId);
-        Task<List<CartViewModel>> GetAllProduct(Guid id);
     }
 }
