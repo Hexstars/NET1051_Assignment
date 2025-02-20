@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import brandService, { BrandForViews } from "../../../services/brandService";
+import colorService, { ColorForViews } from "../../../services/colorService";
 
-
-type BrandAddFormProps = {
+type ColorAddFormProps = {
     isOpen: boolean;
     onClose: () => void;
-    fetchBrand: () => void;
-    currentData?: BrandForViews;
+    fetchColor: () => void;
+    currentData?: ColorForViews;
 };
 
-const BrandForm = ({ isOpen, fetchBrand, onClose, currentData }: BrandAddFormProps) => {
-    // Khởi tạo trạng thái `brand` với useState, bao gồm ID, tên và trạng thái hoạt động của thương hiệu
-    const [brand, setBrand] = useState({
+const ColorForm = ({ isOpen, fetchColor, onClose, currentData }: ColorAddFormProps) => {
+    // Khởi tạo trạng thái `color` với useState, bao gồm ID, tên và trạng thái hoạt động của color
+    const [color, setColor] = useState({
         id: "",
         name: "",
         isActive: true,
@@ -21,7 +20,7 @@ const BrandForm = ({ isOpen, fetchBrand, onClose, currentData }: BrandAddFormPro
     // Hàm useEffect này sẽ được gọi khi currentData thay đổi
     useEffect(() => {
         if (currentData && Object.keys(currentData).length > 0) {
-            setBrand({
+            setColor({
                 id: currentData.id ?? "",
                 name: currentData.name ?? "",
                 isActive: currentData.isActive ?? true,
@@ -29,29 +28,29 @@ const BrandForm = ({ isOpen, fetchBrand, onClose, currentData }: BrandAddFormPro
         }
     }, [currentData]);
 
-     // Hàm để chỉnh sửa thương hiệu
-    const editBrand = (id: string) => {
+     // Hàm để chỉnh sửa color
+    const editColor = (id: string) => {
         if (!id) {
-            Swal.fire("Error", "Invalid brand ID", "error");
+            Swal.fire("Error", "Invalid color ID", "error");
             return;
         }
 
         // Dữ liệu cập nhật
-        const updatedData: BrandForViews = {
-            id: brand.id,
-            name: brand.name,
-            isActive: brand.isActive,
+        const updatedData: ColorForViews = {
+            id: color.id,
+            name: color.name,
+            isActive: color.isActive,
         };
 
-        // Gọi service để cập nhật thương hiệu
-        brandService.update(id, updatedData)
+        // Gọi service để cập nhật color
+        colorService.update(id, updatedData)
             .then(() => {
-                Swal.fire("Success", "Brand updated successfully!", "success");
+                Swal.fire("Success", "Color updated successfully!", "success");
                 onClose();
-                fetchBrand();
+                fetchColor();
             })
             .catch(() => {
-                Swal.fire("Error", "Failed to update brand", "error");
+                Swal.fire("Error", "Failed to update color", "error");
             });
     };
 
@@ -64,26 +63,26 @@ const BrandForm = ({ isOpen, fetchBrand, onClose, currentData }: BrandAddFormPro
             <div className="modal-dialog modal-dialog-centered" role="document">
                 <div className="modal-content" style={{ backgroundColor: '#f8f9fa' }}>
                     <div className="modal-header bg-primary text-white">
-                        <h5 className="modal-title">Edit Brand</h5>
+                        <h5 className="modal-title">Edit Color</h5>
                         <button type="button" className="btn-close" onClick={onClose} aria-label="Close"></button>
                     </div>
                     <div className="modal-body">
                         <div className="mb-3">
-                            <label className="form-label">Brand Name</label>
+                            <label className="form-label">Color Name</label>
                             <input
                                 type="text"
                                 className="form-control"
                                 placeholder="Enter color name"
-                                value={brand.name || ""}
-                                onChange={(e) => setBrand({ ...brand, name: e.target.value })}
+                                value={color.name || ""}
+                                onChange={(e) => setColor({ ...color, name: e.target.value })}
                             />
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Status</label>
                             <select
                                 className="form-select"
-                                value={brand.isActive ? "active" : "inactive"}
-                                onChange={(e) => setBrand((prev) => ({ ...prev, isActive: e.target.value === "active" }))}
+                                value={color.isActive ? "active" : "inactive"}
+                                onChange={(e) => setColor((prev) => ({ ...prev, isActive: e.target.value === "active" }))}
                             >
                                 <option value="active">Active</option>
                                 <option value="inactive">Inactive</option>
@@ -94,7 +93,7 @@ const BrandForm = ({ isOpen, fetchBrand, onClose, currentData }: BrandAddFormPro
                         <button type="button" className="btn btn-secondary" onClick={onClose}>
                             Close
                         </button>
-                        <button type="button" className="btn btn-primary" onClick={() => editBrand(brand.id)}>
+                        <button type="button" className="btn btn-primary" onClick={() => editColor(color.id)}>
                             Save changes
                         </button>
                     </div>
@@ -104,4 +103,4 @@ const BrandForm = ({ isOpen, fetchBrand, onClose, currentData }: BrandAddFormPro
     );
 };
 
-export default BrandForm;
+export default ColorForm;

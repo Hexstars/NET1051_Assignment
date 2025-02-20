@@ -4,7 +4,10 @@ const url = {
     baseUrl: "https://localhost:7043/api/",
     login: "/Account/login",
     categories: "/Categories",
-    brands: "/Brands"
+    brands: "/Brands",
+    colors: "/Colors",
+    sizes: "/Sizes",
+    materials: "/Materials",
 };
 
 const instance = axios.create({

@@ -20,6 +20,9 @@ import BlogDetails from "./Client/components/pages/BlogDetails";
 import Blog from "./Client/components/pages/Blog";
 import Contact from "./Client/components/pages/Contact";
 import Brand from "./Admin/components/pages/Brand";
+import Color from "./Admin/components/pages/Color";
+import Size from "./Admin/components/pages/Size";
+import Material from "./Admin/components/pages/Material";
 
 export default function App() {
   return (
@@ -36,6 +39,9 @@ export default function App() {
           <Route path="dash-board" element={<DashBoard />} />
           <Route path="category" element={<Category />} />
           <Route path="brand" element={<Brand />} />
+          <Route path="color" element={<Color />} />
+          <Route path="size" element={<Size />} />
+          <Route path="material" element={<Material />} />
           <Route path="product" element={<Product />} />
           <Route path="order" element={<Order />} />
           <Route path="customer" element={<Customer />} />

@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import brandService, { BrandForViews } from "../../../services/brandService";
+import materialService, { MaterialForViews } from "../../../services/materialService";
 
-
-type BrandAddFormProps = {
+type MaterialAddFormProps = {
     isOpen: boolean;
     onClose: () => void;
-    fetchBrand: () => void;
-    currentData?: BrandForViews;
+    fetchMaterial: () => void;
+    currentData?: MaterialForViews;
 };
 
-const BrandForm = ({ isOpen, fetchBrand, onClose, currentData }: BrandAddFormProps) => {
-    // Khởi tạo trạng thái `brand` với useState, bao gồm ID, tên và trạng thái hoạt động của thương hiệu
-    const [brand, setBrand] = useState({
+const MaterialForm = ({ isOpen, fetchMaterial, onClose, currentData }: MaterialAddFormProps) => {
+    // Khởi tạo trạng thái `material` với useState, bao gồm ID, tên và trạng thái hoạt động của material
+    const [material, setMaterial] = useState({
         id: "",
         name: "",
         isActive: true,
@@ -21,7 +20,7 @@ const BrandForm = ({ isOpen, fetchBrand, onClose, currentData }: BrandAddFormPro
     // Hàm useEffect này sẽ được gọi khi currentData thay đổi
     useEffect(() => {
         if (currentData && Object.keys(currentData).length > 0) {
-            setBrand({
+            setMaterial({
                 id: currentData.id ?? "",
                 name: currentData.name ?? "",
                 isActive: currentData.isActive ?? true,
@@ -29,29 +28,29 @@ const BrandForm = ({ isOpen, fetchBrand, onClose, currentData }: BrandAddFormPro
         }
     }, [currentData]);
 
-     // Hàm để chỉnh sửa thương hiệu
-    const editBrand = (id: string) => {
+     // Hàm để chỉnh sửa material
+    const editMaterial = (id: string) => {
         if (!id) {
-            Swal.fire("Error", "Invalid brand ID", "error");
+            Swal.fire("Error", "Invalid material ID", "error");
             return;
         }
 
         // Dữ liệu cập nhật
-        const updatedData: BrandForViews = {
-            id: brand.id,
-            name: brand.name,
-            isActive: brand.isActive,
+        const updatedData: MaterialForViews = {
+            id: material.id,
+            name: material.name,
+            isActive: material.isActive,
         };
 
-        // Gọi service để cập nhật thương hiệu
-        brandService.update(id, updatedData)
+        // Gọi service để cập nhật material
+        materialService.update(id, updatedData)
             .then(() => {
-                Swal.fire("Success", "Brand updated successfully!", "success");
+                Swal.fire("Success", "Material updated successfully!", "success");
                 onClose();
-                fetchBrand();
+                fetchMaterial();
             })
             .catch(() => {
-                Swal.fire("Error", "Failed to update brand", "error");
+                Swal.fire("Error", "Failed to update material", "error");
             });
     };
 
@@ -64,26 +63,26 @@ const BrandForm = ({ isOpen, fetchBrand, onClose, currentData }: BrandAddFormPro
             <div className="modal-dialog modal-dialog-centered" role="document">
                 <div className="modal-content" style={{ backgroundColor: '#f8f9fa' }}>
                     <div className="modal-header bg-primary text-white">
-                        <h5 className="modal-title">Edit Brand</h5>
+                        <h5 className="modal-title">Edit Material</h5>
                         <button type="button" className="btn-close" onClick={onClose} aria-label="Close"></button>
                     </div>
                     <div className="modal-body">
                         <div className="mb-3">
-                            <label className="form-label">Brand Name</label>
+                            <label className="form-label">Material Name</label>
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Enter color name"
-                                value={brand.name || ""}
-                                onChange={(e) => setBrand({ ...brand, name: e.target.value })}
+                                placeholder="Enter material name"
+                                value={material.name || ""}
+                                onChange={(e) => setMaterial({ ...material, name: e.target.value })}
                             />
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Status</label>
                             <select
                                 className="form-select"
-                                value={brand.isActive ? "active" : "inactive"}
-                                onChange={(e) => setBrand((prev) => ({ ...prev, isActive: e.target.value === "active" }))}
+                                value={material.isActive ? "active" : "inactive"}
+                                onChange={(e) => setMaterial((prev) => ({ ...prev, isActive: e.target.value === "active" }))}
                             >
                                 <option value="active">Active</option>
                                 <option value="inactive">Inactive</option>
@@ -94,7 +93,7 @@ const BrandForm = ({ isOpen, fetchBrand, onClose, currentData }: BrandAddFormPro
                         <button type="button" className="btn btn-secondary" onClick={onClose}>
                             Close
                         </button>
-                        <button type="button" className="btn btn-primary" onClick={() => editBrand(brand.id)}>
+                        <button type="button" className="btn btn-primary" onClick={() => editMaterial(material.id)}>
                             Save changes
                         </button>
                     </div>
@@ -104,4 +103,4 @@ const BrandForm = ({ isOpen, fetchBrand, onClose, currentData }: BrandAddFormPro
     );
 };
 
-export default BrandForm;
+export default MaterialForm;

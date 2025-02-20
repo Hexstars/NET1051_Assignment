@@ -62,6 +62,27 @@ export default function SideBar() {
             </li>
 
             <li className="nav-item active">
+              <Link to="color" className="nav-link">
+                <i className="fas fa-palette"></i>
+                <p>Color</p>
+              </Link>
+            </li>
+
+            <li className="nav-item active">
+              <Link to="size" className="nav-link">
+                <i className="fas fa-ruler"></i>
+                <p>Size</p>
+              </Link>
+            </li>
+
+            <li className="nav-item active">
+              <Link to="material" className="nav-link">
+                <i className="fas fa-cubes"></i>
+                <p>Material</p>
+              </Link>
+            </li>
+
+            <li className="nav-item active">
               <Link to="product" className="nav-link">
                 <i className="fas fa-box"></i>
                 <p>Product</p>
