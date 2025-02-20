@@ -19,6 +19,7 @@ import CheckOut from "./Client/components/pages/CheckOut";
 import BlogDetails from "./Client/components/pages/BlogDetails";
 import Blog from "./Client/components/pages/Blog";
 import Contact from "./Client/components/pages/Contact";
+import Brand from "./Admin/components/pages/Brand";
 
 export default function App() {
   return (
@@ -34,6 +35,7 @@ export default function App() {
           <Route index element={<DashBoard />} />
           <Route path="dash-board" element={<DashBoard />} />
           <Route path="category" element={<Category />} />
+          <Route path="brand" element={<Brand />} />
           <Route path="product" element={<Product />} />
           <Route path="order" element={<Order />} />
           <Route path="customer" element={<Customer />} />

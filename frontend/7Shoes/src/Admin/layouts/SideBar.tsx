@@ -49,28 +49,35 @@ export default function SideBar() {
 
             <li className="nav-item active">
               <Link to="category" className="nav-link">
-                <i className="fas fa-layer-group"></i>
+                <i className="fas fa-list"></i>
                 <p>Category</p>
               </Link>
             </li>
 
             <li className="nav-item active">
+              <Link to="brand" className="nav-link">
+                <i className="fas fa-trademark"></i>
+                <p>Brand</p>
+              </Link>
+            </li>
+
+            <li className="nav-item active">
               <Link to="product" className="nav-link">
-                <i className="fas fa-th-list"></i>
+                <i className="fas fa-box"></i>
                 <p>Product</p>
               </Link>
             </li>
 
             <li className="nav-item active">
               <Link to="order" className="nav-link">
-                <i className="fas fa-pen-square"></i>
+                <i className="fas fa-clipboard-list"></i>
                 <p>Order</p>
               </Link>
             </li>
 
             <li className="nav-item active">
               <Link to="customer" className="nav-link">
-                <i className="fas fa-table"></i>
+                <i className="fas fa-user"></i>
                 <p>Customer</p>
               </Link>
             </li>
