@@ -1,14 +1,16 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import LogIn from "./Admin/layouts/pages/Authentication/LogIn";
+import AdminLogin from "./Admin/layouts/pages/Authentication/Login";
 import AdminLayout from "./Admin/layouts/pages/home/AdminLayout";
-import DashBoard from "./Admin/components/Sidebar/DashBoard";
-import Category from "./Admin/components/Sidebar/Category";
-import Order from "./Admin/components/Sidebar/Order";
-import Product from "./Admin/components/Sidebar/Product";
-import Customer from "./Admin/components/Sidebar/Customer";
+import DashBoard from "./Admin/components/pages/DashBoard";
+import Category from "./Admin/components/pages/Category";
+import Order from "./Admin/components/pages/Order";
+import Product from "./Admin/components/pages/Product";
+import Customer from "./Admin/components/pages/Customer";
 
+import UserLogin from "./Client/layouts/pages/Authentication/Login";
+import Register from "./Client/layouts/pages/Authentication/Register";
 import ClientLayout from "./Client/layouts/pages/home/ClientLayout";
-import Home from "./Client/components/pages/Home"
+import Home from "./Client/components/pages/Home";
 import Shop from "./Client/components/pages/Shop";
 import About from "./Client/components/pages/About";
 import ShopDetails from "./Client/components/pages/ShopDetails";
@@ -23,7 +25,9 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         {/*Các route không nằm trong layout*/}
-        <Route path="/log-in" element={<LogIn />} />
+        <Route path="/admin-login" element={<AdminLogin />} />
+        <Route path="/user-login" element={<UserLogin />} />
+        <Route path="/user-register" element={<Register />} />
 
         {/*Các route con nằm trong layout Admin*/}
         <Route path="/admin" element={<AdminLayout />}>

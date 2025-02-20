@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { ACCOUNT_BASE_URL } from "../components/APi/constants";
+import { ACCOUNT_BASE_URL } from "../components/api/constants";
+import Swal from "sweetalert2";
 
 const useLogout = () => {
   const navigate = useNavigate();
@@ -16,10 +17,20 @@ const useLogout = () => {
       });
 
       if (response.status === 200) {
-        alert("Logged out successfully!");
-        navigate("/log-in"); // Chuyển hướng sau khi logout
+        Swal.fire({
+          title: "Logout Successful!",
+          text: "See you again!",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false
+        }).then(() => {
+          navigate("/admin-login");
+        });
       } else {
-        alert("Logout failed!");
+        Swal.fire({
+          title: "Logout Failed!",
+          icon: "error"
+        });
       }
     } catch (error) {
       console.error("Logout error:", error);

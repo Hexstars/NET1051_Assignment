@@ -2,7 +2,7 @@ export default function ShopDetails(){
     return(
         <>
             {/* <!-- Shop Details Section Begin --> */}
-            <section className="shop-details">
+            <section className="shop-details" style={{ marginTop: "9rem" }}>
                 <div className="product__details__pic">
                     <div className="container">
                         <div className="row">

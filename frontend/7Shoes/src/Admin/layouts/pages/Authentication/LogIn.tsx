@@ -1,7 +1,7 @@
 import { useLogin } from "../../../hook/useLogin";
 import "../../../assets/css/Login.css";
 
-export default function LogIn() {
+export default function AdminLogin() {
   const { user, setUser, errors, handleLogin } = useLogin();
 
   return (
@@ -9,7 +9,7 @@ export default function LogIn() {
       <div className="wrapper-login">
         <form onSubmit={handleLogin}>
           <h1>Login</h1>
-          <h4>Use a local account to login.</h4>
+          <h4 style={{marginTop: "10px"}}>Use a local account to login.</h4>
 
           <div className="input-box">
             <input

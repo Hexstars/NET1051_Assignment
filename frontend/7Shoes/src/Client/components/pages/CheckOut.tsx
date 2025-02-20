@@ -2,7 +2,7 @@ export default function CheckOut() {
   return (
     <>
       {/* <!-- Checkout Section Begin --> */}
-      <section className="checkout spad">
+      <section className="checkout spad" style={{ marginTop: "7rem" }}>
         <div className="container">
           <div className="checkout__form">
             <form action="#">

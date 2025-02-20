@@ -2,7 +2,7 @@ export default function BlogDetails(){
     return(
         <>
             {/* <!-- Blog Details Hero Begin --> */}
-            <section className="blog-hero spad">
+            <section className="blog-hero spad" style={{ marginTop: "9rem" }}>
                 <div className="container">
                     <div className="row d-flex justify-content-center">
                         <div className="col-lg-9 text-center">

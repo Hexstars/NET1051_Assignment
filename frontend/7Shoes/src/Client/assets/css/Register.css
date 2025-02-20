@@ -1,0 +1,181 @@
+body {
+background-color: #e7edf9; 
+}
+
+.register-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 410px;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    background: #fff;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.register-container .form-title {
+    text-align: center;
+    font-size: 1.37rem;
+    font-weight: 600;
+    margin-bottom: 1.87rem;
+}
+
+.register-container .social-register {
+    display: flex;
+    gap: 1.31rem;
+}
+
+.register-container .social-button {
+    display: flex;
+    gap: 0.81rem;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0.75rem 0;
+    border-radius: 0.31rem;
+    align-items: center;
+    justify-content: center;
+    background: #F9F8FF;
+    border: 1px solid #e7edf9;
+    transition: 0.3s ease;
+}
+
+.register-container .social-button .social-icon {
+    width: 23px;
+}
+
+.register-container .separator {
+    position: relative;
+    margin: 1.5rem 0;
+    text-align: center;
+    background: #fff;
+}
+
+.register-container .separator span {
+    z-index: 1;
+    font-weight: 500;
+    color: #009999;
+    position: relative;
+    background: #fff;
+    font-size: 1.06rem;
+    padding: 0 0.9rem;
+}
+
+.register-container .separator::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: 1px;
+    width: 100%;
+    background: #00cccc;
+}
+
+.register-form .input-wrapper {
+    height: 54px;
+    width: 100%;
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.register-form .input-field {
+    width: 100%;
+    height: 100%;
+    outline: none;
+    font-size: 14px;
+    border-radius: 0.31rem;
+    border: 1px solid #00cccc;
+    padding: 0px 1.25rem 0 3.12rem;
+    transition: 0.2s ease;
+}
+
+.register-form .input-field::placeholder {
+    font-size: 13px;
+    color: gray;
+}
+
+.register-form .input-wrapper i {
+    position: absolute;
+    top: 50%;
+    height: 100%;
+    display: flex;
+    color: #00cccc;
+    align-items: center;
+    transform: translateY(-50%);
+    transition: 0.2s ease;
+}
+
+.register-form .input-wrapper i:not(.eye-icon) {
+    left: 0.93rem;
+    pointer-events: none;
+}
+
+.register-form .input-field:focus ~ i:not(.eye-icon) {
+    color: #00cccc;
+}
+
+.register-form .input-wrapper i.eye-icon {
+    display: none;
+    right: 0.93rem;
+    color: #00cccc;
+    cursor: pointer;
+    font-size: 1.25rem;
+}
+
+.register-form .input-wrapper .input-field:valid ~ .eye-icon {
+    display: flex;
+}
+
+.register-form .register-button {
+    border: none;
+    outline: none;
+    width: 100%;
+    height: 54px;
+    color: #fff;
+    font-size: 1.125rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 1.5rem;
+    border-radius: 0.31rem;
+    background: #00cccc;
+    transition: 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.register-form .register-button:hover {
+    background-color: #00cccc;
+    box-shadow: 0 0 10px #00cccc;
+    color: white;
+    border: 1px solid #00cccc;
+    transition: 0.5s;
+}
+
+.register-container .signup-prompt {
+    text-align: center;
+    font-size: 14.5px;
+    font-weight: 500;
+    margin: 1.75rem 0 0.31rem;
+}
+
+.register-container a {
+    color: #00cccc;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.register-container a:hover {
+    text-decoration: underline;
+}
+
+.remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14.5px;
+}
+
+.remember-forgot label input {
+    accent-color: #00cccc;
+    margin-right: 3px;
+}

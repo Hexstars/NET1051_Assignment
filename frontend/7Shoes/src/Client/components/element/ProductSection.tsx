@@ -15,7 +15,7 @@ export default function ProductSection(){
                 <div className="row product__filter">
                     <div className="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
                         <div className="product__item">
-                            <div className="product__item__pic set-bg" data-setbg="/Client/assets/img/product/product-1.jpg">
+                            <div className="product__item__pic set-bg" data-setbg="/Client/assets/img/product/pic20.jpg">
                                 <span className="label">New</span>
                                 <ul className="product__hover">
                                     <li><a href="#"><img src="/Client/assets/img/icon/heart.png" alt=""/></a></li>
@@ -50,7 +50,7 @@ export default function ProductSection(){
                     </div>
                     <div className="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix hot-sales">
                         <div className="product__item">
-                            <div className="product__item__pic set-bg" data-setbg="/Client/assets/img/product/product-2.jpg">
+                            <div className="product__item__pic set-bg" data-setbg="/Client/assets/img/product/pic18.jpg">
                                 <ul className="product__hover">
                                     <li><a href="#"><img src="/Client/assets/img/icon/heart.png" alt=""/></a></li>
                                     <li><a href="#"><img src="/Client/assets/img/icon/compare.png" alt=""/> <span>Compare</span></a></li>

@@ -2,7 +2,7 @@ export default function Blog(){
     return(
         <>
             {/* //<!-- Breadcrumb Section Begin --> */}
-            <section className="breadcrumb-blog set-bg" data-setbg="/Client/assets/img/breadcrumb-bg.jpg">
+            <section className="breadcrumb-blog set-bg" data-setbg="/Client/assets/img/breadcrumb-bg.jpg" style={{ marginTop: "9rem" }}>
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12">

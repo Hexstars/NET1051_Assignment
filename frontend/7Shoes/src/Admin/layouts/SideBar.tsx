@@ -1,4 +1,4 @@
-import Authentication from "../components/Sidebar/LogOut";
+import Authentication from "../components/pages/LogOut";
 import { Link } from "react-router-dom";
 
 export default function SideBar() {

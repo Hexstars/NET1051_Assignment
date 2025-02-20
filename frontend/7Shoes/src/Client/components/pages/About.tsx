@@ -2,7 +2,7 @@ export default function About(){
     return(
         <>      
             {/* <!-- About Section Begin --> */}
-            <section className="about spad">
+            <section className="about spad" style={{ marginTop: "7rem" }}>
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12">

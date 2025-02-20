@@ -2,7 +2,7 @@ export default function ShoppingCart(){
     return(
         <>
             {/* <!-- Shopping Cart Section Begin --> */}
-            <section className="shopping-cart spad">
+            <section className="shopping-cart spad" style={{ marginTop: "7rem" }}>
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-8">

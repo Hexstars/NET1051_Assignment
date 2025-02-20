@@ -8,57 +8,28 @@ import { Link } from "react-router-dom";
 export default function Header(){
     return(
         <>
-            {/* Offcanvas Menu Begin */}
-            <div className="offcanvas-menu-overlay"></div><div className="offcanvas-menu-wrapper">
-                <div className="offcanvas__option">
-                    <div className="offcanvas__links">
-                        <a href="#">Sign in</a>
-                        <a href="#">FAQs</a>
-                    </div>
-                    <div className="offcanvas__top__hover">
-                        <span>Usd <i className="arrow_carrot-down"></i></span>
-                        <ul>
-                            <li>USD</li>
-                            <li>EUR</li>
-                            <li>USD</li>
-                        </ul>
-                    </div>
-                </div>
-                <div className="offcanvas__nav__option">
-                    <a href="/"><img src="/Client/assets/img/search.png" alt="search" /></a>
-                    <a href="/"><img src="/Client/assets/img/icon/heart.png" alt="" /></a>
-                    <a href="/"><img src="/Client/assets/img/icon/cart.png" alt="" /> <span>0</span></a>
-                    <div className="price">$0.00</div>
-                </div>
-                <div id="mobile-menu-wrap"></div>
-                <div className="offcanvas__text">
-                    <p>Free shipping, 30-day return or refund guarantee.</p>
-                </div>
-            </div>
-            {/* //Offcanvas Menu End
-            //Header Section Begin */}
-            <header className="header">
-                <div className="header__top">
+            <header className="header fixed-top" style={{backgroundColor: "#f0f0f0"}}>
+                <div className="header__top d-flex align-items-center" style={{ height: "4rem" }}>
                     <div className="container">
-                        <div className="row">
-                            <div className="col-lg-6 col-md-7">
-                                <div className="header__top__left">
-                                    <p>Free shipping, 30-day return or refund guarantee.</p>
+                        <div className="row w-100 align-items-center">
+                            {/* Logo sát trái */}
+                            <div className="col-lg-2 col-md-3 d-flex align-items-center justify-content-start">
+                                <div className="header__logo">
+                                    <a href="/">
+                                        <img src="/Client/assets/img/logo_1.png" alt="Logo" style={{ height: "35px" }} />
+                                    </a>
                                 </div>
                             </div>
-                            <div className="col-lg-6 col-md-5">
+                            <div className="col-lg-6 col-md-5 d-flex justify-content-start">
+                                <div className="header__top__left">
+                                    <p style={{ fontSize: "14px", margin: "0" }}>Free shipping, 30-day return or refund guarantee</p>
+                                </div>
+                            </div>
+                            <div className="col-lg-3 col-md-4 d-flex justify-content-end">
                                 <div className="header__top__right">
                                     <div className="header__top__links">
-                                        <a href="#">Sign in</a>
-                                        <a href="#">FAQs</a>
-                                    </div>
-                                    <div className="header__top__hover">
-                                        <span>Usd <i className="arrow_carrot-down"></i></span>
-                                        <ul>
-                                            <li>USD</li>
-                                            <li>EUR</li>
-                                            <li>USD</li>
-                                        </ul>
+                                        <Link to="/user-login" style={{ fontSize: "14px" }}>Sign In</Link>
+                                        <Link to="/user-register" style={{ fontSize: "14px", marginLeft: "10px" }}>Sign Up</Link>
                                     </div>
                                 </div>
                             </div>
@@ -68,41 +39,44 @@ export default function Header(){
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-3 col-md-3">
-                            <div className="header__logo">
-                                <a href="/"><img src="/Client/assets/img/logo.png" alt="Logo" /></a>
-                            </div>
+
                         </div>
                         <div className="col-lg-6 col-md-6">
                             <nav className="header__menu mobile-menu">
                                 <ul>
                                     <li className="active"><Link to="/home">Home</Link></li>
                                     <li><Link to="/shop">Shop</Link></li>
-                                    <li><a href="#">Pages</a>
+                                    <li><Link to="/about-us">About us</Link></li>
+                                    <li><Link to="/blog">Blog</Link>
                                         <ul className="dropdown">
-                                            <li><Link to="/about-us">About Us</Link></li>
-                                            <li><Link to="/shop-details">Shop Details</Link></li>
-                                            <li><Link to="/shopping-cart">Shopping Cart</Link></li>
-                                            <li><Link to="/check-out">Check Out</Link></li>
                                             <li><Link to="/blog-details">Blog Details</Link></li>
+                                            <li><Link to="/shop-details">Shop Details</Link></li>
+                                            <li><Link to="/check-out">Check out</Link></li>
                                         </ul>
                                     </li>
-                                    <li><Link to="/blog">Blog</Link></li>
-                                    <li><Link to="/contact">Contacts</Link></li>
+                                    <li><Link to="/contact">Contact</Link></li>
                                 </ul>
                             </nav>
                         </div>
                         <div className="col-lg-3 col-md-3">
-                            <div className="header__nav__option">
-                                <a href="/"><img src="/Client/assets/img/icon/search.png" alt="search" /></a>
-                                <a href="/"><img src="/Client/assets/img/icon/heart.png" alt="" /></a>
-                                <a href="/"><img src="/Client/assets/img/icon/cart.png" alt="" /> <span>0</span></a>
-                                <div className="price">$0.00</div>
-                            </div>
+                        <div className="header__nav__option">
+                            <a href="#" className="search-switch">
+                                <img src="/Client/assets/img/icon/search.png" alt=""/>
+                            </a>
+                            <Link to="/shopping-cart">
+                                <div style={{ marginRight: "20px", fontSize: "16px", color: "#333333", cursor: "pointer", position: "relative" }}>
+                                    <i className="fas fa-shopping-cart cart"></i>
+                                    <span style={{ position: "absolute", top: "-21px", right: "-10px", backgroundColor: "red", color: "white", borderRadius: "50%", padding: "3px 7px", fontSize: "12px"}}>
+                                        3
+                                    </span>
+                                </div>
+                            </Link>
                         </div>
                     </div>
-                    <div className="canvas__open"><i className="fa fa-bars"></i></div>
                 </div>
-            </header></>
-        //Header Section End
+                <div className="canvas__open"><i className="fa fa-bars"></i></div>
+                </div>
+            </header>
+        </>
     );
 }

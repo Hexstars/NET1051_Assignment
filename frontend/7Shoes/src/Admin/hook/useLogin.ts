@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser, validateLogin, LoginData, ValidationErrors } from "../services/authService";
+import Swal from "sweetalert2";
 
 export function useLogin() {
   const navigate = useNavigate();
@@ -21,10 +22,11 @@ export function useLogin() {
     };
   }, []);
 
-  //Hàm xử lý khi submit form
+  // Hàm xử lý khi submit form
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    // Kiểm tra lỗi form trước khi gửi
     const validationErrors = validateLogin(user);
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length > 0) return;
@@ -32,14 +34,29 @@ export function useLogin() {
     try {
       const response = await loginUser(user);
       if (response.status === 200 || response.status === 201) {
-        alert("Login Successfully!");
-        navigate("/admin");
+        Swal.fire({
+          title: "Login Successful!",
+          text: "Welcome back!",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false
+        }).then(() => {
+          navigate("/admin");
+        });
       } else {
-        alert("Login Failed!");
+        Swal.fire({
+          title: "Login Failed!",
+          text: "Invalid email or password.",
+          icon: "error"
+        });
       }
     } catch (error: any) {
       console.error("Login Error:", error);
-      alert(error.response?.data?.message || "An error occurred. Please try again.");
+      Swal.fire({
+        title: "Login Error",
+        text: error.response?.data?.message || "An error occurred. Please try again.",
+        icon: "error"
+      });
     }
   };
 

@@ -7,7 +7,7 @@ export function useLoading() {
 
   useEffect(() => {
     setLoading(true);
-    const timer = setTimeout(() => setLoading(false), 500); // Giả lập load trong 1s
+    const timer = setTimeout(() => setLoading(false), 400); // Giả lập load trong 1s
     return () => clearTimeout(timer);
   }, [location.pathname]); // Chạy khi đổi trang
 

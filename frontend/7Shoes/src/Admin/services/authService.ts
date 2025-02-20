@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ACCOUNT_BASE_URL } from "../components/APi/constants";
+import { ACCOUNT_BASE_URL } from "../components/api/constants";
 
 export type LoginData = {
   email: string;
