@@ -16,12 +16,16 @@ namespace Repository.Repositories
 
         public async Task<List<CartViewModel>> ShowCart(string id)
         {
-
+            var cart = await GetCartByUserID(id);
+            if (cart == null)
+            {
+                throw new Exception("Cart not found for user: " + id);
+            }
             //Query và tạo list chứa sản phẩm
             List<CartViewModel> cartProducts = (from cd in _context.CartItems
                                               join pi in _context.ProductItems on cd.ProductItemId equals pi.Id
                                               join p in _context.Products on pi.ProductId equals p.Id
-                                                where cd.CartId.ToString() == id
+                                                where cd.CartId.ToString() == cart.Id.ToString()
                                               select new CartViewModel
                                               {
                                                   ProductItemId = pi.Id,

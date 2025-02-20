@@ -10,7 +10,7 @@ using System.Security.Claims;
 
 namespace API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CartsController : ControllerBase
@@ -24,26 +24,45 @@ namespace API.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
-        [HttpGet]
-        public async Task<List<CartViewModel>> ShowCart()
+        [HttpGet("your-cart")]
+        public async Task<IActionResult> ShowCart()
         {
-            var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier).ToString();
+            //var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = "d4f1f0d5-0751-43e9-650f-08dd4a641d4b";
+
+            if (string.IsNullOrEmpty(userId))
+                return Unauthorized();  // 401 nếu chưa đăng nhập
             var cartProducts = await _cartService.ShowCart(userId);
-            return cartProducts;
+
+            return Ok(cartProducts);  // 200 OK
         }
 
         [HttpPost("addtocart")]
-        public async Task AddToCart([FromBody] AddToCartModel request)
+        public async Task<IActionResult> AddToCart([FromBody] AddToCartModel request)
         {
-            var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier).ToString();
+            //var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = "d4f1f0d5-0751-43e9-650f-08dd4a641d4b";
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized();  // 401 nếu chưa đăng nhập
+            }
             await _cartService.AddToCart(userId, request);
+
+            return Ok();  //200 OK
         }
 
-        [HttpGet("updatequantity")]
-        public async Task UpdateQuantity([FromBody] AddToCartModel request)
+        [HttpPut("updatequantity")]
+        public async Task<IActionResult> UpdateQuantity([FromBody] AddToCartModel request)
         {
-            var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier).ToString();
+            var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier).ToString(); 
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized();  // 401 nếu chưa đăng nhập
+            }
             await _cartService.UpdateQuantity(userId, request.ProductItemId, request.Quantity);
+
+            return NoContent();
         }
     }
 }
