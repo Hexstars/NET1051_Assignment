@@ -11,6 +11,8 @@ namespace Persistence.Data.Seed
             SeedColor.Seed(serviceProvider);
             SeedMaterial.Seed(serviceProvider);
             SeedSize.Seed(serviceProvider);
+            SeedProduct.Seed(serviceProvider);
+
         }
     }      
 }

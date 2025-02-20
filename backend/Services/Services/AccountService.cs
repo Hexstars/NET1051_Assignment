@@ -32,7 +32,8 @@ namespace Services.Services
             }
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-            var result = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, request.RememberMe, lockoutOnFailure: false);
+            var result = await _signInManager.PasswordSignInAsync(user.UserName,
+                request.Password, request.RememberMe, lockoutOnFailure: false);
             if (result.Succeeded)
             {
                 return user;

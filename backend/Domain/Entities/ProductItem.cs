@@ -15,15 +15,15 @@ namespace Domain.Entities
 
         [ForeignKey("Size")]
         public Guid SizeId { get; set; }
-        public Size Size { get; set; }
+        public Size? Size { get; set; }
 
         [ForeignKey("Color")]
         public Guid ColorId { get; set; }
-        public Color Color { get; set; }
+        public Color? Color { get; set; }
         
         [ForeignKey("Material")]
         public Guid MaterialId { get; set; }
-        public Material Material { get; set; }
+        public Material? Material { get; set; }
         public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
     }
 }

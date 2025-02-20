@@ -75,7 +75,10 @@ namespace Shared
             services.AddScoped<IBrandRepository, BrandRepository>();
             services.AddScoped<IColorRepository, ColorRepository>();
             services.AddScoped<IColorService, ColorService>();
-
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProductItemService, ProductItemService>();
+            services.AddScoped<IProductitemRepository, ProductItemRepository>();
             services.AddHttpContextAccessor();
 
             return services;

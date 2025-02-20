@@ -1,11 +1,6 @@
 ﻿using Domain.Entities;
 using Services.Contracts.Repositories;
 using Services.Contracts.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.Services
 {

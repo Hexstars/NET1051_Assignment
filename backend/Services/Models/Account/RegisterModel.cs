@@ -10,7 +10,7 @@ namespace Services.Models.Account
     public class RegisterModel
     {
         [Required]
-        public string Username { get; set; }
+        public required string Username { get; set; }
 
         [Required]
         [EmailAddress]
