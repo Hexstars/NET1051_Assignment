@@ -52,16 +52,30 @@ namespace API.Controllers
             return Ok();  //200 OK
         }
 
-        [HttpPut("updatequantity")]
+        [HttpPut("update-quantity")]
         public async Task<IActionResult> UpdateQuantity([FromBody] AddToCartModel request)
         {
-            var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier).ToString(); 
+            //var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier).ToString(); 
+            var userId = "d4f1f0d5-0751-43e9-650f-08dd4a641d4b";
             if (string.IsNullOrEmpty(userId))
             {
                 return Unauthorized();  // 401 nếu chưa đăng nhập
             }
             await _cartService.UpdateQuantity(userId, request.ProductItemId, request.Quantity);
 
+            return NoContent();
+        }
+
+        [HttpDelete("delete-from-cart/{productItemId}")]
+        public async Task<IActionResult> DeleteFromCart(Guid productItemId)
+        {
+            //var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier).ToString();
+            var userId = "d4f1f0d5-0751-43e9-650f-08dd4a641d4b";
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized();  // 401 nếu chưa đăng nhập
+            }
+            await _cartService.DeleteFromCart(userId, productItemId);
             return NoContent();
         }
     }

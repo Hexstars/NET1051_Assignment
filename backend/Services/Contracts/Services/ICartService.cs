@@ -11,6 +11,7 @@ namespace Services.Contracts.Services
         Task AddToCart(string userId, AddToCartModel request);
         Task UpdateQuantity(string userId, Guid productId, int newQuantity);
         Task<Cart> GetCartByUserId(string id);
+        Task DeleteFromCart(string userId, Guid productItemId);
         Task RemoveAll(string cartId);
     }
 }

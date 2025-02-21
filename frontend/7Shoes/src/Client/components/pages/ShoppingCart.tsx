@@ -16,7 +16,7 @@ const ShoppingCart = () => {
     const loadData = () => {
         cartService.getAll()
             .then((res) => {
-                console.log("API Response:", res, typeof res);
+                //console.log("API Response:", res, typeof res);
 
                 // Kiểm tra và cập nhật state nếu API trả về mảng
                 if (res && Array.isArray(res)) {
@@ -31,32 +31,57 @@ const ShoppingCart = () => {
                 setCartItems([]);
             });
     };
+    //Thay vì cập nhật CartItems ngay lập tức, ta lưu số lượng mới vào một state tạm thời.
+    const [updatedQuantities, setUpdatedQuantities] = useState<{ [key: string]: number }>({});
+
+    //Khi người dùng nhập số lượng mới, chỉ lưu vào state updatedQuantities.
+    const handleQuantityChange = (productItemId: string, newQuantity: number) => {
+        setUpdatedQuantities(prev => ({ ...prev, [productItemId]: newQuantity }));
+    };
+
+    //Hàm xử lí cập nhật giỏ hàng
+    const updateCart = () => {
+        const updatePromises = Object.keys(updatedQuantities).map(productItemId => {
+            return cartService.updateQuantity({
+                productItemId: productItemId,
+                quantity: updatedQuantities[productItemId]
+            });
+        });
+
+        // Wait for all updates to finish, then reload the cart
+        Promise.all(updatePromises).then(() => {
+            console.log("All updates finished, reloading cart...");
+            loadData();  // Refresh cart data after updating
+        }).catch(error => {
+            console.error("Error updating cart:", error);
+        });
+    };
     const subtotal = CartItems.reduce((acc, item) => acc + item.total, 0);
 
-    // Hàm xử lý xóa danh mục
-    // const onDeleteHandle = (id: string) => {
-    //     Swal.fire({
-    //         title: "Are you sure?",
-    //         text: "You won't be able to revert this!",
-    //         icon: "warning",
-    //         showCancelButton: true,
-    //         confirmButtonColor: "#d33",
-    //         cancelButtonColor: "#3085d6",
-    //         confirmButtonText: "Yes, delete it!"
-    //     }).then((result) => {
-    //         if (result.isConfirmed) {
-    //             cartService.remove(id)
-    //                 .then(() => {
-    //                     Swal.fire("Deleted!", "Your cart has been deleted.", "success");
-    //                     loadData();
-    //                 })
-    //                 .catch((err) => {
-    //                     console.error("Error deleting product:", err);
-    //                     Swal.fire("Error!", "Failed to delete the cart item. Please try again.", "error");
-    //                 });
-    //         }
-    //     });
-    // };
+    // Hàm xử lý xóa sản phẩm
+    const onDeleteHandle = (id: string) => {
+        Swal.fire({
+            title: "Xóa sản phẩm?",
+            text: "Bạn chắc chắn muốn xóa sản phẩm khỏi giỏ hàng?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Confirm"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                cartService.remove(id)
+                    .then(() => {
+                        Swal.fire("Xóa thành công!", "Đã xóa sản phẩm khỏi giỏ hàng.", "success");
+                        loadData();
+                    })
+                    .catch((err) => {
+                        console.error("Error deleting product:", err);
+                        Swal.fire("Error!", "Failed to delete the cart item. Please try again.", "error");
+                    });
+            }
+        });
+    };
     return (
         <>
             {/* <!-- Shopping Cart Section Begin --> */}
@@ -76,7 +101,7 @@ const ShoppingCart = () => {
                                     </thead>
                                     <tbody>
                                         {Array.isArray(CartItems) && CartItems.map((item) => (
-                                            <tr>
+                                            <tr key={item.productItemId}>
                                                 <td className="product__cart__item">
                                                     <div className="product__cart__item__pic">
                                                         <img src="/Client/assets/img/shopping-cart/cart-1.jpg" alt="" />
@@ -87,17 +112,20 @@ const ShoppingCart = () => {
                                                     </div>
                                                 </td>
                                                 <td className="quantity__item">
-                                                    <div className="quantity">
-                                                        <div className="pro-qty-2">
-                                                            <input type="text" value={item.quantity} />
-                                                        </div>
-                                                    </div>
+                                                    <input
+                                                        type="number"
+                                                        className="form-control"
+                                                        style={{ width: "70px" }}
+                                                        value={updatedQuantities[item.productItemId] ?? item.quantity}
+                                                        onChange={(e) => handleQuantityChange(item.productItemId, Number(e.target.value))}
+                                                        min="1"
+                                                        max="10"
+                                                    />
                                                 </td>
                                                 <td className="cart__price">{item.total} VNĐ</td>
-                                                <td className="cart__close">
-                                                    {/* <button className="btn btn-sm btn-danger" onClick={() => onDeleteHandle(item.productItemId)}>
-                                                <i className="fa fa-close"></i> Xóa
-                                            </button> */}
+                                                <td className="cart__close" 
+                                                    style={{cursor:"pointer"}}
+                                                    onClick={() => onDeleteHandle(item.productItemId)}>
                                                     <i className="fa fa-close"></i>
                                                 </td>
                                             </tr>
@@ -113,7 +141,9 @@ const ShoppingCart = () => {
                                 </div>
                                 <div className="col-lg-6 col-md-6 col-sm-6">
                                     <div className="continue__btn update__btn">
-                                        <a href="#"><i className="fa fa-spinner"></i> Update cart</a>
+                                        <button onClick={updateCart} className="btn btn-primary">
+                                            <i className="fa fa-spinner"></i> Cập nhật
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -129,7 +159,7 @@ const ShoppingCart = () => {
                             <div className="cart__total">
                                 <h6>Tổng giỏ hàng</h6>
                                 <ul>
-                                    <li>Tạm tính <span>{subtotal} VNĐ</span></li>
+                                    {/* <li>Tạm tính <span>{subtotal} VNĐ</span></li> */}
                                     <li>Tổng tiền <span>{subtotal} VNĐ</span></li>
                                 </ul>
                                 <a href="#" className="primary-btn">Đặt hàng</a>

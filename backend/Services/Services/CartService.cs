@@ -32,6 +32,10 @@ namespace Services.Services
         {
             await _cartRepository.UpdateQuantity(userId, productId, newQuantity);
         }
+        public async Task DeleteFromCart(string userId, Guid productItemId)
+        {
+            await _cartRepository.DeleteFromCart(userId, productItemId);
+        }
         public async Task<Cart> GetCartByUserId(string id)
         {
             var cart = await _cartRepository.GetCartByUserID(id);

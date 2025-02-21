@@ -62,6 +62,12 @@ namespace Repository.Repositories
             {
                 // Nếu có rồi, tăng số lượng của sản phẩm trong giỏ hàng
                 existingCartDetail.Quantity += 1;
+
+                if (existingCartDetail.Quantity > 10)
+                {
+                    existingCartDetail.Quantity = 10;
+                }
+
                 _context.CartItems.Update(existingCartDetail);
             }
             else
@@ -88,9 +94,34 @@ namespace Repository.Repositories
 
             cartProduct.Quantity = newQuantity;
 
+            if (cartProduct.Quantity > 10)
+            {
+                cartProduct.Quantity = 10;
+            }
+
             _context.Update(cartProduct);
             _context.SaveChanges();
         }
+
+        public async Task DeleteFromCart(string userId, Guid productItemId)
+        {
+            try
+            {
+                var cart = await GetCartByUserID(userId);
+
+                // Find all items in the cart
+                var cartProduct = _context.CartItems.FirstOrDefault(cd => cd.CartId == cart.Id && cd.ProductItemId == productItemId);
+
+                // Remove the product from the cart
+                _context.CartItems.Remove(cartProduct);
+                _context.SaveChanges();
+            }
+            catch
+            {
+                throw new Exception("Error deleting product from cart");
+            }
+        }
+
         public async Task RemoveAll(string cartId)
         {
             var cartDetails = _context.CartItems.Where(cd => cd.CartId.ToString() == cartId).ToList();
