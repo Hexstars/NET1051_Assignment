@@ -3,6 +3,7 @@ using Services.Contracts.Repositories;
 using Services.Contracts.Services;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,13 +38,14 @@ namespace Services.Services
         // Cập nhật danh mục
         public async Task UpdateBrandAsync(Brand Brand)
         {
-            var existingCategory = await _brandRepository.GetBrandById(Brand.Id);
+            var existingBrand = await _brandRepository.GetBrandById(Brand.Id);
 
-            if (existingCategory != null)
+            if (existingBrand != null)
             {
-                existingCategory.Name = Brand.Name;
+                existingBrand.Name = Brand.Name;
+                existingBrand.IsActive = Brand.IsActive;
                 // Cập nhật các trường khác, nếu cần
-                await _brandRepository.UpdateBrand(existingCategory);
+                await _brandRepository.UpdateBrand(existingBrand);
             }
         }
 

@@ -31,10 +31,11 @@ namespace Repository.Repositories
     public async Task AddColor(Color Colors)
     {
         Colors.CreatedDate = DateTime.UtcNow; // Gán ngày tạo
-        Colors.CreatedBy = "System"; // Có thể thay thế bằng tên người tạo từ token nếu cần
-        Colors.IsActive = true; // Mặc định set là active khi mới tạo
+        Colors.CreatedBy = "Admin"; // Có thể thay thế bằng tên người tạo từ token nếu cần
+        Colors.UpdatedBy = "Admin"; // Có thể thay thế bằng tên người tạo từ token nếu cần
+        Colors.UpdatedDate = DateTime.UtcNow;
 
-        _context.Colors.Add(Colors);
+            _context.Colors.Add(Colors);
         await _context.SaveChangesAsync();
     }
 
@@ -45,11 +46,12 @@ namespace Repository.Repositories
 
         if (existingColors != null)
         {
-            existingColors.Name = Colors.Name;
-            existingColors.UpdatedDate = DateTime.UtcNow; // Cập nhật ngày thay đổi
-            existingColors.UpdatedBy = "System"; // Cập nhật người thay đổi, có thể lấy từ người dùng thực tế
+                existingColors.Name = Colors.Name;
+                existingColors.UpdatedDate = DateTime.UtcNow; // Cập nhật ngày thay đổi
+                existingColors.UpdatedBy = "Admin"; // Cập nhật người thay đổi, có thể lấy từ người dùng thực tế
+                existingColors.IsActive = Colors.IsActive;
 
-            _context.Colors.Update(existingColors);
+                _context.Colors.Update(existingColors);
             await _context.SaveChangesAsync();
         }
     }

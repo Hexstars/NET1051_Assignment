@@ -31,8 +31,9 @@ namespace Repository.Repositories
         public async Task AddMaterial(Material material)
         {
             material.CreatedDate = DateTime.UtcNow; // Gán ngày tạo
-            material.CreatedBy = "System"; // Có thể thay thế bằng tên người tạo từ token nếu cần
-            material.IsActive = true; // Mặc định set là active khi mới tạo
+            material.CreatedBy = "Admin"; // Có thể thay thế bằng tên người tạo từ token nếu cần
+            material.UpdatedBy = "Admin"; // Có thể thay thế bằng tên người tạo từ token nếu cần
+            material.UpdatedDate = DateTime.UtcNow;
 
             _context.Materials.Add(material);
             await _context.SaveChangesAsync();
@@ -47,7 +48,8 @@ namespace Repository.Repositories
             {
                 existingMaterials.Name = material.Name;
                 existingMaterials.UpdatedDate = DateTime.UtcNow; // Cập nhật ngày thay đổi
-                existingMaterials.UpdatedBy = "System"; // Cập nhật người thay đổi, có thể lấy từ người dùng thực tế
+                existingMaterials.UpdatedBy = "Admin"; // Cập nhật người thay đổi, có thể lấy từ người dùng thực tế
+                existingMaterials.IsActive = material.IsActive;
 
                 _context.Materials.Update(existingMaterials);
                 await _context.SaveChangesAsync();

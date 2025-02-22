@@ -31,8 +31,9 @@ namespace Repository.Repositories
         public async Task AddBrand(Brand Brands)
         {
             Brands.CreatedDate = DateTime.UtcNow; // Gán ngày tạo
-            Brands.CreatedBy = "System"; // Có thể thay thế bằng tên người tạo từ token nếu cần
-            Brands.IsActive = true; // Mặc định set là active khi mới tạo
+            Brands.CreatedBy = "Admin"; // Có thể thay thế bằng tên người tạo từ token nếu cần
+            Brands.UpdatedBy = "Admin"; // Có thể thay thế bằng tên người tạo từ token nếu cần
+            Brands.UpdatedDate = DateTime.UtcNow;
 
             _context.Brands.Add(Brands);
             await _context.SaveChangesAsync();
@@ -47,7 +48,8 @@ namespace Repository.Repositories
             {
                 existingBrands.Name = Brands.Name;
                 existingBrands.UpdatedDate = DateTime.UtcNow; // Cập nhật ngày thay đổi
-                existingBrands.UpdatedBy = "System"; // Cập nhật người thay đổi, có thể lấy từ người dùng thực tế
+                existingBrands.UpdatedBy = "Admin"; // Cập nhật người thay đổi, có thể lấy từ người dùng thực tế
+                existingBrands.IsActive = Brands.IsActive;
 
                 _context.Brands.Update(existingBrands);
                 await _context.SaveChangesAsync();

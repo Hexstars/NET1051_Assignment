@@ -119,6 +119,7 @@ namespace Repository.Repositories
             existingProduct.CategoryId = model.CategoryId;
             existingProduct.BrandId = model.BrandId;
             existingProduct.UpdatedDate = DateTime.UtcNow;
+            existingProduct.IsActive = model.IsActive;
 
             await _context.SaveChangesAsync();
             return true;
