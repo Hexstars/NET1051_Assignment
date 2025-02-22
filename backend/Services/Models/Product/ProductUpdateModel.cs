@@ -1,6 +1,8 @@
-﻿namespace Services.Models.Product
+﻿using Domain.Entities;
+
+namespace Services.Models.Product
 {
-    public class ProductUpdateModel
+    public class ProductUpdateModel : BaseEntity<Guid>
     {
 
         public Guid Id { get; set; }

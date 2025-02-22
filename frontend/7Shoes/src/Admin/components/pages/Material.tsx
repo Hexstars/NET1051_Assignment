@@ -103,7 +103,9 @@ const Material = () => {
                     <tr key={material.id}>
                         <td className="align-middle text-center">{material.id}</td>
                         <td className="align-middle text-center">{material.name}</td>
-                        <td className="align-middle text-center">{material.createdDate}</td>
+                        <td className="align-middle text-center">
+                            {material.createdDate ? new Date(material.createdDate).toLocaleDateString("vi-VN") : "Chưa cập nhật"}
+                        </td>
                         <td className={`align-middle text-center ${material.isActive ? "text-success" : "text-danger"}`}>
                             {material.isActive ? "Active" : "Inactive"}
                         </td>

@@ -7,8 +7,15 @@
         public string Description { get; set; }
         public string ProductImage { get; set; }
         public decimal? BasePrice { get; set; }
-        public Guid BrandId { get; set; }  
-        public Guid CategoryId { get; set; } 
+        public DateTime? CreatedDate { get; set; }
+        public DateTime? UpdatedDate { get; set; }
+        public bool IsActive { get; set; }
+        public Guid BrandId { get; set; }
+        public string BrandName { get; set; }
+
+        public Guid CategoryId { get; set; }
+        public string CategoryName { get; set; }
+
         public List<ProductItemModel> ProductItems { get; set; }
     }
 

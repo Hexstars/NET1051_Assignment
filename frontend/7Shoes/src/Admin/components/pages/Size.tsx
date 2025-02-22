@@ -103,7 +103,9 @@ const Size = () => {
                     <tr key={size.id}>
                         <td className="align-middle text-center">{size.id}</td>
                         <td className="align-middle text-center">{size.name}</td>
-                        <td className="align-middle text-center">{size.createdDate}</td>
+                        <td className="align-middle text-center">
+                            {size.createdDate ? new Date(size.createdDate).toLocaleDateString("vi-VN") : "Chưa cập nhật"}
+                        </td>
                         <td className={`align-middle text-center ${size.isActive ? "text-success" : "text-danger"}`}>
                             {size.isActive ? "Active" : "Inactive"}
                         </td>

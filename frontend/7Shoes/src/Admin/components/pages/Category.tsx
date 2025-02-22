@@ -104,7 +104,9 @@ const Category = () => {
                     <tr key={category.id}>
                         <td className="align-middle text-center">{category.id}</td>
                         <td className="align-middle text-center">{category.name}</td>
-                        <td className="align-middle text-center">{category.createdDate}</td>
+                        <td className="align-middle text-center">
+                            {category.createdDate ? new Date(category.createdDate).toLocaleDateString("vi-VN") : "Chưa cập nhật"}
+                        </td>
                         <td className={`align-middle text-center ${category.isActive ? "text-success" : "text-danger"}`}>
                             {category.isActive ? "Active" : "Inactive"}
                         </td>

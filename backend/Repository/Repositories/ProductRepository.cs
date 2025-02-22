@@ -30,7 +30,12 @@ namespace Repository.Repositories
                 ProductImage = p.Image,
                 BasePrice = p.Price,
                 BrandId = p.BrandId,
+                BrandName = p.Brand.Name,
                 CategoryId = p.CategoryId,
+                CategoryName = p.Category.Name,
+                CreatedDate = p.CreatedDate,
+                UpdatedDate = p.UpdatedDate,
+                IsActive = p.IsActive,
                 ProductItems = _context.ProductItems
                     .Where(pi => pi.ProductId == p.Id && pi.IsActive)
                     .Select(pi => new ProductItemModel
@@ -58,8 +63,13 @@ namespace Repository.Repositories
                     Description = p.Description,
                     ProductImage = p.Image,
                     BasePrice = p.Price,
-                    CategoryId = p.CategoryId,  
+                    CategoryId = p.CategoryId,
+                    CategoryName = p.Category.Name,
                     BrandId = p.BrandId,
+                    BrandName = p.Brand.Name,
+                    CreatedDate = p.CreatedDate,
+                    UpdatedDate = p.UpdatedDate,
+                    IsActive = p.IsActive,
                     ProductItems = p.ProductItems
                         .Where(pi => pi.IsActive)
                         .Select(pi => new ProductItemModel
@@ -88,6 +98,7 @@ namespace Repository.Repositories
                 BrandId = model.BrandId,
                 CategoryId = model.CategoryId,
                 CreatedDate = DateTime.UtcNow,
+                UpdatedDate = DateTime.UtcNow,
                 IsActive = true
             };
 
