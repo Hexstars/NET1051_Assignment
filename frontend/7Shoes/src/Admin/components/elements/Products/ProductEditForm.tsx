@@ -89,18 +89,33 @@ const ProductEditForm = ({ isOpen, fetchProduct, onClose, currentData}: ProductE
             Swal.fire("Error", "Invalid product ID", "error");
             return;
         }
-
-        console.log("Updating product:", product);
-        productService.update(product.productId, product)
+    
+        // Tạo một đối tượng ProductUpdateModel với các trường chính xác
+        const productToUpdate: ProductForViews = {
+            ...product,
+            id: product.productId,
+            name: product.productName,
+            price: product.basePrice,
+            description: product.description,
+            image: product.productImage,
+            brandId: product.brandId,
+            categoryId: product.categoryId, 
+            updatedDate: new Date().toISOString(),
+        };
+    
+        console.log("Updating product:", productToUpdate);
+        productService.update(product.productId, productToUpdate)
             .then(() => {
                 Swal.fire("Success", "Product updated successfully!", "success");
                 onClose();
                 fetchProduct();
             })
-            .catch(() => {
-                Swal.fire("Error", "Failed to update product", "error");
+            .catch((error) => {
+                console.error("Update error:", error);
+                Swal.fire("Error", "Failed to update product: " + error.response.data, "error");
             });
     };
+    
 
     if (!isOpen) return null;
 
