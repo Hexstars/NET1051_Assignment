@@ -12,6 +12,7 @@ namespace Services.Models.Product
         public decimal Price { get; set; }
         public string? Description { get; set; }
         public string? Image { get; set; }
+        public bool isActive { get; set; } = true;
         public Guid BrandId { get; set; }
         public Guid CategoryId { get; set; }
     }

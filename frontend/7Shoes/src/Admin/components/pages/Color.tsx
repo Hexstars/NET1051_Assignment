@@ -103,7 +103,9 @@ const Color = () => {
                     <tr key={color.id}>
                         <td className="align-middle text-center">{color.id}</td>
                         <td className="align-middle text-center">{color.name}</td>
-                        <td className="align-middle text-center">{color.createdDate}</td>
+                        <td className="align-middle text-center">
+                            {color.createdDate ? new Date(color.createdDate).toLocaleDateString("vi-VN") : "Chưa cập nhật"}
+                        </td>
                         <td className={`align-middle text-center ${color.isActive ? "text-success" : "text-danger"}`}>
                             {color.isActive ? "Active" : "Inactive"}
                         </td>

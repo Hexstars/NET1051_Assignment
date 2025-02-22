@@ -73,7 +73,9 @@ namespace Services.Services
                 Price = model.Price,
                 Image = model.Image,
                 CategoryId = model.CategoryId,
-                BrandId = model.BrandId
+                BrandId = model.BrandId,
+                UpdatedDate = DateTime.UtcNow,
+                IsActive = model.IsActive
             };
 
             // Gọi repository để cập nhật sản phẩm

@@ -8,6 +8,7 @@ const url = {
     colors: "/Colors",
     sizes: "/Sizes",
     materials: "/Materials",
+    products: "/Product",
 };
 
 const instance = axios.create({

@@ -103,7 +103,9 @@ const Brand = () => {
                     <tr key={brand.id}>
                         <td className="align-middle text-center">{brand.id}</td>
                         <td className="align-middle text-center">{brand.name}</td>
-                        <td className="align-middle text-center">{brand.createdDate}</td>
+                        <td className="align-middle text-center">
+                            {brand.createdDate ? new Date(brand.createdDate).toLocaleDateString("vi-VN") : "Chưa cập nhật"}
+                        </td>
                         <td className={`align-middle text-center ${brand.isActive ? "text-success" : "text-danger"}`}>
                             {brand.isActive ? "Active" : "Inactive"}
                         </td>

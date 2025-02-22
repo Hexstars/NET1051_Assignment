@@ -26,7 +26,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Category>>> GetCategories(int currentPage = 1)
         {
-            int pageSize = 1; // categories per page
+            int pageSize = 10; // categories per page
 
             var (categories, totalCount) = await _categoryService.GetCategories(currentPage, pageSize);
 
