@@ -4,7 +4,8 @@ import store, { RootState } from "../../store";
 const url = {
     baseUrl: "https://localhost:7043/api/",
     auths: "/account",
-    carts: "/carts"
+    carts: "/carts",
+    productItems: "/productitem"
 };
 
 const instance = axios.create({

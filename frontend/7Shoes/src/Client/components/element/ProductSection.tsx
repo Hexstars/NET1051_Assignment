@@ -1,4 +1,34 @@
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import productItemService, { ProductItemForViews } from "../../services/productItemService";
+import { useEffect, useState } from "react";
 export default function ProductSection(){
+    // Khai báo state để lưu trữ danh sách danh mục và thông tin danh mục hiện tại
+    const [ProductItems, setProductItems] = useState<ProductItemForViews[]>([]);
+
+    // Gọi loadData() khi component được mount
+    useEffect(() => {
+        loadData();
+    }, []);
+
+    // Hàm tải dữ liệu giỏ hàng từ API
+    const loadData = () => {
+        productItemService.getAll()
+            .then((res) => {
+                //console.log("API Response:", res, typeof res);
+
+                // Kiểm tra và cập nhật state nếu API trả về mảng
+                if (res && Array.isArray(res)) {
+                    setProductItems(res);
+                } else {
+                    console.error("API did not return an array:", res);
+                    setProductItems([]);
+                }
+            })
+            .catch(error => {
+                console.error("Error loading categories:", error);
+                setProductItems([]);
+            });
+    };
     return(
         //<!-- Product Section Begin -->
         <section className="product spad">
