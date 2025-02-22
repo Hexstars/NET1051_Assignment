@@ -51,10 +51,10 @@ namespace API.Controllers
                 }
                 else
                 {
-                    return BadRequest(new { message = "Login failed" });
+                    return Unauthorized(new { message = "Login failed" });
                 }
             }
-            return BadRequest(new { message = "Login failed" });
+            return Unauthorized(new { message = "Login failed" });
         }
         private string GenerateJwtToken(List<Claim> claims)
         {

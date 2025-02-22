@@ -10,7 +10,7 @@ using System.Security.Claims;
 
 namespace API.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CartsController : ControllerBase
@@ -27,8 +27,8 @@ namespace API.Controllers
         [HttpGet("your-cart")]
         public async Task<IActionResult> ShowCart()
         {
-            //var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var userId = "d4f1f0d5-0751-43e9-650f-08dd4a641d4b";
+            var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //var userId = "d4f1f0d5-0751-43e9-650f-08dd4a641d4b";
 
             if (string.IsNullOrEmpty(userId))
                 return Unauthorized();  // 401 nếu chưa đăng nhập
@@ -37,7 +37,7 @@ namespace API.Controllers
             return Ok(cartProducts);  // 200 OK
         }
 
-        [HttpPost("addtocart")]
+        [HttpPost("add-to-cart")]
         public async Task<IActionResult> AddToCart([FromBody] AddToCartModel request)
         {
             //var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);

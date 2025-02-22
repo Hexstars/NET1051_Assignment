@@ -1,5 +1,5 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import AdminLogin from "./Admin/layouts/pages/Authentication/Login";
+import { Route, Routes } from "react-router-dom";
+import AdminLogin from "./Admin/layouts/pages/Authentication/LogIn";
 import AdminLayout from "./Admin/layouts/pages/home/AdminLayout";
 import DashBoard from "./Admin/components/pages/DashBoard";
 import Category from "./Admin/components/pages/Category";
@@ -26,41 +26,39 @@ import Material from "./Admin/components/pages/Material";
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        {/*Các route không nằm trong layout*/}
-        <Route path="/admin-login" element={<AdminLogin />} />
-        <Route path="/user-login" element={<UserLogin />} />
-        <Route path="/user-register" element={<Register />} />
+    <Routes>
+      {/*Các route không nằm trong layout*/}
+      <Route path="/admin-login" element={<AdminLogin />} />
+      <Route path="/user-login" element={<UserLogin />} />
+      <Route path="/user-register" element={<Register />} />
 
-        {/*Các route con nằm trong layout Admin*/}
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<DashBoard />} />
-          <Route path="dash-board" element={<DashBoard />} />
-          <Route path="category" element={<Category />} />
-          <Route path="brand" element={<Brand />} />
-          <Route path="color" element={<Color />} />
-          <Route path="size" element={<Size />} />
-          <Route path="material" element={<Material />} />
-          <Route path="product" element={<Product />} />
-          <Route path="order" element={<Order />} />
-          <Route path="customer" element={<Customer />} />
-        </Route>
+      {/*Các route con nằm trong layout Admin*/}
+      <Route path="/admin" element={<AdminLayout />}>
+        <Route index element={<DashBoard />} />
+        <Route path="dash-board" element={<DashBoard />} />
+        <Route path="category" element={<Category />} />
+        <Route path="brand" element={<Brand />} />
+        <Route path="color" element={<Color />} />
+        <Route path="size" element={<Size />} />
+        <Route path="material" element={<Material />} />
+        <Route path="product" element={<Product />} />
+        <Route path="order" element={<Order />} />
+        <Route path="customer" element={<Customer />} />
+      </Route>
 
-        {/*Các route nằm trong Client*/}
-        <Route path="/" element={<ClientLayout />}>
-          <Route index element={<Home />} />
-          <Route path="home" element={<Home />} />
-          <Route path="shop" element={<Shop />} />
-          <Route path="about-us" element={<About />} />
-          <Route path="shop-details" element={<ShopDetails />} />
-          <Route path="shopping-cart" element={<ShoppingCart />} />
-          <Route path="check-out" element={<CheckOut />} />
-          <Route path="blog-details" element={<BlogDetails />} />
-          <Route path="blog" element={<Blog />} />
-          <Route path="contact" element={<Contact />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+      {/*Các route nằm trong Client*/}
+      <Route path="/" element={<ClientLayout />}>
+        <Route index element={<Home />} />
+        <Route path="home" element={<Home />} />
+        <Route path="shop" element={<Shop />} />
+        <Route path="about-us" element={<About />} />
+        <Route path="shop-details" element={<ShopDetails />} />
+        <Route path="shopping-cart" element={<ShoppingCart />} />
+        <Route path="check-out" element={<CheckOut />} />
+        <Route path="blog-details" element={<BlogDetails />} />
+        <Route path="blog" element={<Blog />} />
+        <Route path="contact" element={<Contact />} />
+      </Route>
+    </Routes>
   );
 }

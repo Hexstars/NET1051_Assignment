@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import cartService, { CartForViews } from "../../services/cartService";
+
+
 //import useDisclosure from "../../hook/useDisclosure";
 const ShoppingCart = () => {
     // Khai báo state để lưu trữ danh sách danh mục và thông tin danh mục hiện tại
@@ -84,92 +86,88 @@ const ShoppingCart = () => {
     };
     return (
         <>
-            {/* <!-- Shopping Cart Section Begin --> */}
             <section className="shopping-cart spad" style={{ marginTop: "7rem" }}>
                 <div className="container">
-                    <div className="row">
-                        <div className="col-lg-8">
-                            <div className="shopping__cart__table">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Sản phẩm</th>
-                                            <th>Số lượng</th>
-                                            <th>Tổng</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {Array.isArray(CartItems) && CartItems.map((item) => (
-                                            <tr key={item.productItemId}>
-                                                <td className="product__cart__item">
-                                                    <div className="product__cart__item__pic">
-                                                        <img src="/Client/assets/img/shopping-cart/cart-1.jpg" alt="" />
-                                                    </div>
-                                                    <div className="product__cart__item__text">
-                                                        <h6>{item.productName}</h6>
-                                                        <h5>{item.unitPrice} VNĐ</h5>
-                                                    </div>
-                                                </td>
-                                                <td className="quantity__item">
-                                                    <input
-                                                        type="number"
-                                                        className="form-control"
-                                                        style={{ width: "70px" }}
-                                                        value={updatedQuantities[item.productItemId] ?? item.quantity}
-                                                        onChange={(e) => handleQuantityChange(item.productItemId, Number(e.target.value))}
-                                                        min="1"
-                                                        max="10"
-                                                    />
-                                                </td>
-                                                <td className="cart__price">{item.total} VNĐ</td>
-                                                <td className="cart__close" 
-                                                    style={{cursor:"pointer"}}
-                                                    onClick={() => onDeleteHandle(item.productItemId)}>
-                                                    <i className="fa fa-close"></i>
-                                                </td>
+                    {CartItems.length === 0 ? (
+                        <div className="text-center">
+                            <h4>Giỏ hàng của bạn đang trống</h4>
+                        </div>
+                    ) : (
+                        <div className="row">
+                            <div className="col-lg-8">
+                                <div className="shopping__cart__table">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Sản phẩm</th>
+                                                <th>Số lượng</th>
+                                                <th>Tổng</th>
+                                                <th></th>
                                             </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div className="row">
-                                <div className="col-lg-6 col-md-6 col-sm-6">
-                                    {/* <div className="continue__btn">
-                                        <a href="#">Continue Shopping</a>
-                                    </div> */}
+                                        </thead>
+                                        <tbody>
+                                            {CartItems.map((item) => (
+                                                <tr key={item.productItemId}>
+                                                    <td className="product__cart__item">
+                                                        <div className="product__cart__item__pic">
+                                                            <img src="/Client/assets/img/shopping-cart/cart-1.jpg" alt="" />
+                                                        </div>
+                                                        <div className="product__cart__item__text">
+                                                            <h6>{item.productName}</h6>
+                                                            <h5>{item.unitPrice} VNĐ</h5>
+                                                        </div>
+                                                    </td>
+                                                    <td className="quantity__item">
+                                                        <input
+                                                            type="number"
+                                                            className="form-control"
+                                                            style={{ width: "70px" }}
+                                                            value={updatedQuantities[item.productItemId] ?? item.quantity}
+                                                            onChange={(e) => handleQuantityChange(item.productItemId, Number(e.target.value))}
+                                                            min="1"
+                                                            max="10"
+                                                        />
+                                                    </td>
+                                                    <td className="cart__price">{item.total} VNĐ</td>
+                                                    <td className="cart__close" 
+                                                        style={{cursor:"pointer"}}
+                                                        onClick={() => onDeleteHandle(item.productItemId)}>
+                                                        <i className="fa fa-close"></i>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div className="col-lg-6 col-md-6 col-sm-6">
-                                    <div className="continue__btn update__btn">
-                                        <button onClick={updateCart} className="btn btn-primary">
-                                            <i className="fa fa-spinner"></i> Cập nhật
-                                        </button>
+    
+                                {/* Hide update button if cart is empty */}
+                                <div className="row">
+                                    <div className="col-lg-6 col-md-6 col-sm-6"></div>
+                                    <div className="col-lg-6 col-md-6 col-sm-6">
+                                        <div className="continue__btn update__btn">
+                                            <button onClick={updateCart} className="btn btn-primary">
+                                                <i className="fa fa-spinner"></i> Cập nhật
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="col-lg-4">
-                            {/* <div className="cart__discount">
-                                <h6>Discount codes</h6>
-                                <form action="#">
-                                    <input type="text" placeholder="Coupon code"/>
-                                    <button type="submit">Apply</button>
-                                </form>
-                            </div> */}
-                            <div className="cart__total">
-                                <h6>Tổng giỏ hàng</h6>
-                                <ul>
-                                    {/* <li>Tạm tính <span>{subtotal} VNĐ</span></li> */}
-                                    <li>Tổng tiền <span>{subtotal} VNĐ</span></li>
-                                </ul>
-                                <a href="#" className="primary-btn">Đặt hàng</a>
+    
+                            {/* Hide cart total section if cart is empty */}
+                            <div className="col-lg-4">
+                                <div className="cart__total">
+                                    <h6>Tổng giỏ hàng</h6>
+                                    <ul>
+                                        <li>Tổng tiền <span>{subtotal} VNĐ</span></li>
+                                    </ul>
+                                    <a href="#" className="primary-btn">Đặt hàng</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    )}
                 </div>
             </section>
-            {/* <!-- Shopping Cart Section End --> */}
         </>
-    );
+    );    
 }
 export default ShoppingCart;
