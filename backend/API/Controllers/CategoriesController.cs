@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 using Persistence;
 using Services.Contracts.Services;
+using Services.Services;
 
 namespace API.Controllers
 {
@@ -22,28 +23,35 @@ namespace API.Controllers
             _categoryService = categoryService;
         }
 
-        // GET: api/category
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Category>>> GetCategories(int currentPage = 1)
+        public async Task<IActionResult> GetActiveCategories([FromQuery] int currentPage = 1, [FromQuery] int pageSize = 10, [FromQuery]    bool? IsActive = null)
         {
-            int pageSize = 10; // categories per page
-
-            var (categories, totalCount) = await _categoryService.GetCategories(currentPage, pageSize);
-
-            int totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
-
-            // API response
-            var response = new
-            {
-                CurrentPage = currentPage,
-                PageSize = pageSize,
-                TotalPages = totalPages,
-                TotalCount = totalCount,
-                Categories = categories
-            };
-
-            return Ok(response);
+            var (categories, totalCount) = await _categoryService.GetActiveCategories(currentPage, pageSize, IsActive);
+            return Ok(new { categories, totalCount });
         }
+
+        // GET: api/category
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<Category>>> GetCategories(int currentPage = 1)
+        //{
+        //    int pageSize = 10; // categories per page
+
+        //    var (categories, totalCount) = await _categoryService.GetCategories(currentPage, pageSize);
+
+        //    int totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+
+        //    // API response
+        //    var response = new
+        //    {
+        //        CurrentPage = currentPage,
+        //        PageSize = pageSize,
+        //        TotalPages = totalPages,
+        //        TotalCount = totalCount,
+        //        Categories = categories
+        //    };
+
+        //    return Ok(response);
+        //}
 
         // GET: api/categories/5
         [HttpGet("{id}")]

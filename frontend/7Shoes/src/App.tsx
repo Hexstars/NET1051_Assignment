@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import AdminLogin from "./Admin/layouts/pages/Authentication/LogIn";
+import AdminLogin from "./Admin/layouts/pages/Authentication/Login";
 import AdminLayout from "./Admin/layouts/pages/home/AdminLayout";
 import DashBoard from "./Admin/components/pages/DashBoard";
 import Category from "./Admin/components/pages/Category";
@@ -52,7 +52,7 @@ export default function App() {
         <Route path="home" element={<Home />} />
         <Route path="shop" element={<Shop />} />
         <Route path="about-us" element={<About />} />
-        <Route path="shop-details" element={<ShopDetails />} />
+        <Route path="shop-details/:productId" element={<ShopDetails />} />
         <Route path="shopping-cart" element={<ShoppingCart />} />
         <Route path="check-out" element={<CheckOut />} />
         <Route path="blog-details" element={<BlogDetails />} />

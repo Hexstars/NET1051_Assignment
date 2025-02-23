@@ -9,6 +9,7 @@ namespace Services.Contracts.Services
 {
     public interface ICategoryService
     {
+        Task<(IEnumerable<Category> categories, int totalCount)> GetActiveCategories(int currentPage, int pageSize, bool? isActive = null);
         Task<(List<Category> categories, int TotalCount)> GetCategories(int currentPage, int pageSize);
         Task<Category> GetCategoryByIdAsync(Guid id);
         Task AddCategoryAsync(Category category);

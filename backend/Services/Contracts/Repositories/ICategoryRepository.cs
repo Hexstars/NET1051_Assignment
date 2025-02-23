@@ -10,6 +10,7 @@ namespace Services.Contracts.Repositories
 {
     public interface ICategoryRepository : IGeneralRepository<Category, Guid>
     {
+        Task<(IEnumerable<Category> categories, int totalCount)> GetActiveCategories(int currentPage, int pageSize, bool? isActive = null);
         Task<(List<Category> categories, int TotalCount)> GetCategories(int currentPage, int pageSize);
         Task<Category> GetCategory(Guid id);
         Task AddCategory(Category category);

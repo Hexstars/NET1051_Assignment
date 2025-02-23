@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Services.Contracts.Repositories;
 using Services.Contracts.Services;
+using Services.Models.Product;
 
 namespace Services.Services
 {
@@ -12,6 +13,11 @@ namespace Services.Services
         public CategoryService(ICategoryRepository categoryRepository)
         {
             _categoryRepository = categoryRepository;
+        }
+
+        public async Task<(IEnumerable<Category> categories, int totalCount)> GetActiveCategories(int currentPage, int pageSize, bool? isActive = null)
+        {
+            return await _categoryRepository.GetActiveCategories(currentPage, pageSize, isActive);
         }
 
         // Lấy tất cả các danh mục
