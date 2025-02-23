@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 using Persistence;
 using Services.Contracts.Services;
+using Services.Services;
 
 namespace API.Controllers
 {
@@ -22,13 +23,20 @@ namespace API.Controllers
             _brandService = BrandService;
         }
 
-        // GET: api/Brand
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Brand>>> GetBrands()
+        public async Task<IActionResult> GetActiveBrands([FromQuery] int currentPage = 1, [FromQuery] int pageSize = 10, [FromQuery] bool? IsActive = null)
         {
-            var categories = await _brandService.GetAllBrandsAsync();
-            return Ok(categories);
+            var (brands, totalCount) = await _brandService.GetActiveBrands(currentPage, pageSize, IsActive);
+            return Ok(new { brands, totalCount });
         }
+
+        //// GET: api/Brand
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<Brand>>> GetBrands()
+        //{
+        //    var categories = await _brandService.GetAllBrandsAsync();
+        //    return Ok(categories);
+        //}
 
         // GET: api/categories/5
         [HttpGet("{id}")]
@@ -55,7 +63,7 @@ namespace API.Controllers
             await _brandService.AddBrandAsync(Brand);
 
             // Trả về ID của danh mục vừa tạo
-            return CreatedAtAction(nameof(GetBrands), new { id = Brand.Id }, Brand);
+            return CreatedAtAction(nameof(GetBrandById), new { id = Brand.Id }, Brand);
         }
 
         // PUT: api/categories/5

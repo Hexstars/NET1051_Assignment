@@ -42,8 +42,8 @@ const Color = () => {
       colorService.getAll()
           .then((res) => {
               console.log("Colors data:", res);
-              if (res && Array.isArray(res)) {
-                  setColors(res);
+              if (res && Array.isArray(res.colors)) {
+                  setColors(res.colors);
               } else {
                   console.error("API did not return an array:", res);
                   setColors([]);

@@ -12,7 +12,9 @@ namespace Services.Contracts.Services
         //Lấy danh sách sp theo brand id
         Task<IEnumerable<ProductViewModel>> GetProductsByBrandAsync(Guid? brandId);
 
+        //Task<(IEnumerable<ProductViewModel> products, int totalCount)>
+        //    GetProductsAsync(int currentPage, int pageSize);
         Task<(IEnumerable<ProductViewModel> products, int totalCount)>
-            GetProductsAsync(int currentPage, int pageSize);
+        GetProductsAsync(int currentPage, int pageSize, bool? isActive = null);
     }
 }

@@ -18,6 +18,10 @@ namespace Services.Services
         {
             _brandRepository = brandRepository;
         }
+        public async Task<(IEnumerable<Brand> brands, int totalCount)> GetActiveBrands(int currentPage, int pageSize, bool? isActive = null)
+        {
+            return await _brandRepository.GetActiveBrands(currentPage, pageSize, isActive);
+        }
 
         // Lấy tất cả các danh mục
         public async Task<IEnumerable<Brand>> GetAllBrandsAsync() => await _brandRepository.GetBrands();

@@ -9,6 +9,7 @@ namespace Services.Contracts.Services
 {
     public interface IBrandService
     {
+        Task<(IEnumerable<Brand> brands, int totalCount)> GetActiveBrands(int currentPage, int pageSize, bool? isActive = null);
         Task<IEnumerable<Brand>> GetAllBrandsAsync();
         Task<Brand> GetBrandByIdAsync(Guid id);
         Task AddBrandAsync(Brand Brand);

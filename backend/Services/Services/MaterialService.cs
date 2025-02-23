@@ -19,6 +19,11 @@ namespace Services.Services
             _materialRepository = materialRepository;
         }
 
+        public async Task<(IEnumerable<Material> materials, int totalCount)> GetActiveMaterials(int currentPage, int pageSize, bool? isActive = null)
+        {
+            return await _materialRepository.GetActiveMaterials(currentPage, pageSize, isActive);
+        }
+
         // Lấy tất cả các danh mục
         public async Task<IEnumerable<Material>> GetAllMaterialsAsync() => await _materialRepository.GetMaterials();
 
