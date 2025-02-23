@@ -9,6 +9,7 @@ namespace Services.Contracts.Services
 {
     public interface ISizeService
     {
+        Task<(IEnumerable<Size> sizes, int totalCount)> GetActiveSizes(int currentPage, int pageSize, bool? isActive = null);
         Task<IEnumerable<Size>> GetAllSizesAsync();
         Task<Size> GetSizeByIdAsync(Guid id);
         Task AddSizeAsync(Size size);

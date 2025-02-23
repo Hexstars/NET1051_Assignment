@@ -10,6 +10,7 @@ namespace Services.Contracts.Repositories
 {
     public interface IColorRepository : IGeneralRepository<Color, Guid>
     {
+        Task<(IEnumerable<Color> colors, int totalCount)> GetActiveColors(int currentPage, int pageSize, bool? isActive = null);
         Task<List<Color>> GetColors();
         Task<Color> GetColorById(Guid id);
         Task AddColor(Color Color);

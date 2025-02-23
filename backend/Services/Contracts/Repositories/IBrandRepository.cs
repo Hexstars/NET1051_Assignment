@@ -10,6 +10,7 @@ namespace Services.Contracts.Repositories
 {
     public interface IBrandRepository : IGeneralRepository<Brand, Guid>
     {
+        Task<(IEnumerable<Brand> brands, int totalCount)> GetActiveBrands(int currentPage, int pageSize, bool? isActive = null);
         Task<List<Brand>> GetBrands();
         Task<Brand> GetBrandById(Guid id);
         Task AddBrand(Brand Brand);

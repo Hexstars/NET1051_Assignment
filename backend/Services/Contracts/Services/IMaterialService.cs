@@ -9,6 +9,7 @@ namespace Services.Contracts.Services
 {
     public interface IMaterialService
     {
+        Task<(IEnumerable<Material> materials, int totalCount)> GetActiveMaterials(int currentPage, int pageSize, bool? isActive = null);
          Task<IEnumerable<Material>> GetAllMaterialsAsync();
         Task<Material> GetMaterialByIdAsync(Guid id);
         Task AddMaterialAsync(Material category);

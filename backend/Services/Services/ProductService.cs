@@ -18,10 +18,16 @@ namespace Services.Services
         }
 
         public async Task<(IEnumerable<ProductViewModel> products, int totalCount)>
-            GetProductsAsync(int currentPage, int pageSize)
+        GetProductsAsync(int currentPage, int pageSize, bool? isActive = null)
         {
-            return await _productRepository.GetProductsWithItems(currentPage, pageSize);
+            return await _productRepository.GetProductsWithItems(currentPage, pageSize, isActive);
         }
+
+        //public async Task<(IEnumerable<ProductViewModel> products, int totalCount)>
+        //    GetProductsAsync(int currentPage, int pageSize)
+        //{
+        //    return await _productRepository.GetProductsWithItems(currentPage, pageSize);
+        //}
 
         public async Task<ProductViewModel?> GetProductByIdAsync(Guid id)
         {

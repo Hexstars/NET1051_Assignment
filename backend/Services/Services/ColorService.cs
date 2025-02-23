@@ -13,6 +13,11 @@ namespace Services.Services
             _colorRepository = ColorRepository;
         }
 
+        public async Task<(IEnumerable<Color> colors, int totalCount)> GetActiveColors(int currentPage, int pageSize, bool? isActive = null)
+        {
+            return await _colorRepository.GetActiveColors(currentPage, pageSize, isActive);
+        }
+
         // Lấy tất cả các danh mục
         public async Task<IEnumerable<Color>> GetAllColorsAsync() => await _colorRepository.GetColors();
 

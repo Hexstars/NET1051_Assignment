@@ -9,6 +9,7 @@ using Domain.Entities;
 using Persistence;
 using Services.Contracts.Services;
 using Microsoft.AspNetCore.Authorization;
+using Services.Services;
 
 namespace API.Controllers
 {
@@ -24,13 +25,20 @@ namespace API.Controllers
             _sizeService = sizeService;
         }
 
-        // GET: api/Size
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Size>>> GetSizes()
+        public async Task<IActionResult> GetActiveSizes([FromQuery] int currentPage = 1, [FromQuery] int pageSize = 10, [FromQuery] bool? IsActive = null)
         {
-            var categories = await _sizeService.GetAllSizesAsync();
-            return Ok(categories);
+            var (sizes, totalCount) = await _sizeService.GetActiveSizes(currentPage, pageSize, IsActive);
+            return Ok(new { sizes, totalCount });
         }
+
+        //// GET: api/Size
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<Size>>> GetSizes()
+        //{
+        //    var categories = await _sizeService.GetAllSizesAsync();
+        //    return Ok(categories);
+        //}
 
         // GET: api/categories/5
         [HttpGet("{id}")]
@@ -57,7 +65,7 @@ namespace API.Controllers
             await _sizeService.AddSizeAsync(Size);
 
             // Trả về ID của danh mục vừa tạo
-            return CreatedAtAction(nameof(GetSizes), new { id = Size.Id }, Size);
+            return CreatedAtAction(nameof(GetSizeById), new { id = Size.Id }, Size);
         }
 
         // PUT: api/categories/5

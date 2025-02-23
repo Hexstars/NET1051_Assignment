@@ -24,13 +24,20 @@ namespace API.Controllers
             _colorService = ColorService;
         }
 
-        // GET: api/Color
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Color>>> GetColors()
+        public async Task<IActionResult> GetActiveColors([FromQuery] int currentPage = 1, [FromQuery] int pageSize = 10, [FromQuery] bool? IsActive = null)
         {
-            var categories = await _colorService.GetAllColorsAsync();
-            return Ok(categories);
+            var (sizes, totalCount) = await _colorService.GetActiveColors(currentPage, pageSize, IsActive);
+            return Ok(new { sizes, totalCount });
         }
+
+        // GET: api/Color
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<Color>>> GetColors()
+        //{
+        //    var categories = await _colorService.GetAllColorsAsync();
+        //    return Ok(categories);
+        //}
 
         // GET: api/categories/5
         [HttpGet("{id}")]
@@ -57,7 +64,7 @@ namespace API.Controllers
             await _colorService.AddColorAsync(Color);
 
             // Trả về ID của danh mục vừa tạo
-            return CreatedAtAction(nameof(GetColors), new { id = Color.Id }, Color);
+            return CreatedAtAction(nameof(GetColorById), new { id = Color.Id }, Color);
         }
 
         // PUT: api/categories/5

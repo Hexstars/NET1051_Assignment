@@ -41,11 +41,11 @@ const Material = () => {
     const loadData = () => {
       materialService.getAll()
           .then((res) => {
-              console.log("Materials data:", res);
-              if (res && Array.isArray(res)) {
-                  setMaterials(res);
+              console.log("Materials data:", res.sizes);
+              if (res && Array.isArray(res.sizes)) {
+                  setMaterials(res.sizes);
               } else {
-                  console.error("API did not return an array:", res);
+                  console.error("API did not return an array:", res.sizes);
                   setMaterials([]);
               }
           })
@@ -53,7 +53,7 @@ const Material = () => {
               console.error("Error loading materials:", error);
               setMaterials([]);
           });
-  };
+    };
   
     
     // Hàm xử lý xóa màu

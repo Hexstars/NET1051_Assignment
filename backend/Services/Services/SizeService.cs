@@ -18,6 +18,10 @@ namespace Services.Services
         {
             _sizeRepository = sizeRepository;
         }
+        public async Task<(IEnumerable<Size> sizes, int totalCount)> GetActiveSizes(int currentPage, int pageSize, bool? isActive = null)
+        {
+            return await _sizeRepository.GetActiveSizes(currentPage, pageSize, isActive);
+        }
 
         // Lấy tất cả các danh mục
         public async Task<IEnumerable<Size>> GetAllSizesAsync() => await _sizeRepository.GetSizes();

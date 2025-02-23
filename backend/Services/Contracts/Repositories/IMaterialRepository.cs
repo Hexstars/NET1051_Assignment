@@ -10,6 +10,7 @@ namespace Services.Contracts.Repositories
 {
     public interface IMaterialRepository : IGeneralRepository<Material, Guid>
     {
+        Task<(IEnumerable<Material> materials, int totalCount)> GetActiveMaterials(int currentPage, int pageSize, bool? isActive = null);
         Task<List<Material>> GetMaterials();
         Task<Material> GetMaterialById(Guid id);
         Task AddMaterial(Material material);

@@ -8,7 +8,10 @@ namespace Services.Contracts.Repositories
     public interface IProductRepository : IGeneralRepository<Product, Guid>
     {
         Task<(IEnumerable<ProductViewModel> products, int TotalCount)>
-            GetProductsWithItems(int currentPage, int pageSize);
+        GetProductsWithItems(int currentPage, int pageSize, bool? isActive = null);
+
+        //Task<(IEnumerable<ProductViewModel> products, int TotalCount)>
+        //    GetProductsWithItems(int currentPage, int pageSize);
         Task<ProductViewModel?> GetProductById(Guid id);
         Task<Product> CreateProduct(ProductCreateModel model);
         Task<bool> UpdateProduct(ProductUpdateModel model);

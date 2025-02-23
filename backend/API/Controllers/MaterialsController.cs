@@ -9,6 +9,7 @@ using Domain.Entities;
 using Persistence;
 using Services.Contracts.Services;
 using Microsoft.AspNetCore.Authorization;
+using Services.Services;
 
 namespace API.Controllers
 {
@@ -24,13 +25,20 @@ namespace API.Controllers
             _materialService = materialService;
         }
 
-        // GET: api/Material
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Material>>> GetMaterials()
+        public async Task<IActionResult> GetActiveMaterials([FromQuery] int currentPage = 1, [FromQuery] int pageSize = 10, [FromQuery] bool? IsActive = null)
         {
-            var categories = await _materialService.GetAllMaterialsAsync();
-            return Ok(categories);
+            var (materials, totalCount) = await _materialService.GetActiveMaterials(currentPage, pageSize, IsActive);
+            return Ok(new { materials, totalCount });
         }
+
+        // GET: api/Material
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<Material>>> GetMaterials()
+        //{
+        //    var categories = await _materialService.GetAllMaterialsAsync();
+        //    return Ok(categories);
+        //}
 
         // GET: api/categories/5
         [HttpGet("{id}")]
@@ -57,7 +65,7 @@ namespace API.Controllers
             await _materialService.AddMaterialAsync(Material);
 
             // Trả về ID của danh mục vừa tạo
-            return CreatedAtAction(nameof(GetMaterials), new { id = Material.Id }, Material);
+            return CreatedAtAction(nameof(GetMaterialById), new { id = Material.Id }, Material);
         }
 
         // PUT: api/categories/5
