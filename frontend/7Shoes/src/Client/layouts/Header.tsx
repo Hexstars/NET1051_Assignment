@@ -72,9 +72,8 @@ const Header = () => {
                                 <li className="active"><Link to="/home">Home</Link></li>
                                 <li><Link to="/shop">Shop</Link></li>
                                 <li><Link to="/about-us">About us</Link></li>
-                                <li><Link to="/blog">Blog</Link>
+                                <li><Link to="/blog-details">Blog Details</Link>
                                     <ul className="dropdown">
-                                        <li><Link to="/blog-details">Blog Details</Link></li>
                                         <li><Link to="/shop-details">Shop Details</Link></li>
                                         <li><Link to="/check-out">Check out</Link></li>
                                     </ul>
