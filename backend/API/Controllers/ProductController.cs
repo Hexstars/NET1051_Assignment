@@ -33,6 +33,20 @@ namespace API.Controllers
             return Ok(product);
         }
 
+        //Lấy danh sách sản phẩm theo Brand Id
+        [HttpGet("by-brand/{brandId}")]
+        public async Task<IActionResult> GetProductsByBrand(Guid brandId)
+        {
+            var products = await _productService.GetProductsByBrandAsync(brandId);
+
+            if (products == null || !products.Any())
+            {
+                return NotFound(new { message = "Không tìm thấy sản phẩm cho thương hiệu này." });
+            }
+
+            return Ok(products);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateProduct([FromBody] ProductCreateModel model)
         {
@@ -43,8 +57,6 @@ namespace API.Controllers
             return CreatedAtAction(nameof(GetProductById), new { id = newProduct.Id }, newProduct);
         }
 
-
-        
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProduct([FromRoute]Guid id, [FromBody] ProductUpdateModel product)
         {

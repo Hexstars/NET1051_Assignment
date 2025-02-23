@@ -28,6 +28,12 @@ namespace Services.Services
             return await _productRepository.GetProductById(id);
         }
 
+        //Lấy sản phẩm theo brand id
+        public async Task<IEnumerable<ProductViewModel>> GetProductsByBrandAsync(Guid? brandId)
+        {
+            return await _productRepository.GetProductsByBrandAsync(brandId);
+        }
+
         public async Task<Product> CreateProductAsync(ProductCreateModel model)
         {
             try
