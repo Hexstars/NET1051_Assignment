@@ -38,13 +38,14 @@ namespace Services.Services
         // Cập nhật danh mục
         public async Task UpdateSizeAsync(Size size)
         {
-            var existingCategory = await _sizeRepository.GetSizeById(size.Id);
+            var existingSize = await _sizeRepository.GetSizeById(size.Id);
 
-            if (existingCategory != null)
+            if (existingSize != null)
             {
-                existingCategory.Name = size.Name;
+                existingSize.Name = size.Name;
+                existingSize.IsActive = size.IsActive;
                 // Cập nhật các trường khác, nếu cần
-                await _sizeRepository.UpdateSize(existingCategory);
+                await _sizeRepository.UpdateSize(existingSize);
             }
         }
 

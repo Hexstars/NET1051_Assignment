@@ -26,8 +26,9 @@ namespace Repository.Repositories
         public async Task AddSize(Size sizes)
         {
             sizes.CreatedDate = DateTime.UtcNow; // Gán ngày tạo
-            sizes.CreatedBy = "System"; // Có thể thay thế bằng tên người tạo từ token nếu cần
-            sizes.IsActive = true; // Mặc định set là active khi mới tạo
+            sizes.CreatedBy = "Admin"; // Có thể thay thế bằng tên người tạo từ token nếu cần
+            sizes.UpdatedBy = "Admin"; // Có thể thay thế bằng tên người tạo từ token nếu cần
+            sizes.UpdatedDate = DateTime.UtcNow;
 
             _context.Sizes.Add(sizes);
             await _context.SaveChangesAsync();
@@ -42,7 +43,8 @@ namespace Repository.Repositories
             {
                 existingSizes.Name = sizes.Name;
                 existingSizes.UpdatedDate = DateTime.UtcNow; // Cập nhật ngày thay đổi
-                existingSizes.UpdatedBy = "System"; // Cập nhật người thay đổi, có thể lấy từ người dùng thực tế
+                existingSizes.UpdatedBy = "Admin"; // Cập nhật người thay đổi, có thể lấy từ người dùng thực tế
+                existingSizes.IsActive = sizes.IsActive;
 
                 _context.Sizes.Update(existingSizes);
                 await _context.SaveChangesAsync();

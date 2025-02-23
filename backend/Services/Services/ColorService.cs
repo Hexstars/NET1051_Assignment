@@ -32,13 +32,14 @@ namespace Services.Services
         // Cập nhật danh mục
         public async Task UpdateColorAsync(Color Color)
         {
-            var existingCategory = await _colorRepository.GetColorById(Color.Id);
+            var existingColor = await _colorRepository.GetColorById(Color.Id);
 
-            if (existingCategory != null)
+            if (existingColor != null)
             {
-                existingCategory.Name = Color.Name;
+                existingColor.Name = Color.Name;
+                existingColor.IsActive = Color.IsActive;
                 // Cập nhật các trường khác, nếu cần
-                await _colorRepository.UpdateColor(existingCategory);
+                await _colorRepository.UpdateColor(existingColor);
             }
         }
 

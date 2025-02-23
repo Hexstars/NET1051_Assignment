@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Entities;
+using Microsoft.AspNetCore.DataProtection.XmlEncryption;
 
 namespace Services.Services
 {
@@ -37,13 +38,15 @@ namespace Services.Services
         // Cập nhật danh mục
         public async Task UpdateMaterialAsync(Material Material)
         {
-            var existingCategory = await _materialRepository.GetMaterialById(Material.Id);
+            var existingMaterial = await _materialRepository.GetMaterialById(Material.Id);
 
-            if (existingCategory != null)
+            if (existingMaterial != null)
             {
-                existingCategory.Name = Material.Name;
+                existingMaterial.Name = Material.Name;
+                existingMaterial.IsActive = Material.IsActive;
+
                 // Cập nhật các trường khác, nếu cần
-                await _materialRepository.UpdateMaterial(existingCategory);
+                await _materialRepository.UpdateMaterial(existingMaterial);
             }
         }
 

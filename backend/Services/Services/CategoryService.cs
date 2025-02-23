@@ -41,6 +41,7 @@ namespace Services.Services
             if (existingCategory != null)
             {
                 existingCategory.Name = category.Name;
+                existingCategory.IsActive = category.IsActive;
                 // Cập nhật các trường khác, nếu cần
                 await _categoryRepository.UpdateCategory(existingCategory);
             }
