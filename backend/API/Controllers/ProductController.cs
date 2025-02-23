@@ -23,7 +23,7 @@ namespace API.Controllers
             var (products, totalCount) = await _productService.GetProductsAsync(currentPage, pageSize);
             return Ok(new { products, totalCount });
         }
-
+            
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProductById(Guid id)
         {

@@ -3,12 +3,44 @@ using Microsoft.EntityFrameworkCore;
 using Persistence;
 using Repository.Repositories.Base;
 using Services.Contracts.Repositories;
+using Services.Models.Product;
 
 namespace Repository.Repositories
 {
     public class CategoryRepository : GeneralRepository<Category, Guid>, ICategoryRepository
     {
         public CategoryRepository(ApplicationDbContext context) : base(context) { }
+
+        public async Task<(IEnumerable<Category> categories, int totalCount)>
+        GetActiveCategories(int currentPage, int pageSize, bool? isActive = null)
+        {
+            int pageIndex = currentPage - 1;
+
+            // Lọc danh mục theo trạng thái nếu có giá trị isActive
+            var query = _context.Categories.AsQueryable();
+            if (isActive.HasValue)
+            {
+                query = query.Where(c => c.IsActive == isActive.Value);
+            }
+
+            // Đếm tổng số danh mục phù hợp
+            int totalCount = await query.CountAsync();
+
+            // Lấy dữ liệu cho trang hiện tại
+            var categories = await query
+                .Skip(pageIndex * pageSize)
+                .Take(pageSize)
+                .Select(c => new Category
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    CreatedDate = c.CreatedDate,
+                    IsActive = c.IsActive
+                })
+                .ToListAsync();
+
+            return (categories, totalCount);
+        }
 
         // Lấy tất cả các danh mục
         public async Task<(List<Category> categories, int TotalCount)> GetCategories(int currentPage, int pageSize)
