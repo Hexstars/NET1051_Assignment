@@ -138,6 +138,33 @@ namespace Repository.Repositories
                 .FirstOrDefaultAsync();
         }
 
+        //Lấy ds sản phẩm theo brand id
+        public async Task<IEnumerable<ProductViewModel>> GetProductsByBrandAsync(Guid? brandId)
+        {
+            var query = _context.Products.AsQueryable();
+
+            if (brandId != null && brandId != Guid.Empty)
+            {
+                query = query.Where(p => p.BrandId == brandId);
+            }
+
+            return await query.Select(p => new ProductViewModel
+            {
+                ProductId = p.Id,
+                ProductName = p.Name,
+                Description = p.Description,
+                ProductImage = p.Image,
+                BasePrice = p.Price,
+                BrandId = p.BrandId,
+                BrandName = p.Brand.Name,
+                CategoryId = p.CategoryId,
+                CategoryName = p.Category.Name,
+                CreatedDate = p.CreatedDate,
+                UpdatedDate = p.UpdatedDate,
+                IsActive = p.IsActive,
+            }).ToListAsync();
+        }
+
         public async Task<Product> CreateProduct(ProductCreateModel model)
         {
             var product = new Product
@@ -185,6 +212,13 @@ namespace Repository.Repositories
             product.IsActive = false;
             await _context.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<IEnumerable<Product>> SearchProductsByNameAsync(string name)
+        {
+            return await _context.Products
+                .Where(p => p.Name.Contains(name) && p.IsActive)
+                .ToListAsync();
         }
     }
 }

@@ -9,6 +9,8 @@ namespace Services.Contracts.Services
         Task<bool> UpdateProductAsync(ProductUpdateModel model);
         Task<Product> CreateProductAsync(ProductCreateModel model);
         Task<ProductViewModel?> GetProductByIdAsync(Guid id);
+        //Lấy danh sách sp theo brand id
+        Task<IEnumerable<ProductViewModel>> GetProductsByBrandAsync(Guid? brandId);
 
         //Task<(IEnumerable<ProductViewModel> products, int totalCount)>
         //    GetProductsAsync(int currentPage, int pageSize);

@@ -34,6 +34,12 @@ namespace Services.Services
             return await _productRepository.GetProductById(id);
         }
 
+        //Lấy sản phẩm theo brand id
+        public async Task<IEnumerable<ProductViewModel>> GetProductsByBrandAsync(Guid? brandId)
+        {
+            return await _productRepository.GetProductsByBrandAsync(brandId);
+        }
+
         public async Task<Product> CreateProductAsync(ProductCreateModel model)
         {
             try
@@ -98,6 +104,11 @@ namespace Services.Services
         public async Task<bool> DeleteProductAsync(Guid productId)
         {
             return await _productRepository.DeleteProduct(productId);
+        }
+
+        public async Task<IEnumerable<Product>> SearchProductsByNameAsync(string name)
+        {
+            return await _productRepository.SearchProductsByNameAsync(name);
         }
     }
 }

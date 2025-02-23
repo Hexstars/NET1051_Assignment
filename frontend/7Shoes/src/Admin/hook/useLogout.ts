@@ -2,11 +2,14 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ACCOUNT_BASE_URL } from "../components/api/constants";
 import Swal from "sweetalert2";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../store/reducers/auth";
 
 const useLogout = () => {
   const navigate = useNavigate();
 
-  const handleLogout = async () => {
+    const dispatch = useDispatch();
+    const handleLogout = async () => {
     try {
       const response = await axios.get(`${ACCOUNT_BASE_URL}logout`, {
         headers: {
@@ -15,7 +18,8 @@ const useLogout = () => {
         },
         withCredentials: true,
       });
-
+      localStorage.removeItem("userInfo");
+        dispatch(logout());
       if (response.status === 200) {
         Swal.fire({
           title: "Logout Successful!",
