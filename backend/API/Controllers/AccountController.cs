@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Domain.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Services.Contracts.Services;
 using Services.Models.Account;
@@ -16,10 +18,13 @@ namespace API.Controllers
         private readonly IAccountService _accountService;
         private readonly IConfiguration _configuration;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public AccountController(IAccountService accountService, IConfiguration configuration)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public AccountController(IAccountService accountService, IConfiguration configuration, UserManager<ApplicationUser> userManager)
         {
             _accountService = accountService;
             _configuration = configuration;
+            _userManager = userManager;
         }
 
         [HttpPost("login")]
@@ -32,13 +37,19 @@ namespace API.Controllers
                 var result = await _accountService.Login(request);
                 if (result != null)
                 {
+                    var userRoles = await _userManager.GetRolesAsync(result); // Get assigned roles
                     var authClaims = new List<Claim>
                     {
                         new Claim(ClaimTypes.NameIdentifier, result.Id.ToString()),
                         new Claim(ClaimTypes.Sid, result.Id.ToString()),
                         new Claim(ClaimTypes.Name, result.UserName!),
-                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                     };
+
+                    // Add roles to claims
+                    foreach (var role in userRoles)
+                    {
+                        authClaims.Add(new Claim(ClaimTypes.Role, role));
+                    }
 
                     var token = GenerateJwtToken(authClaims);
                     var loginInfo = new LoginResponseModel
@@ -46,6 +57,7 @@ namespace API.Controllers
                         Id = result.Id.ToString(),
                         UserName = result.UserName!,
                         Token = token,
+                        Roles = userRoles.ToList()
                     };
                     return Ok(loginInfo);
                 }
