@@ -221,7 +221,7 @@ const ProductEditForm = ({ isOpen, fetchProduct, onClose, currentData}: ProductE
                                 <option value="active">Active</option>
                                 <option value="inactive">Inactive</option>
                             </select>
-                        </div>
+                        </div>  
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" onClick={onClose}>

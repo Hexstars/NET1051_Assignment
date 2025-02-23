@@ -26,7 +26,7 @@ export default function BlogDetails(){
                     <div className="row d-flex justify-content-center">
                         <div className="col-lg-12">
                             <div className="blog__details__pic">
-                                <img src="/Client/assets/img/blog/details/blog-details.jpg" alt=""/>
+                                <img src="/Client/assets/img/blog/details/background2.jpg" alt=""/>
                             </div>
                         </div>
                         <div className="col-lg-8">

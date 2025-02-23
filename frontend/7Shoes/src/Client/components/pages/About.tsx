@@ -7,7 +7,7 @@ export default function About(){
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="about__pic">
-                                <img src="/Client/assets/img/about/about-us.jpg" alt="" />
+                                <img src="/Client/assets/img/about/nike.jpg" alt="" />
                             </div>
                         </div>
                     </div>
@@ -38,76 +38,8 @@ export default function About(){
             </section>
             {/* <!-- About Section End --> */}
 
-            {/* <!-- Testimonial Section Begin --> */}
-            <section className="testimonial">
-                <div className="container-fluid">
-                    <div className="row">
-                        <div className="col-lg-6 p-0">
-                            <div className="testimonial__text">
-                                <span className="icon_quotations"></span>
-                                <p>“Going out after work? Take your butane curling iron with you to the office, heat it up,
-                                    style your hair before you leave the office and you won’t have to make a trip back home.”
-                                </p>
-                                <div className="testimonial__author">
-                                    <div className="testimonial__author__pic">
-                                        <img src="/Client/assets/img/about/testimonial-author.jpg" alt=""/>
-                                    </div>
-                                    <div className="testimonial__author__text">
-                                        <h5>Augusta Schultz</h5>
-                                        <p>Fashion Design</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-6 p-0">
-                            <div className="testimonial__pic set-bg" data-setbg="img/about/testimonial-pic.jpg"></div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            {/* <!-- Testimonial Section End --> */}
 
-            {/* <!-- Counter Section Begin --> */}
-            <section className="counter spad">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-lg-3 col-md-6 col-sm-6">
-                            <div className="counter__item">
-                                <div className="counter__item__number">
-                                    <h2 className="cn_num">102</h2>
-                                </div>
-                                <span>Our <br />Clients</span>
-                            </div>
-                        </div>
-                        <div className="col-lg-3 col-md-6 col-sm-6">
-                            <div className="counter__item">
-                                <div className="counter__item__number">
-                                    <h2 className="cn_num">30</h2>
-                                </div>
-                                <span>Total <br />Categories</span>
-                            </div>
-                        </div>
-                        <div className="col-lg-3 col-md-6 col-sm-6">
-                            <div className="counter__item">
-                                <div className="counter__item__number">
-                                    <h2 className="cn_num">102</h2>
-                                </div>
-                                <span>In <br />Country</span>
-                            </div>
-                        </div>
-                        <div className="col-lg-3 col-md-6 col-sm-6">
-                            <div className="counter__item">
-                                <div className="counter__item__number">
-                                    <h2 className="cn_num">98</h2>
-                                    <strong>%</strong>
-                                </div>
-                                <span>Happy <br />Customer</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            {/* <!-- Counter Section End --> */}
+
 
             {/* <!-- Team Section Begin --> */}
             <section className="team spad">
@@ -123,30 +55,51 @@ export default function About(){
                     <div className="row">
                         <div className="col-lg-3 col-md-6 col-sm-6">
                             <div className="team__item">
-                                <img src="/Client/assets/img/about/team-1.jpg" alt="" />
-                                <h4>John Smith</h4>
-                                <span>Fashion Design</span>
+                                <img src="/Client/assets/img/about/person-2.jpg" alt="" style={{height: "20rem"}}/>
+                                <h4>Ly Bao Hoang</h4>
+                                <span>Leader</span>
                             </div>
                         </div>
                         <div className="col-lg-3 col-md-6 col-sm-6">
                             <div className="team__item">
-                                <img src="/Client/assets/img/about/team-2.jpg" alt=""/>
-                                <h4>Christine Wise</h4>
-                                <span>C.E.O</span>
+                                <img src="/Client/assets/img/about/person-7.jpg" alt="" style={{height: "20rem"}}/>
+                                <h4>Nguyen Tuan Hung</h4>
+                                <span>Member</span>
                             </div>
                         </div>
                         <div className="col-lg-3 col-md-6 col-sm-6">
                             <div className="team__item">
-                                <img src="/Client/assets/img/about/team-3.jpg" alt="" />
-                                <h4>Sean Robbins</h4>
-                                <span>Manager</span>
+                                <img src="/Client/assets/img/about/person-1.jpg" alt="" style={{height: "20rem"}}/>
+                                <h4>Nguyen Duy Thanh</h4>
+                                <span>Member</span>
                             </div>
                         </div>
                         <div className="col-lg-3 col-md-6 col-sm-6">
                             <div className="team__item">
-                                <img src="/Client/assets/img/about/team-4.jpg" alt="" />
-                                <h4>Lucy Myers</h4>
-                                <span>Delivery</span>
+                                <img src="/Client/assets/img/about/person-3.jpg" alt="" style={{height: "20rem"}}/>
+                                <h4>Tran Nguyen Chi Bao</h4>
+                                <span>Member</span>
+                            </div>
+                        </div>
+                        <div className="col-lg-3 col-md-6 col-sm-6">
+                            <div className="team__item">
+                                <img src="/Client/assets/img/about/person-5.jpg" alt="" style={{height: "20rem"}}/>
+                                <h4>Mai Duc Anh Tuan</h4>
+                                <span>Member</span>
+                            </div>
+                        </div>
+                        <div className="col-lg-3 col-md-6 col-sm-6">
+                            <div className="team__item">
+                                <img src="/Client/assets/img/about/person-6.jpg" alt="" style={{height: "20rem"}}/>
+                                <h4>Nguyen Anh Tuan</h4>
+                                <span>Member</span>
+                            </div>
+                        </div>
+                        <div className="col-lg-3 col-md-6 col-sm-6">
+                            <div className="team__item">
+                                <img src="/Client/assets/img/about/person-4.jpg" alt="" style={{height: "20rem"}}/>
+                                <h4>Nguyen Tran Nhut Nam</h4>
+                                <span>Member</span>
                             </div>
                         </div>
                     </div>

@@ -7,7 +7,7 @@ import ProductAddForm from "../elements/Products/ProductAddForm";
 import ProductEditForm from "../elements/Products/ProductEditForm";
 
 const Product = () => {
-    // Khai báo state để lưu trữ danh sách thương hiệu và thông tin thương hiệu hiện tại
+    // Khai báo state để lưu trữ danh sách sp và thông tin sp hiện tại
     const [Products, setProducts] = useState<ProductForViews[]>([]);
     const [currentData, setCurrentData] = useState<ProductForViews>({} as ProductForViews);
     const [brands] = useState<{ id: string; name: string }[]>([]);
@@ -96,8 +96,8 @@ const Product = () => {
                     <th className="text-center text-white bg-dark">Mã sản phẩm</th>
                     <th className="text-center text-white bg-dark">Tên sản phẩm</th>
                     <th className="text-center text-white bg-dark">Giá</th>
-                    <th className="text-center text-white bg-dark">Tên hãng</th>
-                    <th className="text-center text-white bg-dark">Loại sản phẩm</th>
+                    <th className="text-center text-white bg-dark">Hãng</th>
+                    <th className="text-center text-white bg-dark">Loại</th>
                     <th className="text-center text-white bg-dark">Hình ảnh</th>
                     <th className="text-center text-white bg-dark">Ngày thêm</th>
                     <th className="text-center text-white bg-dark">Trạng thái</th>
