@@ -10,6 +10,7 @@ namespace Services.Contracts.Repositories
 {
     public interface ISizeRepository : IGeneralRepository<Size, Guid>
     {
+        Task<(IEnumerable<Size> sizes, int totalCount)> GetActiveSizes(int currentPage, int pageSize, bool? isActive = null);
         Task<List<Size>> GetSizes();
         Task<Size> GetSizeById(Guid id);
         Task AddSize(Size size);

@@ -12,46 +12,98 @@ namespace Repository.Repositories
         public ProductRepository(ApplicationDbContext context) : base(context) { }
 
         public async Task<(IEnumerable<ProductViewModel> products, int TotalCount)>
-            GetProductsWithItems(int currentPage, int pageSize)
+        GetProductsWithItems(int currentPage, int pageSize, bool? isActive = null)
         {
             int pageIndex = currentPage - 1;
 
-            // Đếm tổng số sản phẩm để tính số trang
-            int totalCount = await _context.Products.CountAsync();
+            // Lọc sản phẩm theo trạng thái nếu có giá trị isActive
+            var query = _context.Products.AsQueryable();
+            if (isActive.HasValue)
+            {
+                query = query.Where(p => p.IsActive == isActive.Value);
+            }
+
+            // Đếm tổng số sản phẩm phù hợp
+            int totalCount = await query.CountAsync();
 
             // Lấy dữ liệu cho trang hiện tại
-            var listProducts = _context.Products
-            .Where(p => p.IsActive) // Chỉ lấy sản phẩm đang hoạt động
-            .Select(p => new ProductViewModel
-            {
-                ProductId = p.Id,
-                ProductName = p.Name,
-                Description = p.Description,
-                ProductImage = p.Image,
-                BasePrice = p.Price,
-                BrandId = p.BrandId,
-                BrandName = p.Brand.Name,
-                CategoryId = p.CategoryId,
-                CategoryName = p.Category.Name,
-                CreatedDate = p.CreatedDate,
-                UpdatedDate = p.UpdatedDate,
-                IsActive = p.IsActive,
-                ProductItems = _context.ProductItems
-                    .Where(pi => pi.ProductId == p.Id && pi.IsActive)
-                    .Select(pi => new ProductItemModel
-                    {
-                        ProductItemId = pi.Id,
-                        SKU = pi.SKU,
-                        Price = pi.Price,
-                        Image = pi.Image,
-                        Color = pi.Color != null ? pi.Color.Name : "N/A",
-                        Size = pi.Size != null ? pi.Size.Name : "N/A",
-                        Material = pi.Material != null ? pi.Material.Name : "N/A"
-                    }).ToList()
-            })
-            .ToList();
+            var listProducts = await query
+                .Skip(pageIndex * pageSize)
+                .Take(pageSize)
+                .Select(p => new ProductViewModel
+                {
+                    ProductId = p.Id,
+                    ProductName = p.Name,
+                    Description = p.Description,
+                    ProductImage = p.Image,
+                    BasePrice = p.Price,
+                    BrandId = p.BrandId,
+                    BrandName = p.Brand.Name,
+                    CategoryId = p.CategoryId,
+                    CategoryName = p.Category.Name,
+                    CreatedDate = p.CreatedDate,
+                    UpdatedDate = p.UpdatedDate,
+                    IsActive = p.IsActive,
+                    ProductItems = _context.ProductItems
+                        .Where(pi => pi.ProductId == p.Id && (!isActive.HasValue || pi.IsActive == isActive.Value))
+                        .Select(pi => new ProductItemModel
+                        {
+                            ProductItemId = pi.Id,
+                            SKU = pi.SKU,
+                            Price = pi.Price,
+                            Image = pi.Image,
+                            Color = pi.Color != null ? pi.Color.Name : "N/A",
+                            Size = pi.Size != null ? pi.Size.Name : "N/A",
+                            Material = pi.Material != null ? pi.Material.Name : "N/A"
+                        }).ToList()
+                })
+                .ToListAsync();
+
             return (listProducts, totalCount);
         }
+
+        //public async Task<(IEnumerable<ProductViewModel> products, int TotalCount)>
+        //GetProductsWithItems(int currentPage, int pageSize)
+        //{
+        //    int pageIndex = currentPage - 1;
+
+        //    // Đếm tổng số sản phẩm để tính số trang
+        //    int totalCount = await _context.Products.CountAsync();
+
+        //    // Lấy dữ liệu cho trang hiện tại
+        //    var listProducts = _context.Products
+        //    .Where(p => p.IsActive) // Chỉ lấy sản phẩm đang hoạt động
+        //    .Select(p => new ProductViewModel
+        //    {
+        //        ProductId = p.Id,
+        //        ProductName = p.Name,
+        //        Description = p.Description,
+        //        ProductImage = p.Image,
+        //        BasePrice = p.Price,
+        //        BrandId = p.BrandId,
+        //        BrandName = p.Brand.Name,
+        //        CategoryId = p.CategoryId,
+        //        CategoryName = p.Category.Name,
+        //        CreatedDate = p.CreatedDate,
+        //        UpdatedDate = p.UpdatedDate,
+        //        IsActive = p.IsActive,
+        //        ProductItems = _context.ProductItems
+        //            .Where(pi => pi.ProductId == p.Id && pi.IsActive)
+        //            .Select(pi => new ProductItemModel
+        //            {
+        //                ProductItemId = pi.Id,
+        //                SKU = pi.SKU,
+        //                Price = pi.Price,
+        //                Image = pi.Image,
+        //                Color = pi.Color != null ? pi.Color.Name : "N/A",
+        //                Size = pi.Size != null ? pi.Size.Name : "N/A",
+        //                Material = pi.Material != null ? pi.Material.Name : "N/A"
+        //            }).ToList()
+        //    })
+        //    .ToList();
+        //    return (listProducts, totalCount);
+        //}
+
         public async Task<ProductViewModel?> GetProductById(Guid id)
         {
             return await _context.Products

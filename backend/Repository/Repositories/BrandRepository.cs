@@ -15,6 +15,37 @@ namespace Repository.Repositories
     {
         public BrandRepository(ApplicationDbContext context) : base(context) { }
 
+        public async Task<(IEnumerable<Brand> brands, int totalCount)>
+        GetActiveBrands(int currentPage, int pageSize, bool? isActive = null)
+        {
+            int pageIndex = currentPage - 1;
+
+            // Lọc danh mục theo trạng thái nếu có giá trị isActive
+            var query = _context.Categories.AsQueryable();
+            if (isActive.HasValue)
+            {
+                query = query.Where(c => c.IsActive == isActive.Value);
+            }
+
+            // Đếm tổng số danh mục phù hợp
+            int totalCount = await query.CountAsync();
+
+            // Lấy dữ liệu cho trang hiện tại
+            var brands = await query
+                .Skip(pageIndex * pageSize)
+                .Take(pageSize)
+                .Select(c => new Brand
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    CreatedDate = c.CreatedDate,
+                    IsActive = c.IsActive
+                })
+                .ToListAsync();
+
+            return (brands, totalCount);
+        }
+
         // Lấy tất cả các danh mục
         public async Task<List<Brand>> GetBrands()
         {

@@ -15,6 +15,39 @@ namespace Repository.Repositories
     {
         public MaterialRepository(ApplicationDbContext context) : base(context) { }
 
+
+        public async Task<(IEnumerable<Material> materials, int totalCount)>
+        GetActiveMaterials(int currentPage, int pageSize, bool? isActive = null)
+        {
+            int pageIndex = currentPage - 1;
+
+            // Lọc danh mục theo trạng thái nếu có giá trị isActive
+            var query = _context.Colors.AsQueryable();
+            if (isActive.HasValue)
+            {
+                query = query.Where(c => c.IsActive == isActive.Value);
+            }
+
+            // Đếm tổng số danh mục phù hợp
+            int totalCount = await query.CountAsync();
+
+            // Lấy dữ liệu cho trang hiện tại
+            var materials = await query
+                .Skip(pageIndex * pageSize)
+                .Take(pageSize)
+                .Select(c => new Material
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    CreatedDate = c.CreatedDate,
+                    IsActive = c.IsActive
+                })
+                .ToListAsync();
+
+            return (materials, totalCount);
+        }
+
+
         // Lấy tất cả các danh mục
         public async Task<List<Material>> GetMaterials()
         {
