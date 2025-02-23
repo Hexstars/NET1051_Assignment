@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Contracts.Services;
 using Services.Models.Product;
@@ -33,6 +34,20 @@ namespace API.Controllers
             return Ok(product);
         }
 
+        //Lấy danh sách sản phẩm theo Brand Id
+        [HttpGet("by-brand/{brandId}")]
+        public async Task<IActionResult> GetProductsByBrand(Guid brandId)
+        {
+            var products = await _productService.GetProductsByBrandAsync(brandId);
+
+            if (products == null || !products.Any())
+            {
+                return NotFound(new { message = "Không tìm thấy sản phẩm cho thương hiệu này." });
+            }
+
+            return Ok(products);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateProduct([FromBody] ProductCreateModel model)
         {
@@ -43,8 +58,7 @@ namespace API.Controllers
             return CreatedAtAction(nameof(GetProductById), new { id = newProduct.Id }, newProduct);
         }
 
-
-        
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProduct([FromRoute]Guid id, [FromBody] ProductUpdateModel product)
         {
@@ -61,6 +75,7 @@ namespace API.Controllers
         /// <summary>
         /// Xóa sản phẩm (Xóa mềm).
         /// </summary>
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(Guid id)
         {

@@ -1,3 +1,4 @@
+import axios from "axios";
 import api from "./api";
 
 export interface ProductForViews {
@@ -43,17 +44,20 @@ const add = (data: ProductForViews) => api.post<ProductForViews>(api.url.product
 // Cập nhật sản phẩm
 const update = (id: string, data: ProductForViews) => api.put<ProductForViews>(`${api.url.products}/${id}`, data).then(response => response.data);
 
-
 // Xóa sản phẩm
 const remove = (id: string) => api.delete<ProductForViews>(`${api.url.products}/${id}`).then(response => response.data);
 
-
+//Lấy ds sán phẩm theo brand id
+const getProductsByBrandId = (brandId: string) => {
+    return api.get(`${api.url.products}/by-brand/${brandId}`).then(res => res.data);
+};
 const productService = {
     getAll,
     getById,
     add,
     update,
     remove,
+    getProductsByBrandId
 };
 
 export default productService;

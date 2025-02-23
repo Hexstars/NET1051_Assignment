@@ -11,11 +11,14 @@ namespace Services.Services
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ICartService _cartService;
-        public AccountService(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ICartService cartService)
+        private readonly RoleManager<ApplicationRole> _roleManager;
+
+        public AccountService(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ICartService cartService, RoleManager<ApplicationRole> roleManager)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _cartService = cartService;
+            _roleManager = roleManager;
         }
 
         public async Task<ApplicationUser> GetUserDetails(string userId)
@@ -54,7 +57,7 @@ namespace Services.Services
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);
-            
+
             if (result.Succeeded)
             {
 
@@ -78,6 +81,24 @@ namespace Services.Services
                 //}
 
                 //await _signInManager.SignInAsync(user, isPersistent: false);
+
+
+                string roleName = "User";
+
+                var roleExists = await _roleManager.RoleExistsAsync(roleName);
+                if (!roleExists)
+                {
+                    var role = new ApplicationRole
+                    {
+                        Name = roleName,
+                        NormalizedName = roleName.ToUpper(),
+                        ConcurrencyStamp = Guid.NewGuid().ToString()
+                    };
+
+                    await _roleManager.CreateAsync(role);
+                }
+
+                await _userManager.AddToRoleAsync(user, roleName);
                 await _cartService.CreateCart(user);
                 return (true, new List<string>());
             }

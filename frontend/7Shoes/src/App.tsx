@@ -1,11 +1,12 @@
 import { Route, Routes } from "react-router-dom";
-import AdminLogin from "./Admin/layouts/pages/Authentication/Login";
+import AdminLogin from "./Admin/layouts/pages/Authentication/LogIn";
 import AdminLayout from "./Admin/layouts/pages/home/AdminLayout";
 import DashBoard from "./Admin/components/pages/DashBoard";
 import Category from "./Admin/components/pages/Category";
 import Order from "./Admin/components/pages/Order";
 import Product from "./Admin/components/pages/Product";
 import Customer from "./Admin/components/pages/Customer";
+import NoPermission from "./Admin/components/pages/NoPermission";
 
 import UserLogin from "./Client/layouts/pages/Authentication/Login";
 import Register from "./Client/layouts/pages/Authentication/Register";
@@ -44,6 +45,7 @@ export default function App() {
         <Route path="product" element={<Product />} />
         <Route path="order" element={<Order />} />
         <Route path="customer" element={<Customer />} />
+        <Route path="no-permission" element={<NoPermission/>}/>
       </Route>
 
       {/*Các route nằm trong Client*/}
