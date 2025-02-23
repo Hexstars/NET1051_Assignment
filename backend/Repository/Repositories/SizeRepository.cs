@@ -16,7 +16,7 @@ namespace Repository.Repositories
             int pageIndex = currentPage - 1;
 
             // Lọc danh mục theo trạng thái nếu có giá trị isActive
-            var query = _context.Colors.AsQueryable();
+            var query = _context.Sizes.AsQueryable();
             if (isActive.HasValue)
             {
                 query = query.Where(c => c.IsActive == isActive.Value);

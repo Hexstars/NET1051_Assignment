@@ -29,7 +29,7 @@ namespace API.Controllers
             var (categories, totalCount) = await _categoryService.GetActiveCategories(currentPage, pageSize, IsActive);
             return Ok(new { categories, totalCount });
         }
-
+                                                                
         // GET: api/category
         //[HttpGet]
         //public async Task<ActionResult<IEnumerable<Category>>> GetCategories(int currentPage = 1)

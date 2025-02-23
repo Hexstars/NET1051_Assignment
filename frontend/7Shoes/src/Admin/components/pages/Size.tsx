@@ -42,8 +42,8 @@ const Size = () => {
       sizeService.getAll()
           .then((res) => {
               console.log("Sizes data:", res);
-              if (res && Array.isArray(res)) {
-                  setSizes(res);
+              if (res && Array.isArray(res.sizes)) {
+                  setSizes(res.sizes);
               } else {
                   console.error("API did not return an array:", res);
                   setSizes([]);
