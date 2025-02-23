@@ -33,9 +33,9 @@ export default function ShopDetails() {
                                             src={product.productImage || "/default-image.jpg"} 
                                             alt={product.productName}
                                             style={{
-                                                maxWidth: "80%",  // Giới hạn chiều rộng ảnh
-                                                maxHeight: "300px", // Giới hạn chiều cao ảnh
-                                                objectFit: "contain", // Giữ nguyên tỷ lệ ảnh
+                                                maxWidth: "80%",
+                                                maxHeight: "300px",
+                                                objectFit: "contain",
                                                 borderRadius: "10px"
                                             }} 
                                         />

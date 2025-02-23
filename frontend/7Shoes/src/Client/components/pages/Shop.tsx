@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import productService, { ProductForViews } from "../../../Admin/services/productService";
+import { Link } from "react-router-dom";
 
 const Shop = () => {
     const [Products, setProducts] = useState<ProductForViews[]>([]);
@@ -230,7 +231,10 @@ const Shop = () => {
                                             <span className="label">New</span>
                                             <ul className="product__hover">
                                                 <li>
-                                                    <a href="#"><img src="/Client/assets/img/icon/search.png" alt=""/><span>Detail</span></a>
+                                                    <Link to={`/shop-details/${product.productId}`}>
+                                                        <img src="/Client/assets/img/icon/search.png" alt=""/>
+                                                        <span>Detail</span>
+                                                    </Link>                                               
                                                 </li>
                                                 <li>
                                                     <a href="#"><img src="/Client/assets/img/icon/pay.png" style={{ width: "35px" }} alt=""/><span>Buy now</span></a>
