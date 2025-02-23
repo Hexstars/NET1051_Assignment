@@ -16,6 +16,5 @@ namespace Services.Contracts.Repositories
         Task<Product> CreateProduct(ProductCreateModel model);
         Task<bool> UpdateProduct(ProductUpdateModel model);
         Task<bool> DeleteProduct(Guid productId);
-        Task<IEnumerable<Product>> SearchProductsByNameAsync(string name);
     }
 }

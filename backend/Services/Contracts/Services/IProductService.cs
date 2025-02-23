@@ -13,11 +13,6 @@ namespace Services.Contracts.Services
         //Task<(IEnumerable<ProductViewModel> products, int totalCount)>
         //    GetProductsAsync(int currentPage, int pageSize);
         Task<(IEnumerable<ProductViewModel> products, int totalCount)>
-<<<<<<< HEAD
         GetProductsAsync(int currentPage, int pageSize, bool? isActive = null);
-=======
-            GetProductsAsync(int currentPage, int pageSize);
-        Task<IEnumerable<Product>> SearchProductsByNameAsync(string name);
->>>>>>> 1fdac32 (Tìm kiếm sản phẩm theo tên (backend , frontend))
     }
 }

@@ -99,10 +99,5 @@ namespace Services.Services
         {
             return await _productRepository.DeleteProduct(productId);
         }
-
-        public async Task<IEnumerable<Product>> SearchProductsByNameAsync(string name)
-        {
-            return await _productRepository.SearchProductsByNameAsync(name);
-        }
     }
 }

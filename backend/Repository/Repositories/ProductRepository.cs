@@ -186,12 +186,5 @@ namespace Repository.Repositories
             await _context.SaveChangesAsync();
             return true;
         }
-
-        public async Task<IEnumerable<Product>> SearchProductsByNameAsync(string name)
-        {
-            return await _context.Products
-                .Where(p => p.Name.Contains(name) && p.IsActive)
-                .ToListAsync();
-        }
     }
 }

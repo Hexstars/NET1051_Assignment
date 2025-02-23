@@ -70,15 +70,5 @@ namespace API.Controllers
 
             return NoContent();
         }
-        [HttpGet("search")]
-        public async Task<IActionResult> SearchProducts([FromQuery] string name)
-        {
-            var products = await _productService.SearchProductsByNameAsync(name);
-            if (products == null || !products.Any())
-            {
-                return NotFound("Không tìm thấy sản phẩm nào.");
-            }
-            return Ok(products);
-        }
     }
 }
