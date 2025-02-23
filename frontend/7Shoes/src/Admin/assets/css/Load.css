@@ -1,0 +1,15 @@
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    z-index: 9999;
+  }

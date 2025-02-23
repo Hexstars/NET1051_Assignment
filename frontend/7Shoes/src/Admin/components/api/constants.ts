@@ -1,0 +1,1 @@
+export const ACCOUNT_BASE_URL = "https://localhost:7043/api/Account/"
