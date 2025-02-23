@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Contracts.Services;
 using Services.Models.Product;
@@ -33,6 +34,7 @@ namespace API.Controllers
             return Ok(product);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateProduct([FromBody] ProductCreateModel model)
         {
@@ -43,8 +45,7 @@ namespace API.Controllers
             return CreatedAtAction(nameof(GetProductById), new { id = newProduct.Id }, newProduct);
         }
 
-
-        
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProduct([FromRoute]Guid id, [FromBody] ProductUpdateModel product)
         {
@@ -61,6 +62,7 @@ namespace API.Controllers
         /// <summary>
         /// Xóa sản phẩm (Xóa mềm).
         /// </summary>
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(Guid id)
         {

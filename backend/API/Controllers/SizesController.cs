@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 using Persistence;
 using Services.Contracts.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class SizesController : ControllerBase

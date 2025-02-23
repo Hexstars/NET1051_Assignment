@@ -92,7 +92,7 @@ namespace API.Controllers
 
             if (success)
             {
-                return Ok(new { message = "Registration successful" });
+                return Ok();
             }
 
             // Trả về lỗi

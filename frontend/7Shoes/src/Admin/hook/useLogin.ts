@@ -2,9 +2,12 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser, validateLogin, LoginData, ValidationErrors } from "../services/authService";
 import Swal from "sweetalert2";
+import { logout } from "../../store/reducers/auth";
+import { useDispatch, useSelector } from "react-redux";
 
 export function useLogin() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // State quản lý dữ liệu người dùng và lỗi
   const [user, setUser] = useState<LoginData>({
@@ -34,20 +37,35 @@ export function useLogin() {
     try {
       const response = await loginUser(user);
       if (response.status === 200 || response.status === 201) {
+        const userInfo = response.data;
+        localStorage.setItem("userInfo", JSON.stringify(userInfo)); // Lưu thông tin user
+
+        if (!userInfo.roles.includes("Admin")) {
+          Swal.fire({
+            title: "Access Denied!",
+            text: "Bạn không có quyền truy cập Admin.",
+            icon: "warning",
+          }).then(() => {
+            localStorage.removeItem("userInfo");
+            dispatch(logout());
+          });
+          return;
+        }
+
         Swal.fire({
           title: "Login Successful!",
           text: "Welcome back!",
           icon: "success",
           timer: 1500,
-          showConfirmButton: false
+          showConfirmButton: false,
         }).then(() => {
-          navigate("/admin");
+          navigate("/admin"); // Chuyển hướng nếu là Admin
         });
       } else {
         Swal.fire({
           title: "Login Failed!",
           text: "Invalid email or password.",
-          icon: "error"
+          icon: "error",
         });
       }
     } catch (error: any) {
@@ -55,7 +73,7 @@ export function useLogin() {
       Swal.fire({
         title: "Login Error",
         text: error.response?.data?.message || "An error occurred. Please try again.",
-        icon: "error"
+        icon: "error",
       });
     }
   };

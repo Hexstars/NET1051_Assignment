@@ -1,10 +1,19 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 import { loadAdminAssets } from "../../../hook/useDynamicAssets";
 import SideBar from "../../SideBar";
 import NavBar from "../../NavBar";
 
 export default function AdminLayout() {
-  //hàm kiểm tra assets đã load hay chưa
+  // Lấy thông tin người dùng từ localStorage
+  const userData = localStorage.getItem("userInfo");
+  const user = userData ? JSON.parse(userData) : null;
+
+  // Kiểm tra nếu user không tồn tại hoặc không có quyền Admin
+  if (!user || !user.roles.includes("Admin")) {
+    return <Navigate to="/no-permission" replace />;
+  }
+
+  // Kiểm tra assets đã tải hay chưa
   const assetsLoaded = loadAdminAssets();
   if (!assetsLoaded) {
     return (
