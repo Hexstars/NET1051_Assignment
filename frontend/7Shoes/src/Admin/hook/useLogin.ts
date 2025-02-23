@@ -4,6 +4,7 @@ import { loginUser, validateLogin, LoginData, ValidationErrors } from "../servic
 import Swal from "sweetalert2";
 import { logout } from "../../store/reducers/auth";
 import { useDispatch, useSelector } from "react-redux";
+import { login }  from "../../store/reducers/auth";
 
 export function useLogin() {
   const navigate = useNavigate();
@@ -59,7 +60,8 @@ export function useLogin() {
           timer: 1500,
           showConfirmButton: false,
         }).then(() => {
-          navigate("/admin"); // Chuyển hướng nếu là Admin
+          dispatch(login({ token: response.data.token, userInfo: response.data }));
+          navigate("/admin"); // Chuyển hướng
         });
       } else {
         Swal.fire({
