@@ -14,7 +14,7 @@ export interface BrandForViews {
 //Hiển thị danh sách brand
 const getAll = () => api.get<{
     data(data: any): void | PromiseLike<void>; brands: BrandForViews[] 
-}>(api.url.brands).then(response => response.data);
+}>(api.url.brands).then(response => response.data.brands);
 
 //Lấy brands theo id
 const getById = (id: string) => api.get<BrandForViews>(`${api.url.brands}/${id}`).then(res => res.data); 
