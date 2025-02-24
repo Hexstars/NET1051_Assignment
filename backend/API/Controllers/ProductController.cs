@@ -19,9 +19,9 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProducts([FromQuery] int currentPage = 1, [FromQuery] int pageSize = 10)
+        public async Task<IActionResult> GetProducts([FromQuery] int currentPage = 1, [FromQuery] int pageSize = 5, [FromQuery] bool? IsActive = null)
         {
-            var (products, totalCount) = await _productService.GetProductsAsync(currentPage, pageSize);
+            var (products, totalCount) = await _productService.GetProductsAsync(currentPage, pageSize, IsActive);
             return Ok(new { products, totalCount });
         }
             

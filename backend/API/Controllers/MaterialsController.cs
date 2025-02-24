@@ -13,7 +13,7 @@ using Services.Services;
 
 namespace API.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class MaterialsController : ControllerBase
@@ -26,7 +26,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetActiveMaterials([FromQuery] int currentPage = 1, [FromQuery] int pageSize = 10, [FromQuery] bool? IsActive = null)
+        public async Task<IActionResult> GetActiveMaterials([FromQuery] int currentPage = 1, [FromQuery] int pageSize = 6, [FromQuery] bool? IsActive = null)
         {
             var (materials, totalCount) = await _materialService.GetActiveMaterials(currentPage, pageSize, IsActive);
             return Ok(new { materials, totalCount });

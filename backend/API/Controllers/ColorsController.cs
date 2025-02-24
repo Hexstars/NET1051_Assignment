@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class ColorsController : ControllerBase
@@ -25,10 +25,10 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetActiveColors([FromQuery] int currentPage = 1, [FromQuery] int pageSize = 10, [FromQuery] bool? IsActive = null)
+        public async Task<IActionResult> GetActiveColors([FromQuery] int currentPage = 1, [FromQuery] int pageSize = 6, [FromQuery] bool? IsActive = null)
         {
-            var (sizes, totalCount) = await _colorService.GetActiveColors(currentPage, pageSize, IsActive);
-            return Ok(new { sizes, totalCount });
+            var (colors, totalCount) = await _colorService.GetActiveColors(currentPage, pageSize, IsActive);
+            return Ok(new { colors, totalCount });
         }
 
         // GET: api/Color

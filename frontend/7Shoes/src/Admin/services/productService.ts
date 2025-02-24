@@ -51,13 +51,21 @@ const remove = (id: string) => api.delete<ProductForViews>(`${api.url.products}/
 const getProductsByBrandId = (brandId: string) => {
     return api.get(`${api.url.products}/by-brand/${brandId}`).then(res => res.data);
 };
+
+const getList = (currentPage: number, pageSize: number, isActive?: boolean | null) => 
+    api.get<{ products: ProductForViews[]; totalCount: number }>(
+        api.url.products, 
+        { params: { currentPage, pageSize, isActive } }
+    ).then(response => response.data);
+
 const productService = {
     getAll,
     getById,
     add,
     update,
     remove,
-    getProductsByBrandId
+    getProductsByBrandId,
+    getList
 };
 
 export default productService;

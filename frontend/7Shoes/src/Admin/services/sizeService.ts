@@ -26,12 +26,19 @@ const update = (id: string, data: SizeForViews) => api.put<SizeForViews>(`${api.
 //Xóa size
 const remove = (id: string) => api.delete<SizeForViews>(`${api.url.sizes}/${id}`).then(response => response.data);
 
+const getList = (currentPage: number, pageSize: number, isActive?: boolean | null) => 
+    api.get<{ sizes: SizeForViews[]; totalCount: number }>(
+        api.url.sizes, 
+        { params: { currentPage, pageSize, isActive } }
+    ).then(response => response.data);
+
 const sizeService = {
     getAll,
     getById,
     add,
     update,
-    remove
+    remove,
+    getList
 };
 
 export default sizeService;

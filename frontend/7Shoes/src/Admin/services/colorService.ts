@@ -26,12 +26,19 @@ const update = (id: string, data: ColorForViews) => api.put<ColorForViews>(`${ap
 //Xóa màu
 const remove = (id: string) => api.delete<ColorForViews>(`${api.url.colors}/${id}`).then(response => response.data);
 
+const getList = (currentPage: number, pageSize: number, isActive?: boolean | null) => 
+    api.get<{ colors: ColorForViews[]; totalCount: number }>(
+        api.url.colors, 
+        { params: { currentPage, pageSize, isActive } }
+    ).then(response => response.data);
+
 const colorService = {
     getAll,
     getById,
     add,
     update,
-    remove
+    remove,
+    getList
 };
 
 export default colorService;

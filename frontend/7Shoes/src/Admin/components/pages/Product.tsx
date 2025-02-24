@@ -12,9 +12,32 @@ const Product = () => {
     const [currentData, setCurrentData] = useState<ProductForViews>({} as ProductForViews);
     const [brands] = useState<{ id: string; name: string }[]>([]);
     const [categories] = useState<{ id: string; name?: string }[]>([]);  
+    const [filterStatus, setFilterStatus] = useState<string | null>(null);
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [totalPages, setTotalPages] = useState<number>(1);
     
     // Sử dụng hook để quản lý trạng thái mở/đóng của các form
     const { isOpen, isOpenAdd, onCloseAdd, onOpenAdd, onClose, onOpen } = useDisclosure();
+
+    //Load dữ liệu từ API
+    const loadData = async (page: number) => {
+        try {
+            const isActive = filterStatus === "true" ? true : filterStatus === "false" ? false : null;
+            const pageSize = 6;
+            const { sizes, totalCount } = await sizeService.getList(page, pageSize, isActive);
+    
+            if (Array.isArray(sizes)) {
+                setSizes(sizes);
+                setTotalPages(Math.ceil(totalCount / pageSize));
+            } else {
+                console.error("Invalid API response:", { sizes, totalCount });
+                setSizes([]);
+            }
+        } catch (error) {
+            console.error("Error loading sizes:", error);
+            setSizes([]);
+        }
+    };
 
     // Gọi loadData() khi component được mount
     useEffect(() => {

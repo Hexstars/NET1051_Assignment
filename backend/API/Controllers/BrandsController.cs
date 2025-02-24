@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class BrandsController : ControllerBase
@@ -26,7 +26,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetActiveBrands([FromQuery] int currentPage = 1, [FromQuery] int pageSize = 10, [FromQuery] bool? IsActive = null)
+        public async Task<IActionResult> GetActiveBrands([FromQuery] int currentPage = 1, [FromQuery] int pageSize = 6, [FromQuery] bool? IsActive = null)
         {
             var (brands, totalCount) = await _brandService.GetActiveBrands(currentPage, pageSize, IsActive);
             return Ok(new { brands, totalCount });

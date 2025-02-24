@@ -26,12 +26,19 @@ const update = (id: string, data: MaterialForViews) => api.put<MaterialForViews>
 //Xóa chất liệu
 const remove = (id: string) => api.delete<MaterialForViews>(`${api.url.materials}/${id}`).then(response => response.data);
 
+const getList = (currentPage: number, pageSize: number, isActive?: boolean | null) => 
+    api.get<{ materials: MaterialForViews[]; totalCount: number }>(
+        api.url.materials, 
+        { params: { currentPage, pageSize, isActive } }
+    ).then(response => response.data);
+
 const materialService = {
     getAll,
     getById,
     add,
     update,
-    remove
+    remove,
+    getList
 };
 
 export default materialService;

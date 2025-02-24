@@ -28,12 +28,19 @@ const update = (id: string, data: BrandForViews) => api.put<BrandForViews>(`${ap
 //Xóa brands
 const remove = (id: string) => api.delete<BrandForViews>(`${api.url.brands}/${id}`).then(response => response.data);
 
+const getList = (currentPage: number, pageSize: number, isActive?: boolean | null) => 
+    api.get<{ brands: BrandForViews[]; totalCount: number }>(
+        api.url.brands, 
+        { params: { currentPage, pageSize, isActive } }
+    ).then(response => response.data);
+
 const brandService = {
     getAll,
     getById,
     add,
     update,
-    remove
+    remove,
+    getList
 };
 
 export default brandService;

@@ -13,8 +13,8 @@ const Shop = () => {
         brandService.getAll()
         .then((res) => {
             console.log("Brands data:", res);
-            if (res && Array.isArray(res)) {
-                setBrands(res);
+            if (res && Array.isArray(res.brands)) {
+                setBrands(res.brands);
             } else {
                 console.error("API did not return an array:", res);
                 setBrands([]);

@@ -26,12 +26,19 @@ const update = (id: string, data: CategoryForViews) => api.put<CategoryForViews>
 //Xóa category
 const remove = (id: string) => api.delete<CategoryForViews>(`${api.url.categories}/${id}`).then(response => response.data);
 
+const getList = (currentPage: number, pageSize: number, isActive?: boolean | null) => 
+    api.get<{ categories: CategoryForViews[]; totalCount: number }>(
+        api.url.categories, 
+        { params: { currentPage, pageSize, isActive } }
+    ).then(response => response.data);
+
 const categoryService = {
     getAll,
     getById,
     add,
     update,
-    remove
+    remove,
+    getList
 };
 
 export default categoryService;

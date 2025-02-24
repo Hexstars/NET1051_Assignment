@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class CategoriesController : ControllerBase
@@ -26,12 +26,12 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetActiveCategories([FromQuery] int currentPage = 1, [FromQuery] int pageSize = 10, [FromQuery]    bool? IsActive = null)
+        public async Task<IActionResult> GetActiveCategories([FromQuery] int currentPage = 1, [FromQuery] int pageSize = 6, [FromQuery]    bool? IsActive = null)
         {
             var (categories, totalCount) = await _categoryService.GetActiveCategories(currentPage, pageSize, IsActive);
             return Ok(new { categories, totalCount });
         }
-                                                                
+
         // GET: api/category
         //[HttpGet]
         //public async Task<ActionResult<IEnumerable<Category>>> GetCategories(int currentPage = 1)
