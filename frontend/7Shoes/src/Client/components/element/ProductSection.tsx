@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import productService, { ProductForViews } from "../../../Admin/services/productService";
+import productService, { ProductItemForViews } from "../../services/productItemService";
 import { Link } from "react-router-dom";
 
 const ProductSection = () => {
-    const [Products, setProducts] = useState<ProductForViews[]>([]);
+    const [Products, setProducts] = useState<ProductItemForViews[]>([]);
 
     // Hàm tải dữ liệu sản phẩm từ API
     const loadData = () => {
@@ -46,7 +46,7 @@ const ProductSection = () => {
                                     <div className="product__item">
                                         <div className="product__item__pic">
                                             <img 
-                                                src={product.productImage || "/default-image.jpg"} 
+                                                src={product.image || "/default-image.jpg"} 
                                                 alt={product.productName} 
                                                 className="img-fluid"
                                                 style={{ width: "100%", height: "250px", objectFit: "cover", borderRadius: "10px" }}
@@ -54,7 +54,7 @@ const ProductSection = () => {
                                             <span className="label">New</span>
                                             <ul className="product__hover">
                                                 <li>
-                                                    <Link to={`/shop-details/${product.productId}`}>
+                                                    <Link to={`/shop-details/${product.id}`}>
                                                         <img src="/Client/assets/img/icon/search.png" alt=""/>
                                                         <span>Detail</span>
                                                     </Link>
@@ -67,7 +67,7 @@ const ProductSection = () => {
                                         <div className="product__item__text">
                                             <h6>{product.productName}</h6>
                                             <a href="#" className="add-cart">+ Add To Cart</a>
-                                            <h5>{product.basePrice ? product.basePrice.toLocaleString("vi-VN", { style: "currency", currency: "VND" }) : "N/A"}</h5>
+                                            <h5>{product.price ? product.price.toLocaleString("vi-VN", { style: "currency", currency: "VND" }) : "N/A"}</h5>
                                         </div>
                                     </div>
                                 </div>

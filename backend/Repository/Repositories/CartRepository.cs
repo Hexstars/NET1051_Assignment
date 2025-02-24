@@ -61,7 +61,7 @@ namespace Repository.Repositories
             if (existingCartDetail != null)
             {
                 // Nếu có rồi, tăng số lượng của sản phẩm trong giỏ hàng
-                existingCartDetail.Quantity += 1;
+                existingCartDetail.Quantity += request.Quantity;
 
                 if (existingCartDetail.Quantity > 10)
                 {
@@ -69,6 +69,7 @@ namespace Repository.Repositories
                 }
 
                 _context.CartItems.Update(existingCartDetail);
+
             }
             else
             {

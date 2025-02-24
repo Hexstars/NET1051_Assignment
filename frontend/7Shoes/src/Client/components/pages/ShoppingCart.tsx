@@ -110,11 +110,11 @@ const ShoppingCart = () => {
                                                 <tr key={item.productItemId}>
                                                     <td className="product__cart__item">
                                                         <div className="product__cart__item__pic">
-                                                            <img src="/Client/assets/img/shopping-cart/cart-1.jpg" alt="" />
+                                                            <img src={item.image} style={{ width: "150px", height: "100px", objectFit: "cover" }} alt="image.jpg" />
                                                         </div>
                                                         <div className="product__cart__item__text">
                                                             <h6>{item.productName}</h6>
-                                                            <h5>{item.unitPrice} VNĐ</h5>
+                                                            <h5>{item.unitPrice.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}</h5>
                                                         </div>
                                                     </td>
                                                     <td className="quantity__item">
@@ -128,7 +128,7 @@ const ShoppingCart = () => {
                                                             max="10"
                                                         />
                                                     </td>
-                                                    <td className="cart__price">{item.total} VNĐ</td>
+                                                    <td className="cart__price">{item.total.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}</td>
                                                     <td className="cart__close" 
                                                         style={{cursor:"pointer"}}
                                                         onClick={() => onDeleteHandle(item.productItemId)}>
@@ -158,7 +158,7 @@ const ShoppingCart = () => {
                                 <div className="cart__total">
                                     <h6>Tổng giỏ hàng</h6>
                                     <ul>
-                                        <li>Tổng tiền <span>{subtotal} VNĐ</span></li>
+                                        <li>Tổng tiền <span>{subtotal.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}</span></li>
                                     </ul>
                                     <a href="#" className="primary-btn">Đặt hàng</a>
                                 </div>
