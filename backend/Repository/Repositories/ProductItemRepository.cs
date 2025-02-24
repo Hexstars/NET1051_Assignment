@@ -37,7 +37,8 @@ namespace Repository.Repositories
                     ColorId = p.ColorId,
                     ColorName = p.Color.Name,
                     MaterialId = p.MaterialId,
-                    MaterialName = p.Material.Name
+                    MaterialName = p.Material.Name,
+                    IsActive = p.IsActive,
                 })
                 .Skip((currentPage - 1) * pageSize)
                 .Take(pageSize)

@@ -14,5 +14,6 @@
         public string ColorName { get; set; }
         public Guid MaterialId { get; set; }
         public string MaterialName { get; set; }
+        public bool IsActive { get; set; }
     }
 }
