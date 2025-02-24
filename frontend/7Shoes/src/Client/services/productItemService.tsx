@@ -9,13 +9,18 @@ export interface ProductItemForViews {
     colorName: string;
     materialName: string;
 }
+
 //Hiển thị sản phẩm
 const getAll = () =>
-    api.get<ProductItemForViews[]>(`${api.url.productItems}`)
-        .then(response => response.data);
+    api.get<{ products: ProductItemForViews[] }>(`${api.url.productItems}`)
+        .then(response => response.data.products);
+
+// Lấy sản phẩm theo ID
+const getById = (id: string) => api.get<ProductItemForViews>(`${api.url.productItems}/${id}`).then(res => res.data); 
 
 const productItemService = {
     getAll,
+    getById
 };
 
 export default productItemService;

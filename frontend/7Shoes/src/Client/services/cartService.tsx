@@ -9,6 +9,11 @@ export interface CartForViews {
     total: number;
 }
 
+export interface AddToCart{
+    productItemId: string;
+    quantity: number;
+}
+
 export interface UpdateQuantity{
     productItemId: string;
     quantity: number;
@@ -18,8 +23,10 @@ export interface UpdateQuantity{
 const getAll = () => 
     api.get<CartForViews[]>(`${api.url.carts}/your-cart`)
         .then(response => response.data);
-//Thêm vào giỏ hàng
-//const add = (data: CartForViews) => api.post<CartForViews>(api.url.carts, data).then(response => response.data);
+
+//Thêm sản phẩm vào giỏ hàng
+const add = (data: AddToCart) => api.post<AddToCart>(`${api.url.carts}/add-to-cart`, data).then(response => response.data);
+
 
 // //Cập nhật số lượng
 const updateQuantity = (data: UpdateQuantity) => 
@@ -32,7 +39,7 @@ const remove = (id: string) => api.delete<CartForViews>(`${api.url.carts}/delete
 const cartService = {
     getAll,
     updateQuantity,
-    //add,
+    add,
     remove
 };
 

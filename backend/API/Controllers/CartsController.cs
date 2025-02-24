@@ -40,8 +40,7 @@ namespace API.Controllers
         [HttpPost("add-to-cart")]
         public async Task<IActionResult> AddToCart([FromBody] AddToCartModel request)
         {
-            //var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var userId = "d4f1f0d5-0751-43e9-650f-08dd4a641d4b";
+            var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (string.IsNullOrEmpty(userId))
             {
@@ -55,8 +54,7 @@ namespace API.Controllers
         [HttpPut("update-quantity")]
         public async Task<IActionResult> UpdateQuantity([FromBody] AddToCartModel request)
         {
-            //var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier).ToString(); 
-            var userId = "d4f1f0d5-0751-43e9-650f-08dd4a641d4b";
+            var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier).ToString();
             if (string.IsNullOrEmpty(userId))
             {
                 return Unauthorized();  // 401 nếu chưa đăng nhập
@@ -69,8 +67,7 @@ namespace API.Controllers
         [HttpDelete("delete-from-cart/{productItemId}")]
         public async Task<IActionResult> DeleteFromCart(Guid productItemId)
         {
-            //var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier).ToString();
-            var userId = "d4f1f0d5-0751-43e9-650f-08dd4a641d4b";
+            var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier).ToString();
             if (string.IsNullOrEmpty(userId))
             {
                 return Unauthorized();  // 401 nếu chưa đăng nhập
