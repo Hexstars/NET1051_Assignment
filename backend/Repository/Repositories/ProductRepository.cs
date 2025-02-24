@@ -107,7 +107,7 @@ namespace Repository.Repositories
         public async Task<ProductViewModel?> GetProductById(Guid id)
         {
             return await _context.Products
-                .Where(p => p.Id == id && p.IsActive)
+                .Where(p => p.Id == id)
                 .Select(p => new ProductViewModel
                 {
                     ProductId = p.Id,

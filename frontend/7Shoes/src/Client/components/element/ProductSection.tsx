@@ -41,7 +41,7 @@ const ProductSection = () => {
 
                     <div className="row product__filter">
                         {Products.length > 0 ? (
-                            Products.slice(0, 8).map((product) => ( // Chỉ lấy 8 sản phẩm đầu tiên
+                            Products.filter(product => product.isActive).slice(0, 8).map((product) => ( 
                                 <div key={product.productId} className="col-lg-3 col-md-6 col-sm-6 mix hot-sales">
                                     <div className="product__item">
                                         <div className="product__item__pic">
