@@ -5,7 +5,7 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ChatbotController : ControllerBase
+    public class ChatController : ControllerBase
     {
         private readonly Dictionary<string, string> _responses = new()
         {
